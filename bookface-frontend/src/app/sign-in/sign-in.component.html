@@ -4,18 +4,20 @@
   </h1>
 
   <form class="ui form" [formGroup]="signInForm" (ngSubmit)="createAccount()">
-    <div class="field">
-      <label> Last name </label>
-      <input type="text" placeholder="Last name..." formControlName="lastName">
-      <div class="ui pointing red basic label" *ngIf="signInForm.controls['lastName'].touched && signInForm.controls['lastName'].errors">
-        <span *ngIf="signInForm.controls['lastName'].errors.required ">Your last name is required !</span>
+    <div class="two fields">
+      <div class="field">
+        <label> Last name </label>
+        <input type="text" placeholder="Last name..." formControlName="lastName">
+        <div class="ui pointing red basic label" *ngIf="signInForm.controls['lastName'].touched && signInForm.controls['lastName'].errors">
+          <span *ngIf="signInForm.controls['lastName'].errors.required ">Your last name is required !</span>
+        </div>
       </div>
-    </div>
-    <div class="field">
-      <label> First name </label>
-      <input type="text" placeholder="First name..." formControlName="firstName">
-      <div class="ui pointing red basic label" *ngIf="signInForm.controls['firstName'].touched && signInForm.controls['firstName'].errors">
-        <span *ngIf="signInForm.controls['firstName'].errors.required ">Your first name is required !</span>
+      <div class="field">
+        <label> First name </label>
+        <input type="text" placeholder="First name..." formControlName="firstName">
+        <div class="ui pointing red basic label" *ngIf="signInForm.controls['firstName'].touched && signInForm.controls['firstName'].errors">
+          <span *ngIf="signInForm.controls['firstName'].errors.required ">Your first name is required !</span>
+        </div>
       </div>
     </div>
     <div class="field">
@@ -27,7 +29,7 @@
     </div>
     <div class="field">
       <label> Password </label>
-      <input type="text" formControlName="password">
+      <input type="password" placeholder="Password..." formControlName="password">
       <div class="ui pointing red basic label" *ngIf="signInForm.controls['password'].touched && signInForm.controls['password'].errors">
         <span *ngIf="signInForm.controls['password'].errors.required ">Your password is required !</span>
       </div>
@@ -39,7 +41,8 @@
           <input suiDatepicker
                  formControlName="birthday"
                  pickerMode="date"
-                 pickerUseNativeOnMobile="false">
+                 pickerUseNativeOnMobile="false"
+                 placeholder="Birthday...">
       </div>
       <div class="ui pointing red basic label" *ngIf="signInForm.controls['birthday'].touched && signInForm.controls['birthday'].errors">
         <span *ngIf="signInForm.controls['birthday'].errors.required ">Your password is required !</span>
@@ -47,7 +50,7 @@
     </div>
     <div class="field">
       <label> Gender </label>
-      <input type="text" formControlName="gender">
+      <input type="text" placeholder="Gender..." formControlName="gender">
       <div class="ui pointing red basic label" *ngIf="signInForm.controls['gender'].touched && signInForm.controls['gender'].errors">
         <span *ngIf="signInForm.controls['gender'].errors.required ">Your password is required !</span>
       </div>
