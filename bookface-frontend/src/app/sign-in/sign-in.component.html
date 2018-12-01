@@ -1,4 +1,8 @@
 <div class="ui container">
+  <h1> Create an account
+    <h2> It's free ! </h2>
+  </h1>
+
   <form class="ui form" [formGroup]="signInForm" (ngSubmit)="createAccount()">
     <div class="field">
       <label> Last name </label>
@@ -37,6 +41,9 @@
                  pickerMode="date"
                  pickerUseNativeOnMobile="false">
       </div>
+      <div class="ui pointing red basic label" *ngIf="signInForm.controls['birthday'].touched && signInForm.controls['birthday'].errors">
+        <span *ngIf="signInForm.controls['birthday'].errors.required ">Your password is required !</span>
+      </div>
     </div>
     <div class="field">
       <label> Gender </label>
@@ -45,5 +52,6 @@
         <span *ngIf="signInForm.controls['gender'].errors.required ">Your password is required !</span>
       </div>
     </div>
+    <button type="submit" class="ui blue right floated button" [disabled]="signInForm.invalid"> ajouter </button>
   </form>
 </div>
