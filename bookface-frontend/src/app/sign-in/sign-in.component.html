@@ -1,3 +1,46 @@
-<p>
-  sign-in works!
-</p>
+<div class="ui container">
+  <form class="ui form" [formGroup]="signInForm" (ngSubmit)="createAccount()">
+    <div class="field">
+      <label> Last name </label>
+      <input type="text" placeholder="Last name..." formControlName="lastName">
+      <div class="ui pointing red basic label" *ngIf="signInForm.controls['lastName'].touched && signInForm.controls['lastName'].errors">
+        <span *ngIf="signInForm.controls['lastName'].errors.required ">Your last name is required !</span>
+      </div>
+    </div>
+    <div class="field">
+      <label> First name </label>
+      <input type="text" placeholder="First name..." formControlName="firstName">
+      <div class="ui pointing red basic label" *ngIf="signInForm.controls['firstName'].touched && signInForm.controls['firstName'].errors">
+        <span *ngIf="signInForm.controls['firstName'].errors.required ">Your first name is required !</span>
+      </div>
+    </div>
+    <div class="field">
+      <label> Mail </label>
+      <input type="text" placeholder="Mail..." formControlName="mail">
+      <div class="ui pointing red basic label" *ngIf="signInForm.controls['mail'].touched && signInForm.controls['mail'].errors">
+        <span *ngIf="signInForm.controls['mail'].errors.required ">Your mail is required !</span>
+      </div>
+    </div>
+    <div class="field">
+      <label> Password </label>
+      <input type="text" formControlName="password">
+      <div class="ui pointing red basic label" *ngIf="signInForm.controls['password'].touched && signInForm.controls['password'].errors">
+        <span *ngIf="signInForm.controls['password'].errors.required ">Your password is required !</span>
+      </div>
+    </div>
+    <div class="field">
+      <label> Birthday </label>
+      <!-- <input type="text" formControlName="password">
+      <div class="ui pointing red basic label" *ngIf="signInForm.controls['password'].touched && signInForm.controls['password'].errors">
+        <span *ngIf="signInForm.controls['password'].errors.required ">Your password is required !</span>
+      </div> -->
+    </div>
+    <div class="field">
+      <label> Gender </label>
+      <input type="text" formControlName="gender">
+      <div class="ui pointing red basic label" *ngIf="signInForm.controls['gender'].touched && signInForm.controls['gender'].errors">
+        <span *ngIf="signInForm.controls['gender'].errors.required ">Your password is required !</span>
+      </div>
+    </div>
+  </form>
+</div>
