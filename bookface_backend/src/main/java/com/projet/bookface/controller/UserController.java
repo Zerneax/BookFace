@@ -16,6 +16,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.projet.bookface.dao.UserDao;
 import com.projet.bookface.models.User;
+import com.projet.bookface.odt.MailAvailableOdt;
+import com.projet.bookface.odt.UserOdt;
 
 @RestController
 @RequestMapping(value="/users")
@@ -35,14 +37,23 @@ public class UserController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public User findUserByMail(@RequestParam("mail") String mail) {
-		return this.userDao.findByMail(mail);
+	public MailAvailableOdt findUserByMail(@RequestParam("mail") String mail) {
+		User user = this.userDao.findByMail(mail);
+		
+		MailAvailableOdt odt = new MailAvailableOdt();
+		
+		if(user == null)
+			odt.setAvailable(true);
+		else 
+			odt.setAvailable(false);
+		
+		return odt;			
 	}
 	
 	@PostMapping
-	public ResponseEntity createUser(@RequestBody User user) {
+	public ResponseEntity createUser(@RequestBody UserOdt userOdt) {
 		
-		User userAdded = this.userDao.createUser(user);
+		User userAdded = this.userDao.createUser(userOdt.getUser());
 		
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
