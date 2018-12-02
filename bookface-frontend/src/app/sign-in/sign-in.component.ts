@@ -43,8 +43,22 @@ export class SignInComponent implements OnInit {
         }
       }
     }
-    return {
-      'isUnder13' : false
+    return null;
+  }
+
+  checkMailAlreadyUsed() {
+    if(this.signInForm.controls['mail'].errors == null) {
+      this.signInService.checkMailAlreadyUsed(this.signInForm.value['mail'])
+      .subscribe(
+        (retour) => {
+          if(retour != null) {
+            alert("mail indispo");
+          }
+        },
+        (error) => {
+          alert("Error");
+        }
+      );
     }
   }
 

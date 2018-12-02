@@ -11,6 +11,11 @@ export class SignInService {
 
   constructor(private httpClient: HttpClient) { }
 
+  checkMailAlreadyUsed(mail: string) {
+    return this.httpClient
+    .get<any[]>('http://192.168.0.18:8080/users?mail='+ mail);
+  }
+
   createAccount(user: User) {
     this.httpClient
     .post('http://192.168.0.18:8080/users', user.toJson())

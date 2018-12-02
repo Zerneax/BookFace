@@ -11,6 +11,7 @@ import { SuiModule } from 'ng2-semantic-ui';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 
 import { AuthService } from './services/auth/auth.service';
+import { SignInService } from './services/signIn/sign-in.service';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { AuthService } from './services/auth/auth.service';
     HttpClientModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    SignInService
   ],
   bootstrap: [AppComponent]
 })

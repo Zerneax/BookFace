@@ -5,7 +5,7 @@
 
   <form class="ui form" [formGroup]="signInForm" (ngSubmit)="createAccount()">
 
-    <div class="ui negative message" *ngIf="signInForm.controls['birthday'].errors.isUnder13">
+    <div class="ui negative message" *ngIf="signInForm.controls['birthday'].errors != null && signInForm.controls['birthday'].errors.isUnder13">
       <div class="header">
         We're sorry but you're too young !
       </div>
@@ -30,7 +30,7 @@
     </div>
     <div class="field">
       <label> Mail </label>
-      <input type="text" placeholder="Mail..." formControlName="mail">
+      <input type="text" placeholder="Mail..." formControlName="mail" (change)="checkMailAlreadyUsed()">
       <div class="ui pointing red basic label" *ngIf="signInForm.controls['mail'].touched && signInForm.controls['mail'].errors">
         <span *ngIf="signInForm.controls['mail'].errors.required ">Your mail is required !</span>
         <span *ngIf="signInForm.controls['mail'].errors.pattern ">Your mail is invalid !</span>
@@ -56,7 +56,7 @@
                  [pickerMaxDate]="dateOfDay"
                  placeholder="Birthday...">
       </div>
-      <div class="ui pointing red basic label" *ngIf="signInForm.controls['birthday'].touched && signInForm.controls['birthday'].errors.required">
+      <div class="ui pointing red basic label" *ngIf="signInForm.controls['birthday'].touched && signInForm.controls['birthday'].errors != null">
         <span *ngIf="signInForm.controls['birthday'].errors.required">Your birthday is required !</span>
       </div>
     </div>
