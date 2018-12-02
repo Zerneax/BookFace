@@ -13,13 +13,15 @@ import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { AuthService } from './services/auth/auth.service';
 import { SignInService } from './services/signIn/sign-in.service';
 import { HomeComponent } from './home/home.component';
+import { HeaderMenuComponent } from './header-menu/header-menu.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderMenuComponent
   ],
   imports: [
     BrowserModule,
