@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 
 import { SignInService } from './../services/signIn/sign-in.service';
 import { User } from './../models/user/user';
+import { ErrorMessage } from './../models/error/error';
 
 import * as moment from 'moment';
 
@@ -15,6 +16,7 @@ export class SignInComponent implements OnInit {
 
   signInForm: FormGroup;
   dateOfDay: Date = new Date();
+  errorMessage: ErrorMessage = new ErrorMessage();
 
   constructor(private formBuilder: FormBuilder,
     private signInService: SignInService) { }
@@ -43,6 +45,7 @@ export class SignInComponent implements OnInit {
         }
       }
     }
+
     return null;
   }
 
@@ -51,12 +54,19 @@ export class SignInComponent implements OnInit {
       this.signInService.checkMailAlreadyUsed(this.signInForm.value['mail'])
       .subscribe(
         (retour) => {
-          if(retour != null) {
-            alert("mail indispo");
+          if(retour != null && !retour.available) {
+            this.errorMessage.header = "Oops an error has occured !";
+            this.errorMessage.information = "We can't check the validity of your mail. Retry later please !";
+            this.errorMessage.display = true;
+          } else {
+            if(this.errorMessage.display)
+              this.errorMessage.display = false;
           }
         },
         (error) => {
-          alert("Error");
+          this.errorMessage.header = "Oops an error has occured !";
+          this.errorMessage.information = "We can't check the validity of your mail. Retry later please !";
+          this.errorMessage.display = true;
         }
       );
     }

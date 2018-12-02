@@ -13,7 +13,7 @@ export class SignInService {
 
   checkMailAlreadyUsed(mail: string) {
     return this.httpClient
-    .get<any[]>('http://192.168.0.18:8080/users?mail='+ mail);
+    .get<any>('http://192.168.0.18:8080/users?mail='+ mail);
   }
 
   createAccount(user: User) {
