@@ -12,6 +12,7 @@ import { User } from './../models/user/user';
 export class SignInComponent implements OnInit {
 
   signInForm: FormGroup;
+  dateOfDay: Date = new Date();
 
   constructor(private formBuilder: FormBuilder,
     private signInService: SignInService) { }
@@ -24,8 +25,8 @@ export class SignInComponent implements OnInit {
     this.signInForm = this.formBuilder.group({
       lastName: ['', Validators.required],
       firstName: ['', Validators.required],
-      mail: ['', Validators.required],
-      password: ['', Validators.required],
+      mail: ['', [Validators.required, Validators.pattern(/^([a-zA-Z0-9._-]+)@([a-zA-Z]*)[.{1}]([a-z]*)$/)]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(12)]],
       birthday: ['', Validators.required],
       gender: ['', Validators.required],
     })
