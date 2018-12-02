@@ -3,9 +3,12 @@ package com.projet.bookface.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.projet.bookface.dao.UserDao;
 import com.projet.bookface.models.User;
+import com.projet.bookface.odt.LoginOdt;
 import com.projet.bookface.odt.MailAvailableOdt;
 import com.projet.bookface.odt.UserOdt;
 
@@ -36,8 +40,25 @@ public class UserController {
 		return this.userDao.findAllUsers();
 	}
 	
+	@GetMapping(value="/{mail}")
+	public LoginOdt login(@PathVariable String mail) {
+		User user = this.userDao.findByMail(mail);
+		
+		LoginOdt odt = new LoginOdt();
+		
+		if(user != null) {
+			odt.setId(user.getId());
+			odt.setPassword(user.getPassword());
+		}else { 
+			odt.setId(null);
+			odt.setPassword(null);
+		}
+		
+		return odt;			
+	}
+	
 	@RequestMapping(method=RequestMethod.GET)
-	public MailAvailableOdt findUserByMail(@RequestParam("mail") String mail) {
+	public MailAvailableOdt checkMailAvailable(@RequestParam("mail") String mail) {
 		User user = this.userDao.findByMail(mail);
 		
 		MailAvailableOdt odt = new MailAvailableOdt();
