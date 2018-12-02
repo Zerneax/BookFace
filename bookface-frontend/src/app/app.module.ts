@@ -12,12 +12,14 @@ import {AngularFontAwesomeModule} from 'angular-font-awesome';
 
 import { AuthService } from './services/auth/auth.service';
 import { SignInService } from './services/signIn/sign-in.service';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignInComponent
+    SignInComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

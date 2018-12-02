@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { SignInService } from './../services/signIn/sign-in.service';
 import { AuthService } from './../services/auth/auth.service';
@@ -21,7 +22,8 @@ export class SignInComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private signInService: SignInService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
     this.initForm();
@@ -87,9 +89,10 @@ export class SignInComponent implements OnInit {
     this.signInService.createAccount(user)
     .subscribe(
       () => {
-        alert("Sucess");
         if(this.errorMessage.display)
           this.errorMessage.display = false;
+
+        this.router.navigate(['home']);
       },
       (error) => {
         this.errorMessage.header = "Oops an error has occured !";
