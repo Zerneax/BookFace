@@ -1,19 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { HomeComponent } from './home/home.component';
+import { HeaderMenuComponent } from './header-menu/header-menu.component';
 
 import { SuiModule } from 'ng2-semantic-ui';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 
 import { AuthService } from './services/auth/auth.service';
 import { SignInService } from './services/signIn/sign-in.service';
-import { HomeComponent } from './home/home.component';
-import { HeaderMenuComponent } from './header-menu/header-menu.component';
+import { LoginService } from './services/login/login.service';
 
 
 @NgModule({
@@ -29,11 +30,13 @@ import { HeaderMenuComponent } from './header-menu/header-menu.component';
     SuiModule,
     AngularFontAwesomeModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     AuthService,
-    SignInService
+    SignInService,
+    LoginService
   ],
   bootstrap: [AppComponent]
 })
