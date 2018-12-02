@@ -4,6 +4,14 @@
   </h1>
 
   <form class="ui form" [formGroup]="signInForm" (ngSubmit)="createAccount()">
+
+    <div class="ui negative message" *ngIf="signInForm.controls['birthday'].errors.isUnder13">
+      <div class="header">
+        We're sorry but you're too young !
+      </div>
+      <p>The minimun age is 13.</p>
+    </div>
+
     <div class="two fields">
       <div class="field">
         <label> Last name </label>
@@ -48,17 +56,17 @@
                  [pickerMaxDate]="dateOfDay"
                  placeholder="Birthday...">
       </div>
-      <div class="ui pointing red basic label" *ngIf="signInForm.controls['birthday'].touched && signInForm.controls['birthday'].errors">
-        <span *ngIf="signInForm.controls['birthday'].errors.required ">Your password is required !</span>
+      <div class="ui pointing red basic label" *ngIf="signInForm.controls['birthday'].touched && signInForm.controls['birthday'].errors.required">
+        <span *ngIf="signInForm.controls['birthday'].errors.required">Your birthday is required !</span>
       </div>
     </div>
     <div class="field">
       <label> Gender </label>
       <input type="text" placeholder="Gender..." formControlName="gender">
       <div class="ui pointing red basic label" *ngIf="signInForm.controls['gender'].touched && signInForm.controls['gender'].errors">
-        <span *ngIf="signInForm.controls['gender'].errors.required ">Your password is required !</span>
+        <span *ngIf="signInForm.controls['gender'].errors.required ">Your gender is required !</span>
       </div>
     </div>
-    <button type="submit" class="ui blue right floated button" [disabled]="signInForm.invalid"> ajouter </button>
+    <button type="submit" class="ui blue right floated button" [disabled]="signInForm.invalid"> Create my account ! </button>
   </form>
 </div>
