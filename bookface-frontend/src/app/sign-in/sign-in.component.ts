@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { SignInService } from './../services/signIn/sign-in.service';
+import { AuthService } from './../services/auth/auth.service';
 import { User } from './../models/user/user';
 import { ErrorMessage } from './../models/error/error';
 
@@ -19,7 +20,8 @@ export class SignInComponent implements OnInit {
   errorMessage: ErrorMessage = new ErrorMessage();
 
   constructor(private formBuilder: FormBuilder,
-    private signInService: SignInService) { }
+    private signInService: SignInService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.initForm();
@@ -82,7 +84,19 @@ export class SignInComponent implements OnInit {
     user.birthday = new Date(formValue['birthday']);
     user.gender = formValue['gender'];
 
-    this.signInService.createAccount(user);
+    this.signInService.createAccount(user)
+    .subscribe(
+      () => {
+        alert("Sucess");
+        if(this.errorMessage.display)
+          this.errorMessage.display = false;
+      },
+      (error) => {
+        this.errorMessage.header = "Oops an error has occured !";
+        this.errorMessage.information = "We can't check the validity of your mail. Retry later please !";
+        this.errorMessage.display = true;
+      }
+    );
   }
 
 }

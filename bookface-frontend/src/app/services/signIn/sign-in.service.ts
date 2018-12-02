@@ -17,15 +17,7 @@ export class SignInService {
   }
 
   createAccount(user: User) {
-    this.httpClient
-    .post('http://192.168.0.18:8080/users', {user : user.toJson()})
-    .subscribe(
-      () => {
-        alert("Sucess");
-      },
-      (error) => {
-        console.log("Error : " + error);
-      }
-    );
+    return this.httpClient
+      .post('http://192.168.0.18:8080/users', {user : user.toJson()});
   }
 }
