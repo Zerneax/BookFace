@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from './../services/login/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-menu',
@@ -12,7 +13,8 @@ export class HeaderMenuComponent implements OnInit {
   loginForm: FormGroup;
 
   constructor(private loginService: LoginService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private router: Router) { }
 
   ngOnInit() {
     this.initForm();
@@ -32,10 +34,12 @@ export class HeaderMenuComponent implements OnInit {
         if(response.password === this.loginForm.value['password']) {
           alert("Login succes !!!");
         }else {
-          alert("aller vers /login");
+          // alert("aller vers /login");
+          this.router.navigate(['login']);
         }
-      }, (error) => {
-        alert("aller vers /login");
+      }, () => {
+        // alert("aller vers /login");
+        this.router.navigate(['login']);
       }
     );
     console.log("test : "+ this.loginForm.value['mail'] + " | " + this.loginForm.value['password']);

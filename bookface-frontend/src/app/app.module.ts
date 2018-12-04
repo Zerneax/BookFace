@@ -15,6 +15,7 @@ import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { AuthService } from './services/auth/auth.service';
 import { SignInService } from './services/signIn/sign-in.service';
 import { LoginService } from './services/login/login.service';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { LoginService } from './services/login/login.service';
     AppComponent,
     SignInComponent,
     HomeComponent,
-    HeaderMenuComponent
+    HeaderMenuComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

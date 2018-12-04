@@ -1,0 +1,48 @@
+<body>
+<div class="ui middle aligned center aligned container" >
+  <!-- <div class="column"> -->
+  <h1> Connect to BookFace
+  </h1>
+
+  <div class="ui negative message" *ngIf="loginHeaderFail">
+    <div class="header">
+      {{errorMessage.header}}
+    </div>
+    <p>{{errorMessage.information}}</p>
+  </div>
+
+  <form class="ui form" [formGroup]="loginForm" (ngSubmit)="login()">
+    <!-- <div class="fields"> -->
+    <div class="ui  segment">
+      <div class="field">
+        <div class="ui left aligned container">
+          <label> Mail </label>
+        </div>
+        <input type="text" placeholder="Mail..." formControlName="mail">
+        <!-- <div class="ui pointing red basic label" *ngIf="loginHeaderFail">
+          <span>Your mail or password is invalid. If you don't have any account please create one !</span>
+        </div> -->
+        <!-- <div class="ui pointing red basic label" *ngIf="(loginForm.controls['mail'].touched && loginForm.controls['mail'].errors)">
+          <span *ngIf="loginForm.controls['mail'].errors.required ">Your mail is required !</span>
+        </div> -->
+      </div>
+      <div class="field">
+        <div class="ui left aligned container">
+          <label> Password </label>
+        </div>
+        <input type="password" placeholder="Password..." formControlName="password">
+        <!-- <div class="ui pointing red basic label" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].errors">
+          <span *ngIf="loginForm.controls['password'].errors.required ">Your password is required !</span>
+        </div> -->
+      </div>
+      <!-- <div class="field"> -->
+      <div class="ui text container">
+      <button type="submit" class="ui primary middle aligned button" > Login </button>
+      </div>
+      </div>
+      <!-- </div> -->
+      <!-- </div> -->
+  </form>
+  <!-- </div> -->
+</div>
+</body>
