@@ -1,8 +1,8 @@
 <div class="ui red inverted secondary pointing menu">
   <div class="left menu">
-    <!-- <div class="item" *ngIf="true"> -->
+    <div class="item" *ngIf="true">
       <h1 class="item header"> BookFace </h1>
-    <!-- </div> -->
+    </div>
     <div class="item" *ngIf="false">
       <i class="users icon"></i>
       <div class="ui icon input">
@@ -17,35 +17,22 @@
         <form class="ui form" [formGroup]="loginForm" (ngSubmit)="login()">
           <div class="three fields">
             <div class="field">
-              <!-- <label> mail </label> -->
               <input type="text" placeholder="Mail..." formControlName="mail">
-              <!-- <div class="ui pointing red basic label" *ngIf="signInForm.controls['lastName'].touched && signInForm.controls['lastName'].errors">
-                <span *ngIf="signInForm.controls['lastName'].errors.required ">Your last name is required !</span>
+              <!-- <div class="ui pointing red basic label" *ngIf="loginForm.controls['mail'].touched && loginForm.controls['mail'].errors">
+                <span *ngIf="loginForm.controls['mail'].errors.required ">Your mail is required !</span>
               </div> -->
             </div>
             <div class="field">
-              <!-- <label> password </label> -->
               <input type="password" placeholder="Password..." formControlName="password">
-              <!-- <div class="ui pointing red basic label" *ngIf="signInForm.controls['firstName'].touched && signInForm.controls['firstName'].errors">
-                <span *ngIf="signInForm.controls['firstName'].errors.required ">Your first name is required !</span>
+              <!-- <div class="ui pointing red basic label" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].errors">
+                <span *ngIf="loginForm.controls['password'].errors.required ">Your password is required !</span>
               </div> -->
             </div>
             <div class="field">
-            <button type="submit" class="ui inverted button"> Login </button>
+            <button type="submit" class="ui inverted button" [disabled]="loginForm.invalid"> Login </button>
             </div>
             </div>
         </form>
-      <!-- <div class="ui input">
-        <input type="text" placeholder="Mail..."[(ngModel)]="mail">
-      </div>
-    </div>
-    <div class=" item">
-      <div class="ui input">
-        <input type="password" placeholder="Password..." [(ngModel)]="password">
-      </div>
-    </div>
-    <div class="item">
-      <button class="ui inverted button" (click)="login()"> Login </button> -->
     </div>
   </div>
 </div>

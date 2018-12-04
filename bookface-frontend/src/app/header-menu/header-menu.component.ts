@@ -9,8 +9,6 @@ import { LoginService } from './../services/login/login.service';
 })
 export class HeaderMenuComponent implements OnInit {
 
-  // mail: string;
-  // password: string;
   loginForm: FormGroup;
 
   constructor(private loginService: LoginService,
@@ -28,6 +26,18 @@ export class HeaderMenuComponent implements OnInit {
   }
 
   login() {
+    this.loginService.login(this.loginForm.value['mail'])
+    .subscribe(
+      (response) => {
+        if(response.password === this.loginForm.value['password']) {
+          alert("Login succes !!!");
+        }else {
+          alert("aller vers /login");
+        }
+      }, (error) => {
+        alert("aller vers /login");
+      }
+    );
     console.log("test : "+ this.loginForm.value['mail'] + " | " + this.loginForm.value['password']);
   }
 }
