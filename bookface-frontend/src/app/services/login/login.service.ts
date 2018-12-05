@@ -10,6 +10,6 @@ export class LoginService {
 
   login(mail: string) {
     return this.httpClient
-    .get<any>('http://192.168.0.18:8080/users/'+ mail);
+    .get<any>('http://192.168.0.18:8080/users/'+ mail + '/login');
   }
 }
