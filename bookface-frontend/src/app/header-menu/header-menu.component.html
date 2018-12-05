@@ -13,7 +13,7 @@
   </div>
 
   <div class="right menu">
-    <div class="item">
+    <div class="item" *ngIf="!auth">
         <form class="ui form" [formGroup]="loginForm" (ngSubmit)="login()">
           <div class="three fields">
             <div class="field">
@@ -33,6 +33,9 @@
             </div>
             </div>
         </form>
+    </div>
+    <div class="item" *ngIf="auth">
+      <span> auth sucess </span>
     </div>
   </div>
 </div>

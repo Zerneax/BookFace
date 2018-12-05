@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from './../services/login/login.service';
 import { AuthService } from './../services/auth/auth.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header-menu',
@@ -12,6 +13,8 @@ import { Router } from '@angular/router';
 export class HeaderMenuComponent implements OnInit {
 
   loginForm: FormGroup;
+  auth: boolean;
+  authSubscription: Subscription;
 
   constructor(private loginService: LoginService,
     private authService: AuthService,
@@ -20,6 +23,9 @@ export class HeaderMenuComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    this.authSubscription = this.authService.authSubject.subscribe(
+      (auth: boolean) => {this.auth = auth;}
+    );
   }
 
   initForm() {
