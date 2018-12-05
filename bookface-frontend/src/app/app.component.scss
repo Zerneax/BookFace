@@ -1,10 +1,26 @@
-.pusher {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  padding-bottom: 20px;
+// .pusher {
+//   height: 80%;
+//   // min-height: 78%;
+//   // display: flex;
+//    min-height: 78%;
+//   // flex-direction: column;
+//   // padding-bottom: 20px;
+// }
+// //
+// // // .pusher > .footer {
+// // //   flex: 1;
+// // // }
+// //
+
+.header {
+  height: 12%;
 }
 
-.pusher > .footer {
-  flex: 1;
+.footer {
+  height: 12%;
+}
+
+.content {
+  height: 76%;
+  min-height: 800px;
 }
