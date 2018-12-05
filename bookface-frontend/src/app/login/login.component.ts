@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from './../services/login/login.service';
+import { AuthService } from './../services/auth/auth.service';
 import { ErrorMessage } from './../models/error/error';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,9 @@ export class LoginComponent implements OnInit {
   errorMessage: ErrorMessage = new ErrorMessage();
 
   constructor(private loginService: LoginService,
-    private formBuilder: FormBuilder) { }
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private router: Router) { }
 
   ngOnInit() {
     this.initForm();
@@ -36,21 +40,19 @@ export class LoginComponent implements OnInit {
     .subscribe(
       (response) => {
         if(response.password === this.loginForm.value['password']) {
-          alert("Login succes !!!");
+          this.authService.getUser(response.id);
+          this.router.navigate(['home']);
         }else {
-          alert("aller vers /login");
           this.errorMessage.header = "Oops your mail or password is invalid !";
           this.errorMessage.information = "";
           this.errorMessage.display = true;
         }
       }, (error) => {
-        alert("aller vers /login");
         this.errorMessage.header = "Oops your mail or password is invalid !";
         this.errorMessage.information = "";
         this.errorMessage.display = true;
       }
     );
-    console.log("test : "+ this.loginForm.value['mail'] + " | " + this.loginForm.value['password']);
   }
 
 }

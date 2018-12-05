@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Subscription} from 'rxjs';
+import {AuthService} from './../services/auth/auth.service';
+import { User } from './../models/user/user';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  currentUser = new User();
+  currentUserSubscription: Subscription;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.currentUserSubscription = this.authService.userSubject.subscribe(
+      (user: User) => {this.currentUser = user;}
+    );
   }
 
 }
