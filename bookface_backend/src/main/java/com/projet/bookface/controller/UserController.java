@@ -40,7 +40,7 @@ public class UserController {
 		return this.userDao.findAllUsers();
 	}
 	
-	@GetMapping(value="/{mail}")
+	@GetMapping(value="/{mail}/login")
 	public LoginOdt login(@PathVariable String mail) {
 		User user = this.userDao.findByMail(mail);
 		
@@ -55,6 +55,18 @@ public class UserController {
 		}
 		
 		return odt;			
+	}
+	
+	@GetMapping(value="/{id}")
+	public ResponseEntity getUser(@PathVariable String id) {
+		User user = this.userDao.findById(id);
+		
+		if(user == null) {
+			return ResponseEntity.notFound().build();
+		}
+		UserOdt userOdt = UserOdt.builder().user(user).build();
+		
+		return ResponseEntity.ok(userOdt);		
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)

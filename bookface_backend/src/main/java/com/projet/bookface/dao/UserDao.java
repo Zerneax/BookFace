@@ -23,6 +23,12 @@ public class UserDao {
 		return this.mongoTemplate.findAll(User.class);
 	}
 	
+	public User findById(String id) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("id").is(id));
+		return this.mongoTemplate.findOne(query, User.class);
+	}
+	
 	public User findByMail(String mail) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("mail").is(mail));
