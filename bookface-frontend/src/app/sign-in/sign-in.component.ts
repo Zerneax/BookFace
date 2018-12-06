@@ -90,11 +90,13 @@ export class SignInComponent implements OnInit {
 
     this.signInService.createAccount(user)
     .subscribe(
-      () => {
+      (response) => {
         if(this.errorMessage.display)
           this.errorMessage.display = false;
 
+        this.authService.getUserAfterCreate(response.headers.get('Location'));
         this.router.navigate(['home']);
+
       },
       (error) => {
         this.errorMessage.header = "Oops an error has occured !";

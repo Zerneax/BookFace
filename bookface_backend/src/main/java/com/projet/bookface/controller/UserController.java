@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.websocket.server.PathParam;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -94,6 +95,9 @@ public class UserController {
 				.buildAndExpand(userAdded.getId())
 				.toUri();
 		
-		return ResponseEntity.created(location).build();
+		// add this header to expose Location because CORS that return only couple of simple headers
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Access-Control-Expose-Headers", "Location");
+		return ResponseEntity.created(location).headers(headers).build();
 	}
 }

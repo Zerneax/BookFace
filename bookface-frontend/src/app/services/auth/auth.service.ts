@@ -48,6 +48,22 @@ export class AuthService implements OnInit{
       }
 
     );
+  }
 
+  getUserAfterCreate(url: string) {
+    this.httpClient
+    .get<any>(url)
+    .subscribe(
+      (response) => {
+          this.user = response.user;
+          this.auth = true;
+          this.emitUserSubject();
+          this.emitAuthSubject();
+      },
+      () => {
+        this.router.navigate(['login']);
+      }
+
+    );
   }
 }
