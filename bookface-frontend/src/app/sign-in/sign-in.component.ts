@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { SignInService } from './../services/signIn/sign-in.service';
 import { AuthService } from './../services/auth/auth.service';
+import { ShaService } from './../services/sha/sha.service';
 import { User } from './../models/user/user';
 import { ErrorMessage } from './../models/error/error';
 
@@ -23,6 +24,7 @@ export class SignInComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private signInService: SignInService,
     private authService: AuthService,
+    private shaService: ShaService,
     private router: Router) { }
 
   ngOnInit() {
@@ -82,7 +84,7 @@ export class SignInComponent implements OnInit {
     user.lastName = formValue['lastName'];
     user.firstName = formValue['firstName'];
     user.mail = formValue['mail'];
-    user.password = formValue['password'];
+    user.password = this.shaService.getSha(formValue['password']);
     user.birthday = new Date(formValue['birthday']);
     user.gender = formValue['gender'];
 
