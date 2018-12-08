@@ -15,6 +15,8 @@ import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { AuthService } from './services/auth/auth.service';
 import { SignInService } from './services/signIn/sign-in.service';
 import { LoginService } from './services/login/login.service';
+import { WebSocketService } from './services/webSocket/web-socket.service';
+
 import { LoginComponent } from './login/login.component';
 
 
@@ -38,7 +40,8 @@ import { LoginComponent } from './login/login.component';
   providers: [
     AuthService,
     SignInService,
-    LoginService
+    LoginService,
+    WebSocketService
   ],
   bootstrap: [AppComponent]
 })
