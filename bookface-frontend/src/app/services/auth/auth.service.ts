@@ -66,4 +66,12 @@ export class AuthService implements OnInit{
 
     );
   }
+
+  logout() {
+    this.user = new User();
+    this.auth = false;
+    this.emitUserSubject();
+    this.emitAuthSubject();
+    this.router.navigate(['']);
+  }
 }

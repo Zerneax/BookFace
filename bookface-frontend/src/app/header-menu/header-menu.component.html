@@ -14,28 +14,35 @@
 
   <div class="right menu">
     <div class="item" *ngIf="!auth">
-        <form class="ui form" [formGroup]="loginForm" (ngSubmit)="login()">
-          <div class="three fields">
-            <div class="field">
-              <input type="text" placeholder="Mail..." formControlName="mail">
-              <!-- <div class="ui pointing red basic label" *ngIf="loginForm.controls['mail'].touched && loginForm.controls['mail'].errors">
-                <span *ngIf="loginForm.controls['mail'].errors.required ">Your mail is required !</span>
-              </div> -->
-            </div>
-            <div class="field">
-              <input type="password" placeholder="Password..." formControlName="password">
-              <!-- <div class="ui pointing red basic label" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].errors">
-                <span *ngIf="loginForm.controls['password'].errors.required ">Your password is required !</span>
-              </div> -->
-            </div>
-            <div class="field">
-            <button type="submit" class="ui inverted button" [disabled]="loginForm.invalid"> Login </button>
-            </div>
-            </div>
-        </form>
+      <form class="ui form" [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="three fields">
+          <div class="field">
+            <input type="text" placeholder="Mail..." formControlName="mail">
+            <!-- <div class="ui pointing red basic label" *ngIf="loginForm.controls['mail'].touched && loginForm.controls['mail'].errors">
+            <span *ngIf="loginForm.controls['mail'].errors.required ">Your mail is required !</span>
+          </div> -->
+        </div>
+        <div class="field">
+          <input type="password" placeholder="Password..." formControlName="password">
+          <!-- <div class="ui pointing red basic label" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].errors">
+          <span *ngIf="loginForm.controls['password'].errors.required ">Your password is required !</span>
+        </div> -->
+      </div>
+      <div class="field">
+        <button type="submit" class="ui inverted button" [disabled]="loginForm.invalid"> Login </button>
+      </div>
     </div>
-    <div class="item" *ngIf="auth">
-      <span> auth sucess </span>
+  </form>
+</div>
+<div class="item" *ngIf="auth">
+  <div class="ui two column">
+    <div class="column">
+      <span> Welcome back {{user.firstName }} ! </span>
+    </div>
+    <div class="column">
+      <button class="ui inverted button" (click)="logout()"> Logout </button>
     </div>
   </div>
+</div>
+</div>
 </div>

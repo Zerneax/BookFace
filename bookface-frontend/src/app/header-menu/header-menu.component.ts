@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from './../services/login/login.service';
 import { AuthService } from './../services/auth/auth.service';
+import { User } from './../models/user/user';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -15,6 +16,8 @@ export class HeaderMenuComponent implements OnInit {
   loginForm: FormGroup;
   auth: boolean;
   authSubscription: Subscription;
+  user: User;
+  userSubscription: Subscription;
 
   constructor(private loginService: LoginService,
     private authService: AuthService,
@@ -26,6 +29,12 @@ export class HeaderMenuComponent implements OnInit {
     this.authSubscription = this.authService.authSubject.subscribe(
       (auth: boolean) => {this.auth = auth;}
     );
+
+    this.userSubscription = this.authService.userSubject.subscribe(
+      (user: User) => {this.user = user;}
+    );
+
+
   }
 
   initForm() {
@@ -49,5 +58,9 @@ export class HeaderMenuComponent implements OnInit {
         this.router.navigate(['login']);
       }
     );
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
