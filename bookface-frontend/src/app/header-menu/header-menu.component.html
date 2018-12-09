@@ -1,4 +1,4 @@
-<div class="ui large red inverted secondary pointing menu">
+<div class="ui red inverted secondary pointing menu">
   <div class="left menu">
     <div class="item" *ngIf="true">
       <h4 class="item header"> BookFace </h4>
@@ -11,6 +11,17 @@
       </div>
     </div>
   </div>
+
+  <!-- <div class="menu" *ngIf="!auth"> -->
+    <div class="menu center" *ngIf="auth">
+      <div class="center2">
+      <div class="ui icon input">
+        <input class="test" type="text" placeholder="Search..." >
+        <i class="search link icon"></i>
+      </div>
+      </div>
+    </div>
+  <!-- </div> -->
 
   <div class="right menu">
     <div class="item" *ngIf="!auth">
@@ -35,7 +46,7 @@
   </form>
 </div>
 <div class="item" *ngIf="auth">
-  <div class="ui two column">
+  <div class="ui two column grid">
     <div class="column">
       <span> Welcome back {{user.firstName }} ! </span>
     </div>
