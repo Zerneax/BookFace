@@ -16,6 +16,7 @@ import { AuthService } from './services/auth/auth.service';
 import { SignInService } from './services/signIn/sign-in.service';
 import { LoginService } from './services/login/login.service';
 import { LoginComponent } from './login/login.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { LoginComponent } from './login/login.component';
     SignInComponent,
     HomeComponent,
     HeaderMenuComponent,
-    LoginComponent
+    LoginComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
