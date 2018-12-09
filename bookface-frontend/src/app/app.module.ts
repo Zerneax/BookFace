@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderMenuComponent } from './header-menu/header-menu.component';
+import { LoginComponent } from './login/login.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 import { SuiModule } from 'ng2-semantic-ui';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
@@ -15,8 +17,8 @@ import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { AuthService } from './services/auth/auth.service';
 import { SignInService } from './services/signIn/sign-in.service';
 import { LoginService } from './services/login/login.service';
-import { LoginComponent } from './login/login.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { AuthGuardService } from './services/guard/auth-guard.service';
+
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
   providers: [
     AuthService,
     SignInService,
-    LoginService
+    LoginService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
