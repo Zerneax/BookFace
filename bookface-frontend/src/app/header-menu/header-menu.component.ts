@@ -39,7 +39,7 @@ export class HeaderMenuComponent implements OnInit {
     this.loginService.login(this.loginForm.value['mail'])
     .subscribe(
       (response) => {
-        if(response.password === this.loginForm.value['password']) {
+        if(this.loginService.checkPassword(this.loginForm.value['password'], response.password)) {
           this.authService.getUser(response.id);
           this.router.navigate(['home']);
         }else {
