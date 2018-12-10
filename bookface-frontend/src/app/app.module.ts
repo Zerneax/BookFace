@@ -18,7 +18,7 @@ import { AuthService } from './services/auth/auth.service';
 import { SignInService } from './services/signIn/sign-in.service';
 import { LoginService } from './services/login/login.service';
 import { AuthGuardService } from './services/guard/auth-guard.service';
-
+import { PostService } from './services/post/post.service';
 
 
 @NgModule({
@@ -43,7 +43,8 @@ import { AuthGuardService } from './services/guard/auth-guard.service';
     AuthService,
     SignInService,
     LoginService,
-    AuthGuardService
+    AuthGuardService,
+    PostService
   ],
   bootstrap: [AppComponent]
 })

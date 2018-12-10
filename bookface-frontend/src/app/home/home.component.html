@@ -5,9 +5,23 @@
     </p>
   </div>
   <div class="twelve wide column">
-    <p>
-      ici les posts
-    </p>
+    <div class="ui container">
+      <div class="ui segment">
+        <div class="ui form">
+          <div class="field">
+            <textarea rows="2" placeholder="Write a post..." [(ngModel)]="content"></textarea>
+          </div>
+          <div class="ui one column grid">
+            <div class="ui right aligned column">
+              <button class="ui primary button" (click)="addPost()" [disabled]="content == undefined"> Add </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui container listing">
+      <span> Row 2 </span>
+    </div>
   </div>
   <div class="two wide column">
     <p>
