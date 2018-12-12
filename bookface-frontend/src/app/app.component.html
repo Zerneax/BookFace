@@ -1,27 +1,29 @@
 <div class="ui pushable">
-<div class="ui header">
-<app-header-menu></app-header-menu>
-</div>
-
-<div class="ui content">
-  <router-outlet></router-outlet>
-</div>
-
-<div class="ui inverted vertical footer segment">
-  <div class="ui container">
-    <p class="ui black label"> Designed with : </p>
+  <div class="ui header">
+    <app-header-menu></app-header-menu>
   </div>
-  <div class="ui divider"></div>
-  <div class="ui three column grid">
-    <div class=" column">
-      <img class="ui centered image" src="./../favicon.ico">
+
+  <div class="pusher">
+    <div class="ui content">
+      <router-outlet></router-outlet>
     </div>
-    <div class=" column">
-      <img class="ui centered image" src="./../favicon.ico">
-    </div>
-    <div class=" column">
-      <img class="ui centered image" src="./../favicon.ico">
+
+    <div class="ui inverted vertical footer segment">
+      <div class="ui container">
+        <p class="ui black label"> Designed with : </p>
+      </div>
+      <div class="ui divider"></div>
+      <div class="ui three column grid">
+        <div class=" column">
+          <img class="ui centered image" src="./../favicon.ico">
+        </div>
+        <div class=" column">
+          <img class="ui centered image" src="./../favicon.ico">
+        </div>
+        <div class=" column">
+          <img class="ui centered image" src="./../favicon.ico">
+        </div>
+      </div>
     </div>
   </div>
-</div>
 </div>
