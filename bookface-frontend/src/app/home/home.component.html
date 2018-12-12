@@ -23,7 +23,11 @@
       </div>
     </div>
     <div class="ui container listing">
-      <span> Row 2 </span>
+      <div class="ui list" *ngFor="let post of posts">
+        <div class="item">
+          <app-post [post]="post.post"></app-post>
+        </div>
+      </div>
     </div>
   </div>
   <div class="two wide column">

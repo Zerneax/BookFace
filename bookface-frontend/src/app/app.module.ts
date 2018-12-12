@@ -19,6 +19,7 @@ import { SignInService } from './services/signIn/sign-in.service';
 import { LoginService } from './services/login/login.service';
 import { AuthGuardService } from './services/guard/auth-guard.service';
 import { PostService } from './services/post/post.service';
+import { PostComponent } from './post/post.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { PostService } from './services/post/post.service';
     HomeComponent,
     HeaderMenuComponent,
     LoginComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,

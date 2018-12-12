@@ -1,5 +1,8 @@
 package com.projet.bookface.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -20,6 +23,10 @@ public class PostDao {
 	}
 	
 	public Post createPost(Post post) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
+		Calendar calendar = Calendar.getInstance();
+		Date dateOfThePost = calendar.getTime();
+		post.setDate(dateFormat.format(dateOfThePost));
 		return this.mongoTemplate.insert(post);
 	}
 	

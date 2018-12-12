@@ -20,4 +20,5 @@ public class Post {
 	private String author;
 	private String content;	
 	private int like;
+	private String date;
 }

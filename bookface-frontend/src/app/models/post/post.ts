@@ -4,5 +4,6 @@ export class Post {
    author: string;
    content: string;
  	 like: number;
+   date: string;
 
 }
