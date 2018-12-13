@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,5 +65,16 @@ public class PostController {
 		
 		
 		return ResponseEntity.ok(posts);		
+	}
+	
+	@PutMapping(value="/{idPost}")
+	public ResponseEntity updateLike(@PathVariable String idPost) {
+		
+		Post post = this.postDao.findPost(idPost);	
+		post.setLike(post.getLike() + 1);
+		
+		this.postDao.updatePost(post);
+		
+		return ResponseEntity.ok(post);
 	}
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import com.projet.bookface.models.Post;
@@ -40,5 +41,16 @@ public class PostDao {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("author").is(author));
 		return this.mongoTemplate.find(query, Post.class);
+	}
+	
+	public void updatePost(Post post) {
+		
+		Query query = new Query();
+		query.addCriteria(Criteria.where("id").is(post.getId()));
+		
+		Update update = new Update();
+		update.set("like", post.getLike());
+		
+		this.mongoTemplate.updateFirst(query, update, Post.class);
 	}
 }
