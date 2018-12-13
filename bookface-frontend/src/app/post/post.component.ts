@@ -27,4 +27,8 @@ export class PostComponent implements OnInit {
       }
     );
   }
+
+  delete() {
+    this.postService.delete(this.post);
+  }
 }

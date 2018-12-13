@@ -51,6 +51,14 @@ export class PostService implements OnInit {
   like(idPost: string) {
     return this.httpClient
     .put<Post>('http://192.168.0.18:8080/posts/'+ idPost, {});
+  }
 
+  getIndexOfPost(element, idPost) {
+    return element.id === idPost;
+  }
+
+  delete(postToDelete: Post) {
+    var index = this.posts.findIndex(element => element.post.id  === postToDelete.id);
+    this.posts.splice(index, 1);
   }
 }

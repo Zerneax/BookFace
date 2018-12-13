@@ -1,4 +1,5 @@
 export class Post {
+  [x: string]: any;
 
    id: string;
    author: string;
