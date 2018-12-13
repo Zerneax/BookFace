@@ -26,7 +26,7 @@ import com.projet.bookface.odt.UserOdt;
 
 @RestController
 @RequestMapping(value="/users")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://192.168.0.18:4200", "http://localhost:4200"})
 public class UserController {
 
 	private UserDao userDao;
