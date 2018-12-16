@@ -6,9 +6,9 @@
     <p> {{post.content}} </p>
     <div class="ui two column padded grid">
       <div class="left aligned column">
-        <p class="ui image green label" *ngIf="post.like >= 0">
+        <p class="ui image green label" *ngIf="post.like.length >= 0">
           <fa name="thumbs-up" size="2x"></fa>
-          {{post.like}}
+          {{post.like.length}}
         </p>
       </div>
       <div class="right aligned column">

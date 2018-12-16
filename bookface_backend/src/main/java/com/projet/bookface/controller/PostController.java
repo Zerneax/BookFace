@@ -37,6 +37,7 @@ public class PostController {
 	@PostMapping
 	public ResponseEntity createPost(@RequestBody PostOdt postOdt) {
 		
+		postOdt.getPost().setLike(new ArrayList<>());
 		Post postAdded = this.postDao.createPost(postOdt.getPost());
 		
 		URI location = ServletUriComponentsBuilder

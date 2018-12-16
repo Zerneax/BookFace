@@ -80,4 +80,8 @@ export class AuthService implements OnInit{
     if(this.auth) return true;
     else return false;
   }
+
+  getCompleteNameOfCurrentUser() {
+    return this.user.lastName + "." + this.user.firstName;
+  }
 }
