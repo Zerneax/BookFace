@@ -34,4 +34,14 @@ export class PostComponent implements OnInit {
   delete() {
     this.postService.delete(this.post);
   }
+
+  disabledLike() {
+    const author = this.authService.getCompleteNameOfCurrentUser();
+    let result = this.post.like.includes(author, 0);
+
+    if(result == true)
+      return true;
+
+    return false;
+  }
 }
