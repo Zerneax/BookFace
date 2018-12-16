@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -69,10 +70,10 @@ public class PostController {
 	}
 	
 	@PutMapping(value="/{idPost}")
-	public ResponseEntity updateLike(@PathVariable String idPost) {
+	public ResponseEntity updateLike(@PathVariable String idPost, @RequestParam("like") String like) {
 		
 		Post post = this.postDao.findPost(idPost);	
-		post.setLike(post.getLike() + 1);
+		post.getLike().add(like);
 		
 		this.postDao.updatePost(post);
 		

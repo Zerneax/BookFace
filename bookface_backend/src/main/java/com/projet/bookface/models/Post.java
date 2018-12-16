@@ -1,5 +1,7 @@
 package com.projet.bookface.models;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,6 +21,6 @@ public class Post {
 	private String id;
 	private String author;
 	private String content;	
-	private int like;
+	private List<String> like;
 	private String date;
 }
