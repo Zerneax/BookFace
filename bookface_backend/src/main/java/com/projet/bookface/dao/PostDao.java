@@ -53,4 +53,12 @@ public class PostDao {
 		
 		this.mongoTemplate.updateFirst(query, update, Post.class);
 	}
+	
+	public void deletePost(String idPost) {
+		
+		Query query = new Query();
+		query.addCriteria(Criteria.where("id").is(idPost));
+		
+		this.mongoTemplate.remove(query, Post.class);
+	}
 }

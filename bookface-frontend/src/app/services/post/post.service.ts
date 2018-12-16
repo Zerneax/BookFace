@@ -58,7 +58,20 @@ export class PostService implements OnInit {
   }
 
   delete(postToDelete: Post) {
+
+    this.httpClient
+    .delete('http://192.168.0.18:8080/posts/'+ postToDelete.id)
+    .subscribe(
+      (response) => {
+        console.log("test");
+      }, (error) => {
+        console.log("test " + error);
+      }
+
+    );
+
     var index = this.posts.findIndex(element => element.post.id  === postToDelete.id);
     this.posts.splice(index, 1);
+
   }
 }
