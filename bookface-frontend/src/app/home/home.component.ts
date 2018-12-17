@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AuthService} from './../services/auth/auth.service';
 import {PostService} from './../services/post/post.service';
 
+
 import { User } from './../models/user/user';
 import { Post } from '../models/post/post';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -20,9 +22,21 @@ export class HomeComponent implements OnInit {
   postsSubscription: Subscription;
 
   constructor(private authService: AuthService,
-    private postService: PostService) { }
+    private postService: PostService,
+    private router: Router) {
+  }
 
   ngOnInit() {
+    this.init();
+    console.log("test init");
+  }
+
+  ngOnDestroy() {
+    console.log("test");
+  }
+
+
+  init() {
     this.currentUserSubscription = this.authService.userSubject.subscribe(
       (user: User) => {this.currentUser = user; this.postService.getPosts(this.currentUser.id);}
     );
@@ -31,8 +45,6 @@ export class HomeComponent implements OnInit {
       (posts: Array<Post>) => {this.posts = posts;}
     );
   }
-
-
 
   addPost() {
     this.postService.addPost(this.content, this.currentUser.id)
@@ -46,5 +58,11 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+
+  displayProfile() {
+    this.router.navigate(['profile']);
+  }
+
+
 
 }

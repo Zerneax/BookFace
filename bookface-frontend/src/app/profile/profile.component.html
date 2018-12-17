@@ -2,27 +2,28 @@
   <form class="ui fluid form">
     <div class="field">
       <label> Last name </label>
-      <input type="text" placeholder="Last name">
+      <input type="text" placeholder="Last name" [(ngModel)]="currentUser.lastName" name="lastName">
     </div>
     <div class="ui divider"></div>
     <div class="field">
       <label> First name </label>
-      <input type="text" placeholder="first name">
+      <input type="text" placeholder="first name" [(ngModel)]="currentUser.firstName" name="firstName">
     </div>
     <div class="ui divider"></div>
     <div class="field">
       <label> Mail </label>
-      <input type="text" placeholder="mail">
+      <input type="text" placeholder="mail" [(ngModel)]="currentUser.mail" name="mail">
     </div>
     <div class="ui divider"></div>
     <div class="field">
       <label> Birthday </label>
-      <input type="text" placeholder="Birthday">
+      <input type="text" placeholder="Birthday" [(ngModel)]="currentUser.Birthday" name="birthday">
     </div>
     <div class="ui divider"></div>
     <div class="field">
       <label> Gender </label>
-      <input type="text" placeholder="Gender">
+      <input type="text" placeholder="Gender" [(ngModel)]="currentUser.gender" name="gender">
     </div>
   </form>
+  <button class="ui red primary button" (click)="save()"> Save </button>
 </div>
