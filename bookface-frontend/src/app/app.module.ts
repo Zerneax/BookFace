@@ -20,6 +20,7 @@ import { LoginService } from './services/login/login.service';
 import { AuthGuardService } from './services/guard/auth-guard.service';
 import { PostService } from './services/post/post.service';
 import { PostComponent } from './post/post.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { PostComponent } from './post/post.component';
     HeaderMenuComponent,
     LoginComponent,
     NotFoundComponent,
-    PostComponent
+    PostComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
