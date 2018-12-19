@@ -49,8 +49,14 @@ export class HeaderMenuComponent implements OnInit {
     .subscribe(
       (response) => {
         if(this.loginService.checkPassword(this.loginForm.value['password'], response.password)) {
-          this.authService.getUser(response.id);
-          this.router.navigate(['home']);
+          this.authService.getUser(response.id).subscribe(
+            (responseUser) => {
+              this.authService.authenticationSuccess(responseUser.user);
+              this.router.navigate(['home']);
+            }, (error) => {
+              this.router.navigate(['login']);
+            }
+          );
         }else {
           this.router.navigate(['login']);
         }

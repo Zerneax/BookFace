@@ -12,15 +12,12 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
 
   currentUser = new User();
-  currentUserSubscription: Subscription;
 
   constructor(private authService: AuthService,
     private router: Router) { }
 
   ngOnInit() {
-    this.currentUserSubscription = this.authService.userSubject.subscribe(
-      (user: User) => {this.currentUser = user;}
-    );
+    this.currentUser = this.authService.getCurrentUser();
   }
 
   save() {

@@ -37,9 +37,12 @@ export class HomeComponent implements OnInit {
 
 
   init() {
-    this.currentUserSubscription = this.authService.userSubject.subscribe(
-      (user: User) => {this.currentUser = user; this.postService.getPosts(this.currentUser.id);}
-    );
+    this.currentUser = this.authService.getCurrentUser();
+    this.postService.getPosts(this.currentUser.id);
+
+    // this.currentUserSubscription = this.authService.userSubject.subscribe(
+    //   (user: User) => {this.currentUser = user; this.postService.getPosts(this.currentUser.id);}
+    // );
 
     this.postsSubscription = this.postService.postsSubject.subscribe(
       (posts: Array<Post>) => {this.posts = posts;}

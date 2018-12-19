@@ -34,21 +34,8 @@ export class AuthService implements OnInit{
   }
 
   getUser(id: string) {
-    this.auth = true;
-    this.httpClient
-    .get<any>('http://192.168.0.18:8080/users/' + id)
-    .subscribe(
-      (response) => {
-          this.user = response.user;
-          this.emitUserSubject();
-          this.emitAuthSubject();
-      },
-      () => {
-        this.router.navigate(['login']);
-        this.auth = false;
-      }
-
-    );
+    return this.httpClient
+    .get<any>('http://192.168.0.18:8080/users/' + id);
   }
 
   getUserAfterCreate(url: string) {
@@ -66,6 +53,17 @@ export class AuthService implements OnInit{
       }
 
     );
+  }
+
+  getCurrentUser() {
+    return this.user;
+  }
+
+  authenticationSuccess(user: User) {
+    this.user = user;
+    this.auth = true;
+    this.emitUserSubject();
+    this.emitAuthSubject();
   }
 
   logout() {

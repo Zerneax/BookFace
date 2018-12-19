@@ -39,9 +39,23 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.loginForm.value['mail'])
     .subscribe(
       (response) => {
+
         if(this.loginService.checkPassword(this.loginForm.value['password'], response.password)) {
-          this.authService.getUser(response.id);
-          this.router.navigate(['home']);
+
+          this.authService.getUser(response.id)
+          .subscribe(
+
+            (responseUser) => {
+              this.authService.authenticationSuccess(responseUser.user);
+              this.router.navigate(['home']);
+            }, (error) => {
+              this.errorMessage.header = "Oops your mail or password is invalid !";
+              this.errorMessage.information = "";
+              this.errorMessage.display = true;
+            }
+
+          );
+
         }else {
           this.errorMessage.header = "Oops your mail or password is invalid !";
           this.errorMessage.information = "";
