@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
+import com.mongodb.client.result.DeleteResult;
 import com.projet.bookface.models.User;
 
 @Component
@@ -37,5 +38,10 @@ public class UserDao {
 	
 	public User createUser(User user) {
 		 return this.mongoTemplate.insert(user);
+	}
+	
+	public DeleteResult deleteUser(User user) {
+		DeleteResult delete = this.mongoTemplate.remove(user);
+		return delete;
 	}
 }
