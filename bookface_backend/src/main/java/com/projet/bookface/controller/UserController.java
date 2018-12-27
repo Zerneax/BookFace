@@ -6,8 +6,10 @@ import java.util.List;
 import javax.websocket.server.PathParam;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.mongodb.client.result.DeleteResult;
 import com.projet.bookface.dao.UserDao;
 import com.projet.bookface.models.User;
 import com.projet.bookface.odt.LoginOdt;
@@ -99,5 +102,22 @@ public class UserController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Access-Control-Expose-Headers", "Location");
 		return ResponseEntity.created(location).headers(headers).build();
+	}
+	
+	@DeleteMapping(value="/{id}")
+	public ResponseEntity deleteUser(@PathVariable String id) {
+		User user = this.userDao.findById(id);
+		
+		if(user == null)
+			return ResponseEntity.noContent().build();	
+		
+		DeleteResult result = this.userDao.deleteUser(user);
+		
+		if(result.getDeletedCount() > 0) {
+			return ResponseEntity.ok(user);	
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();	
+		}
+		
 	}
 }

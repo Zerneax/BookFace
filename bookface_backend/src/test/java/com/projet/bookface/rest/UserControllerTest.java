@@ -26,6 +26,8 @@ public class UserControllerTest {
 	@Autowired
 	private UserController controller;
 	
+	private String idCreated;
+	
 	@Test
 	public void createUser() {
 		UserOdt odt = new UserOdt(mockGenerateUser());
@@ -36,12 +38,15 @@ public class UserControllerTest {
 		assertNotEquals("", uri);
 		
 		String[] splitUri = uri.toString().split("/");
-		String id = splitUri[splitUri.length -1];
+		idCreated = splitUri[splitUri.length -1];
 		
-		ResponseEntity responseGet = controller.getUser(id);
+		ResponseEntity responseGet = controller.getUser(idCreated);
 		assertEquals(HttpStatus.OK, responseGet.getStatusCode());
 		UserOdt userOdtFetch = (UserOdt) responseGet.getBody();
 		assertEquals(odt, userOdtFetch);
+		
+		ResponseEntity responseDelete = controller.deleteUser(idCreated);
+		assertEquals(HttpStatus.OK, responseDelete.getStatusCode());
 	}
 	
 	@Test
@@ -58,6 +63,13 @@ public class UserControllerTest {
 		assertEquals(true, odt.isAvailable());
 	}
 	
+	@Test
+	public void deleteUser_notExist() {
+		ResponseEntity response = controller.deleteUser("1");
+		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+	}
+	
+	
 	//TODO: make delete method.
 	
 	private User mockGenerateUser() {
@@ -70,4 +82,5 @@ public class UserControllerTest {
 				.gender("male")
 				.build();
 	}
+
 }
