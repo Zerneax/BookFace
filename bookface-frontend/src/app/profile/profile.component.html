@@ -17,7 +17,16 @@
     <div class="ui divider"></div>
     <div class="field">
       <label> Birthday </label>
-      <input type="text" placeholder="Birthday" [(ngModel)]="currentUser.Birthday" name="birthday">
+      <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker
+                 [(ngModel)]="birthday"
+                 name="birthday"
+                 pickerMode="date"
+                 pickerUseNativeOnMobile="false"
+                 placeholder="Birthday...">
+      </div>
+      <!-- <input type="text" placeholder="Birthday" [(ngModel)]="birthday" name="birthday"> -->
     </div>
     <div class="ui divider"></div>
     <div class="field">
