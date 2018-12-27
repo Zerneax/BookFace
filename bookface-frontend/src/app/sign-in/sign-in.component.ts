@@ -85,7 +85,8 @@ export class SignInComponent implements OnInit {
     user.firstName = formValue['firstName'];
     user.mail = formValue['mail'];
     user.password = this.shaService.getSha(formValue['password']);
-    user.birthday = new Date(formValue['birthday']);
+    let parseDate = formValue['birthday'].toLocaleDateString();
+    user.birthday = moment(parseDate, "DD/MM/YYYY" ).toDate();
     user.gender = formValue['gender'];
 
     this.signInService.createAccount(user)
@@ -94,9 +95,16 @@ export class SignInComponent implements OnInit {
         if(this.errorMessage.display)
           this.errorMessage.display = false;
 
-        this.authService.getUserAfterCreate(response.headers.get('Location'));
-        this.router.navigate(['home']);
+        this.authService.getUserAfterCreate(response.headers.get('Location'))
+        .subscribe(
+          (response) => {
+            this.authService.authenticationSuccess(response.user);
+            this.router.navigate(['home']);
 
+          }, (error) => {
+            this.router.navigate(['login']);
+          }
+        );
       },
       (error) => {
         this.errorMessage.header = "Oops an error has occured !";

@@ -21,9 +21,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.currentUser = this.authService.getCurrentUser();
     this.birthday = new Date(this.currentUser.birthday);
-    // console.log(moment(this.currentUser.birthday, "yyyy-MM-ddTHH:mm:sssz").format());
-    // this.birthday = new Date(this.currentUser.birthday);//moment.parseZone(this.currentUser.birthday).toDate();
-    // this.birthday = moment(this.currentUser.birthday, "yyyy-MM-dd")..toDate();
   }
 
   save() {
