@@ -43,7 +43,7 @@ export class SignInComponent implements OnInit {
   }
 
   checkBirthday(control: FormControl) {
-    if(control.value != "") {
+    if(control.value != undefined && control.value != "") {
       let dateSelected = moment(control.value);
       if(dateSelected.isAfter(moment().subtract(13, 'years'))) {
         return {
@@ -85,6 +85,7 @@ export class SignInComponent implements OnInit {
     user.firstName = formValue['firstName'];
     user.mail = formValue['mail'];
     user.password = this.shaService.getSha(formValue['password']);
+    console.log("formValue['birthday'] : " + formValue['birthday']);
     let parseDate = formValue['birthday'].toLocaleDateString();
     user.birthday = moment(parseDate, "DD/MM/YYYY" ).toDate();
     user.gender = formValue['gender'];
@@ -92,6 +93,7 @@ export class SignInComponent implements OnInit {
     this.signInService.createAccount(user)
     .subscribe(
       (response) => {
+        console.log("test");
         if(this.errorMessage.display)
           this.errorMessage.display = false;
 
@@ -108,7 +110,7 @@ export class SignInComponent implements OnInit {
       },
       (error) => {
         this.errorMessage.header = "Oops an error has occured !";
-        this.errorMessage.information = "We can't check the validity of your mail. Retry later please !";
+        this.errorMessage.information = "We can't create your account for now. Retry later please !";
         this.errorMessage.display = true;
       }
     );
