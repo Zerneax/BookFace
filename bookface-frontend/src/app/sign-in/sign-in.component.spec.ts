@@ -188,11 +188,17 @@ describe('SignInComponent', () => {
 
       const authService = fixture.debugElement.injector.get(AuthService);
       spyOn(authService, 'getUserAfterCreate').and.returnValue(of(new User()));
+      spyOn(authService, 'authenticationSuccess').and.callThrough();
 
       component.signInForm.value['birthday'] = moment().toDate();
       component.errorMessage = new ErrorMessage();
       component.errorMessage.display = true;
       component.createAccount();
+
+      expect(signInService.createAccount).toHaveBeenCalled();
+      expect(component.errorMessage.display).toBeFalsy();
+      expect(authService.getUserAfterCreate).toHaveBeenCalled();
+      expect(authService.authenticationSuccess).toHaveBeenCalled();
   });
 
   it('testing createaccount and getUserAfterCreate in error', () => {
@@ -212,6 +218,10 @@ describe('SignInComponent', () => {
       component.errorMessage = new ErrorMessage();
       component.errorMessage.display = true;
       component.createAccount();
+
+      expect(signInService.createAccount).toHaveBeenCalled();
+      expect(component.errorMessage.display).toBeFalsy();
+      expect(authService.getUserAfterCreate).toHaveBeenCalled();
   });
 
 });
