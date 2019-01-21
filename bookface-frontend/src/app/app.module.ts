@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { HeaderMenuComponent } from './header-menu/header-menu.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { PostComponent } from './post/post.component';
+import { ProfileComponent } from './profile/profile.component';
 
 import { SuiModule } from 'ng2-semantic-ui';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
@@ -19,8 +21,8 @@ import { SignInService } from './services/signIn/sign-in.service';
 import { LoginService } from './services/login/login.service';
 import { AuthGuardService } from './services/guard/auth-guard.service';
 import { PostService } from './services/post/post.service';
-import { PostComponent } from './post/post.component';
-import { ProfileComponent } from './profile/profile.component';
+import { PeopleService } from './services/people/people.service';
+
 
 
 @NgModule({
@@ -48,7 +50,8 @@ import { ProfileComponent } from './profile/profile.component';
     SignInService,
     LoginService,
     AuthGuardService,
-    PostService
+    PostService,
+    PeopleService
   ],
   bootstrap: [AppComponent]
 })

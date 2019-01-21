@@ -39,11 +39,6 @@ public class UserController {
 		this.userDao = userDao;
 	}
 	
-	@GetMapping(value="/all")
-	public List<User> findUsers() {
-		return this.userDao.findAllUsers();
-	}
-	
 	@GetMapping(value="/{mail}/login")
 	public LoginOdt login(@PathVariable String mail) {
 		User user = this.userDao.findByMail(mail);

@@ -1,4 +1,4 @@
-<div class="ui red inverted secondary pointing menu">
+<div class="ui red inverted secondary menu">
   <div class="left menu">
     <div class="item" *ngIf="true">
       <h4 class="item header"> BookFace </h4>
@@ -12,16 +12,16 @@
     </div>
   </div>
 
-  <!-- <div class="menu" *ngIf="!auth"> -->
-    <div class="menu center" *ngIf="auth">
-      <div class="center2">
-      <div class="ui icon input">
-        <input class="test" type="text" placeholder="Search..." >
-        <i class="search link icon"></i>
-      </div>
-      </div>
+  <div class="menu center" *ngIf="auth">
+    <div class="center2" result>
+      <sui-search placeholder="Example Search..."
+      hasIcon="true"
+      [options]="options"
+      optionsField="title"
+      [searchDelay]="delay"
+      (resultSelected)="alertSelected($event)"></sui-search>
     </div>
-  <!-- </div> -->
+  </div>
 
   <div class="right menu">
     <div class="item" *ngIf="!auth">
@@ -31,29 +31,29 @@
             <input type="text" placeholder="Mail..." formControlName="mail">
             <!-- <div class="ui pointing red basic label" *ngIf="loginForm.controls['mail'].touched && loginForm.controls['mail'].errors">
             <span *ngIf="loginForm.controls['mail'].errors.required ">Your mail is required !</span>
+            </div> -->
+          </div>
+          <div class="field">
+            <input type="password" placeholder="Password..." formControlName="password">
+            <!-- <div class="ui pointing red basic label" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].errors">
+            <span *ngIf="loginForm.controls['password'].errors.required ">Your password is required !</span>
           </div> -->
+          </div>
+          <div class="field">
+            <button type="submit" class="ui inverted button" [disabled]="loginForm.invalid"> Login </button>
+          </div>
         </div>
-        <div class="field">
-          <input type="password" placeholder="Password..." formControlName="password">
-          <!-- <div class="ui pointing red basic label" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].errors">
-          <span *ngIf="loginForm.controls['password'].errors.required ">Your password is required !</span>
-        </div> -->
-      </div>
-      <div class="field">
-        <button type="submit" class="ui inverted button" [disabled]="loginForm.invalid"> Login </button>
-      </div>
+      </form>
     </div>
-  </form>
-</div>
-<div class="item" *ngIf="auth">
-  <div class="ui two column grid">
-    <div class="column">
-      <span> Welcome back {{user.firstName }} ! </span>
-    </div>
-    <div class="column">
-      <button class="ui inverted button" (click)="logout()"> Logout </button>
+    <div class="item" *ngIf="auth">
+      <div class="ui two column grid">
+        <div class="column">
+          <span> Welcome back {{user.firstName }} ! </span>
+        </div>
+        <div class="column">
+          <button class="ui inverted button" (click)="logout()"> Logout </button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div>
 </div>

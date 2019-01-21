@@ -5,6 +5,7 @@ import { AuthService } from './../services/auth/auth.service';
 import { User } from './../models/user/user';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PeopleService } from '../services/people/people.service';
 
 @Component({
   selector: 'app-header-menu',
@@ -19,10 +20,26 @@ export class HeaderMenuComponent implements OnInit {
   user: User;
   userSubscription: Subscription;
 
+  peoples: Array<any> = new Array();
+  delay: number = 0;
+
+
+  content: string[] = [
+    "Apple", "Bird", "Car", "Dog",
+       "Elephant", "Finch", "Gate", "Horrify",
+       "Indigo", "Jelly", "Keep", "Lemur",
+       "Manifest", "None", "Orange", "Peel",
+       "Quest", "Resist", "Suspend", "Terrify",
+       "Underneath", "Violet", "Water", "Xylophone",
+"Yellow", "Zebra"
+    // etc
+  ];
+
   constructor(private loginService: LoginService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+    private peopleService: PeopleService) { }
 
   ngOnInit() {
     this.initForm();
@@ -34,8 +51,52 @@ export class HeaderMenuComponent implements OnInit {
       (user: User) => {this.user = user;}
     );
 
+    this.peopleService.getPeople().subscribe(
+      (responsePeople) => {
+        console.log("ici");
+        responsePeople.forEach(u => {
+          this.peoples.push({'title': u.lastName + " " + u.firstName, 'id': u.id});
+        })
+
+        console.log("length : " + this.peoples.length);
+      }, (error) => {
+        console.log("Error " + error);
+      }
+    );
 
   }
+
+
+  // public optionsSearch = async (query:any) => {
+  //   console.log("++" + this.peoples);
+  // }
+
+  // public optionsSearch(query:string,  event: any) {
+  //
+  //     return new Promise<Array<any>>(resolve => {
+  //             const options = this.peoples;
+  //             console.log("++");
+  //         // const results = options
+  //         //     .filter(o => o.title.slice(0, query.length).toLowerCase() === query.toLowerCase());
+  //         setTimeout(() => resolve([{title: 'salut'}]), 100);
+  //     });
+  // }
+
+  // optionsSearch(query:string) {
+  //   this.test();
+  //   const options = this.peoples;
+  //
+  //   return new Promise<Array<any>>(resolve => {
+  //       const results = options
+  //           .filter(o => o.title.slice(0, query.length).toLowerCase() === query.toLowerCase());
+  //       setTimeout(() => resolve(results), 300);
+  //   });
+  // }
+
+  public get options():Array<any> {
+    return this.peoples;
+  }
+
 
   initForm() {
     this.loginForm = this.formBuilder.group({
