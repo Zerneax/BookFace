@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth/auth.service';
 export class PostComponent implements OnInit {
 
   @Input() post: Post;
+  @Input() canDelete: boolean;
 
 
   constructor(private postService: PostService,

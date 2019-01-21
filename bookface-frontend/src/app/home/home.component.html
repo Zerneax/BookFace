@@ -32,7 +32,7 @@
     <div class="ui container listing">
       <div class="ui list" *ngFor="let post of posts">
         <div class="item">
-          <app-post [post]="post.post"></app-post>
+          <app-post [post]="post.post" [canDelete]="true"></app-post>
         </div>
       </div>
     </div>

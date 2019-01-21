@@ -51,7 +51,7 @@ export class HeaderMenuComponent implements OnInit {
       (user: User) => {this.user = user;}
     );
 
-    this.peopleService.getPeople().subscribe(
+    this.peopleService.getPeoples().subscribe(
       (responsePeople) => {
         console.log("ici");
         responsePeople.forEach(u => {
@@ -95,6 +95,11 @@ export class HeaderMenuComponent implements OnInit {
 
   public get options():Array<any> {
     return this.peoples;
+  }
+
+  public redirectToPeopleDetail= (event: any) => {
+    this.peopleService.setPeople(event.id);
+    this.router.navigate(['people'])
   }
 
 

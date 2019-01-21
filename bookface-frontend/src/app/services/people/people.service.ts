@@ -1,16 +1,44 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/models/user/user';
+import { Subject } from 'rxjs';
+import { Post } from 'src/app/models/post/post';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PeopleService {
+export class PeopleService implements OnInit{
+
+
+  peopleSubject = new Subject<string>();
+  private people: string;
 
   constructor(private httpClient: HttpClient) { }
 
-  getPeople() {
+  ngOnInit(): void {
+    this.peopleSubject.next(this.people);
+  }
+
+  getPeoples() {
     return this.httpClient
     .get<Array<User>>('http://192.168.0.18:8080/people');
+  }
+
+  emitPeopleSubject() {
+    this.peopleSubject.next(this.people);
+  }
+
+  setPeople(id: string) {
+    this.people = id;
+    this.emitPeopleSubject();
+  }
+
+  currentPeople() {
+    return this.people;
+  }
+
+  getPostsOfPeople() {
+    return this.httpClient
+    .get<Array<Post>>('');
   }
 }

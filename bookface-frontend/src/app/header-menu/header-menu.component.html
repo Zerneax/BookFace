@@ -19,7 +19,8 @@
       [options]="options"
       optionsField="title"
       [searchDelay]="delay"
-      (resultSelected)="alertSelected($event)"></sui-search>
+      retainSelectedResult="false"
+      (resultSelected)="redirectToPeopleDetail($event)"></sui-search>
     </div>
   </div>
 
@@ -29,15 +30,9 @@
         <div class="three fields">
           <div class="field">
             <input type="text" placeholder="Mail..." formControlName="mail">
-            <!-- <div class="ui pointing red basic label" *ngIf="loginForm.controls['mail'].touched && loginForm.controls['mail'].errors">
-            <span *ngIf="loginForm.controls['mail'].errors.required ">Your mail is required !</span>
-            </div> -->
           </div>
           <div class="field">
             <input type="password" placeholder="Password..." formControlName="password">
-            <!-- <div class="ui pointing red basic label" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].errors">
-            <span *ngIf="loginForm.controls['password'].errors.required ">Your password is required !</span>
-          </div> -->
           </div>
           <div class="field">
             <button type="submit" class="ui inverted button" [disabled]="loginForm.invalid"> Login </button>

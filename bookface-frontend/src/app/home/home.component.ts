@@ -38,7 +38,13 @@ export class HomeComponent implements OnInit {
 
   init() {
     this.currentUser = this.authService.getCurrentUser();
-    this.postService.getPosts(this.currentUser.id);
+    this.postService.getPosts(this.currentUser.id).subscribe(
+      (response) => {
+        this.posts = response;
+      }, (error) => {
+        alert("error : " + error);
+      }
+    );
 
     // this.currentUserSubscription = this.authService.userSubject.subscribe(
     //   (user: User) => {this.currentUser = user; this.postService.getPosts(this.currentUser.id);}

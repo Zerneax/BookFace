@@ -22,6 +22,7 @@ import { LoginService } from './services/login/login.service';
 import { AuthGuardService } from './services/guard/auth-guard.service';
 import { PostService } from './services/post/post.service';
 import { PeopleService } from './services/people/people.service';
+import { PeopleComponent } from './people/people.component';
 
 
 
@@ -34,7 +35,8 @@ import { PeopleService } from './services/people/people.service';
     LoginComponent,
     NotFoundComponent,
     PostComponent,
-    ProfileComponent
+    ProfileComponent,
+    PeopleComponent
   ],
   imports: [
     BrowserModule,

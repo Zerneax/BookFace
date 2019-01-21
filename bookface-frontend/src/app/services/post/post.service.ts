@@ -34,17 +34,8 @@ export class PostService implements OnInit {
   }
 
   getPosts(author: string) {
-    this.httpClient
-    .get<Array<Post>>('http://192.168.0.18:8080/posts/' + author)
-    .subscribe(
-      (response) => {
-        this.posts = response;
-        this.emitPostsSubject();
-        console.log("get posts OK !");
-      }, (error) => {
-        alert("Error ");
-      }
-    );
+    return this.httpClient
+    .get<Array<Post>>('http://192.168.0.18:8080/posts/' + author);
   }
 
   like(idPost: string, author: string) {

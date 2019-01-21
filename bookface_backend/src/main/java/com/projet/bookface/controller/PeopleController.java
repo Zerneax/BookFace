@@ -1,6 +1,7 @@
 package com.projet.bookface.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.bookface.dao.UserDao;
+import com.projet.bookface.models.People;
 import com.projet.bookface.models.User;
 
 @RestController
@@ -25,12 +27,18 @@ public class PeopleController {
 
 
 	@GetMapping
-	public ResponseEntity getPost() {
+	public ResponseEntity getPeople() {
 		List<User> users = this.userDao.findAllUsers();
 		
 		if(users == null) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok(users);		
+		
+		List<People> peoples = users.stream()
+				.map(user -> new People(user.getId(), user.getLastName(), user.getFirstName()))
+				.collect(Collectors.toList());
+		
+		return ResponseEntity.ok(peoples);		
 	}
+
 }

@@ -1,7 +1,6 @@
 <div class="ui container">
   <div class="ui segment">
-    <a><i class="red close icon" (click)="delete()"></i></a>
-    <!-- <h2 class="ui blue left ribbon label"> {{post.title}} </h2> -->
+    <a *ngIf="canDelete"><i class="red close icon" (click)="delete()"></i></a>
     <label class="ui grey top right attached label"> {{post.date}} </label>
     <p> {{post.content}} </p>
     <div class="ui two column padded grid">
@@ -13,7 +12,6 @@
       </div>
       <div class="right aligned column">
         <button class="ui green button" (click)="like()" [disabled]="disabledLike()"> Love it ! </button>
-        <!-- <button class="ui red button" (click)="dontLove()"> Don't love it ! </button> -->
       </div>
     </div>
   </div>

@@ -1,0 +1,24 @@
+<div class="ui center aligned two column grid">
+  <div class="two wide column">
+    <div class="ui container">
+      <div class="ui yellow circular label">
+        {{currentPeople}}
+      </div>
+      <div class="ui divided selection list"></div>
+      <div class="ui container">
+        <!-- <div class="ui right aligned column"> -->
+        <button class="ui button" (click)="goHome()"> go back ! </button>
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="centered column">
+    <div class="ui container listing">
+      <div class="ui list" *ngFor="let post of posts">
+        <div class="item">
+          <app-post [post]="post.post" [canDelete]="false"></app-post>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
