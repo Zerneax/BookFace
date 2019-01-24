@@ -12,6 +12,7 @@ import {LoginComponent} from './../login/login.component';
 import {NotFoundComponent} from './../not-found/not-found.component';
 import {ProfileComponent} from './../profile/profile.component';
 import { PostComponent } from './../post/post.component';
+import { PeopleComponent } from './../people/people.component';
 
 import { SuiModule } from 'ng2-semantic-ui';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
@@ -37,7 +38,8 @@ describe('HeaderMenuComponent', () => {
         LoginComponent,
         NotFoundComponent,
         ProfileComponent,
-        PostComponent
+        PostComponent,
+        PeopleComponent
       ]
     })
     .compileComponents();

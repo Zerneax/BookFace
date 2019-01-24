@@ -12,6 +12,7 @@ import { PostComponent } from '../post/post.component';
 import { LoginComponent } from '../login/login.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { ProfileComponent } from '../profile/profile.component';
+import { PeopleComponent } from './../people/people.component';
 
 import * as moment from 'moment';
 import { SignInService } from '../services/signIn/sign-in.service';
@@ -42,7 +43,8 @@ describe('SignInComponent', () => {
         PostComponent,
         LoginComponent,
         NotFoundComponent,
-        ProfileComponent
+        ProfileComponent,
+        PeopleComponent
       ]
     })
     .compileComponents();

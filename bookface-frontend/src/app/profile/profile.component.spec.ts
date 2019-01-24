@@ -14,6 +14,8 @@ import { SignInComponent } from '../sign-in/sign-in.component';
 import { LoginComponent } from '../login/login.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { ProfileComponent } from './profile.component';
+import { PeopleComponent } from './../people/people.component';
+
 import { Post } from '../models/post/post';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../services/auth/auth.service';
@@ -40,7 +42,8 @@ describe('ProfileComponent', () => {
         LoginComponent,
         NotFoundComponent,
         ProfileComponent,
-        PostComponent
+        PostComponent,
+        PeopleComponent
       ]
     })
     .compileComponents();
