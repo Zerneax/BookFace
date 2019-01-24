@@ -1,0 +1,16 @@
+package com.projet.bookface.odt;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class AskingFriendShipOdt {
+
+	private String currentUser;
+	private String people;
+}

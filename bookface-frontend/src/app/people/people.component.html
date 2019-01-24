@@ -6,10 +6,9 @@
       </div>
       <div class="ui divided selection list"></div>
       <div class="ui container">
-        <!-- <div class="ui right aligned column"> -->
-        <button class="ui button" (click)="goHome()"> go back ! </button>
-        <!-- </div> -->
+        <button class="ui primary button" (click)="askToBefriends()" [disabled]="!canAdd"> Ask to be friends ! </button>
       </div>
+
     </div>
   </div>
   <div class="centered column">
@@ -19,6 +18,15 @@
           <app-post [post]="post.post" [canDelete]="false"></app-post>
         </div>
       </div>
+      <div class="ui text container" *ngIf="posts.length==0">
+        <p> No posts for moment !</p>
+      </div>
     </div>
+  </div>
+</div>
+
+<div class="ui one column grid">
+  <div class="ui right aligned column">
+    <button class="ui primary button" (click)="goHome()"> Home ! </button>
   </div>
 </div>

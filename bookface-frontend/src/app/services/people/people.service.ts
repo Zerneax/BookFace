@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/models/user/user';
 import { Subject } from 'rxjs';
 import { Post } from 'src/app/models/post/post';
+import { Friendship } from 'src/app/models/friendship/friendship';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,15 @@ export class PeopleService implements OnInit{
   getPostsOfPeople() {
     return this.httpClient
     .get<Array<Post>>('');
+  }
+
+  askToBefriends(currentUser, people) {
+    return this.httpClient
+      .post('http://192.168.0.18:8080/friendship', {currentUser: currentUser, people: people});
+  }
+
+  getFriendship(currentUser, people) {
+    return this.httpClient
+    .get<Friendship>('http://192.168.0.18:8080/friendship?currentUser=' + currentUser + "&people=" + people);
   }
 }

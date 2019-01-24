@@ -26,6 +26,15 @@ public class FriendshipDao {
 		return this.mongoTemplate.findOne(query, Friendship.class);
 	}
 	
+	public Friendship getFriendshipByUsers(String currentUser, String people) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("idUser1").is(currentUser).and("idUser2").is(people));
+		
+		return this.mongoTemplate.findOne(query, Friendship.class);
+	}
+	
+	
+	
 	public Friendship askToBeFriend(Friendship friendship) {	
 		friendship.setStatut(Statut.asking);
 		return this.mongoTemplate.insert(friendship);
