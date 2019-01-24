@@ -20,22 +20,33 @@ export class PostService implements OnInit {
   ngOnInit(): void {
   }
 
-  addPost(content:string, author: string) {
-    const post = new Post();
-    post.content = content;
-    post.author = author;
-
+  createPost(post:Post) {
     return this.httpClient
-      .post('http://192.168.0.18:8080/posts', {post: post});
+      .post('http://192.168.0.18:8080/posts', {post: post}, {observe: 'response'});
   }
 
   emitPostsSubject() {
     this.postsSubject.next(this.posts);
   }
 
+  addingPostToArray(post: Post) {
+    this.posts.push(post);
+    this.emitPostsSubject();
+  }
+
+  initPosts(posts: Array<Post>) {
+    this.posts = posts;
+    this.emitPostsSubject();
+  }
+
   getPosts(author: string) {
     return this.httpClient
-    .get<Array<Post>>('http://192.168.0.18:8080/posts/' + author);
+    .get<Array<Post>>('http://192.168.0.18:8080/posts/all/' + author);
+  }
+
+  getPost(url: any) {
+    return this.httpClient
+    .get<Post>(url);
   }
 
   like(idPost: string, author: string) {

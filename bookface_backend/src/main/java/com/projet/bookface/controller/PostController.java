@@ -52,8 +52,8 @@ public class PostController {
 		return ResponseEntity.created(location).headers(headers).build();
 	}
 	
-	@GetMapping(value="/{author}")
-	public ResponseEntity getPost(@PathVariable String author) {
+	@GetMapping(value="/all/{author}")
+	public ResponseEntity getAllPost(@PathVariable String author) {
 		List<Post> post = this.postDao.findAllPostByAuthor(author);
 		
 		if(post == null) {
@@ -69,6 +69,20 @@ public class PostController {
 		
 		return ResponseEntity.ok(posts);		
 	}
+	
+	@GetMapping(value="/{id}")
+	public ResponseEntity getPost(@PathVariable String id) {
+		Post post = this.postDao.findPost(id);
+		
+		if(post == null) {
+			return ResponseEntity.notFound().build();
+		}		
+		
+		PostOdt odt = PostOdt.builder().post(post).build();
+		return ResponseEntity.ok(odt);		
+	}
+	
+	
 	
 	@PutMapping(value="/{idPost}")
 	public ResponseEntity updateLike(@PathVariable String idPost, @RequestParam("like") String like) {

@@ -40,15 +40,11 @@ export class HomeComponent implements OnInit {
     this.currentUser = this.authService.getCurrentUser();
     this.postService.getPosts(this.currentUser.id).subscribe(
       (response) => {
-        this.posts = response;
+        this.postService.initPosts(response);
       }, (error) => {
         alert("error : " + error);
       }
     );
-
-    // this.currentUserSubscription = this.authService.userSubject.subscribe(
-    //   (user: User) => {this.currentUser = user; this.postService.getPosts(this.currentUser.id);}
-    // );
 
     this.postsSubscription = this.postService.postsSubject.subscribe(
       (posts: Array<Post>) => {this.posts = posts;}
@@ -56,11 +52,16 @@ export class HomeComponent implements OnInit {
   }
 
   addPost() {
-    this.postService.addPost(this.content, this.currentUser.id)
+    const post = new Post();
+    post.content = this.content;
+    post.author = this.currentUser.id;
+
+    this.postService.createPost(post)
     .subscribe(
-      () => {
-        this.content = "";
-        this.postService.getPosts(this.currentUser.id);
+      (response) => {
+        this.postService.getPost(response.headers.get('Location')).subscribe(
+          (post) => { this.content =""; this.postService.addingPostToArray(post); }
+        );
       },
       (error) => {
         alert("error : " + error);

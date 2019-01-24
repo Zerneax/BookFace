@@ -1,20 +1,30 @@
 <div class="ui center aligned three column grid">
-  <div class="two wide column">
-    <div class="ui container">
-      <div class="ui yellow circular label">
-        {{currentUser.lastName}}
-        {{currentUser.firstName}}
+  <div class="two wide column profile">
+    <div class="ui card">
+      <div class="image">
+        <img src="../../assets/matthew.png">
       </div>
-    </div>
-    <div class="ui divided selection list">
-      <div class="item">
-        <div class="ui label">
-          <a class="detail" (click)="displayProfile()">Display profile</a>
+      <div class="content">
+        <div class="header">{{currentUser.lastName}} {{currentUser.firstName}}</div>
+        <div class="meta">
+          <a (click)="displayProfile()">Profile</a>
         </div>
+        <div class="description">
+          Matthew is an interior designer living in New York.
+        </div>
+      </div>
+      <div class="extra content">
+        <span class="right floated">
+          Joined in 2013
+        </span>
+        <span>
+          <i class="user icon"></i>
+          75 Friends
+        </span>
       </div>
     </div>
   </div>
-  <div class="left aligned twelve wide column">
+  <div class="left aligned eleven wide column">
     <div class="ui container adding">
       <div class="ui segment">
         <div class="ui form">
