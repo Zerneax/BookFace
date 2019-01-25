@@ -1,11 +1,15 @@
 package com.projet.bookface.controller;
 
 import java.net.URI;
+import java.util.List;
+
+import javax.websocket.server.PathParam;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +46,14 @@ public class FriendshipController {
 		
 		FriendshipOdt friendshipOdt = FriendshipOdt.builder().friendship(friendship).build();
 		return ResponseEntity.ok(friendshipOdt);		
+	}
+	
+	
+	@GetMapping(value="/waiting/{currentUser}")
+	public ResponseEntity getWaitingInvitations(@PathVariable String currentUser) {
+		List<Friendship> waitingFriendship = this.friendshipDao.getWaitingFriendship(currentUser);
+		
+		return ResponseEntity.ok(waitingFriendship);
 	}
 	
 	

@@ -7,6 +7,7 @@ import {PostService} from './../services/post/post.service';
 import { User } from './../models/user/user';
 import { Post } from '../models/post/post';
 import { Router } from '@angular/router';
+import { PeopleService } from '../services/people/people.service';
 
 @Component({
   selector: 'app-home',
@@ -20,24 +21,25 @@ export class HomeComponent implements OnInit {
   content: string;
   posts = new Array<Post>();
   postsSubscription: Subscription;
+  waitingFriendship: number;
 
   constructor(private authService: AuthService,
     private postService: PostService,
+    private peopleService: PeopleService,
     private router: Router) {
   }
 
   ngOnInit() {
     this.init();
-    console.log("test init");
   }
 
   ngOnDestroy() {
-    console.log("test");
   }
 
 
   init() {
     this.currentUser = this.authService.getCurrentUser();
+    this.getWaitingFriendship();
     this.postService.getPosts(this.currentUser.id).subscribe(
       (response) => {
         this.postService.initPosts(response);
@@ -73,6 +75,15 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['profile']);
   }
 
-
+  getWaitingFriendship() {
+    this.peopleService.getWaitingFriendship(this.currentUser.id).subscribe(
+      (response) => {
+        this.waitingFriendship = response.length;
+      },
+      (error) => {
+        this.waitingFriendship = -1;
+      }
+    )
+  }
 
 }

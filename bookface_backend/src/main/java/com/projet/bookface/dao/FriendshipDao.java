@@ -1,5 +1,7 @@
 package com.projet.bookface.dao;
 
+import java.util.List;
+
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -33,6 +35,12 @@ public class FriendshipDao {
 		return this.mongoTemplate.findOne(query, Friendship.class);
 	}
 	
+	public List<Friendship> getWaitingFriendship(String currentUser) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("idUser2").is(currentUser));
+		
+		return this.mongoTemplate.find(query, Friendship.class);
+	}
 	
 	
 	public Friendship askToBeFriend(Friendship friendship) {	
