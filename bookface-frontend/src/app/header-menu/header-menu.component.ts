@@ -53,12 +53,9 @@ export class HeaderMenuComponent implements OnInit {
 
     this.peopleService.getPeoples().subscribe(
       (responsePeople) => {
-        console.log("ici");
         responsePeople.forEach(u => {
           this.peoples.push({'title': u.lastName + " " + u.firstName, 'id': u.id});
         })
-
-        console.log("length : " + this.peoples.length);
       }, (error) => {
         console.log("Error " + error);
       }
