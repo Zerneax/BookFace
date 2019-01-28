@@ -1,3 +1,4 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/modal.css" rel="stylesheet">
 <div class="ui center aligned three column grid">
   <div class="two wide column profile">
     <div class="ui card">
@@ -26,8 +27,8 @@
     <div class="ui card">
       <div class="content">
         <div class="meta">
-          <a> Invitation
-            <div class="floating ui red label">{{waitingFriendship}}</div>
+          <a (click)="show = true"> Invitation
+            <div class="floating ui red label" >{{waitingFriendship}}</div>
           </a>
         </div>
       </div>
@@ -61,5 +62,21 @@
       <p>
         ici les amis connectes
       </p>
+      <div style="text-align:center">
+        <sui-modal *ngIf="show" [isClosable]="false" (dismissed)="show = false" #modal>
+          <div class="header">Invitation</div>
+          <div class="content">
+            <div class="ui list" *ngFor="let friendship of waitingFriendshipList">
+              <div class="item">
+                <app-invitation [friendShip]="friendship"></app-invitation>
+              </div>
+            </div>
+          </div>
+          <div class="actions">
+              <!-- <button class="ui red button" (click)="modal.deny()">Cancel</button> -->
+              <button class="ui green button" (click)="modal.approve()" autofocus>OK</button>
+          </div>
+        </sui-modal>
+      </div>
   </div>
 </div>

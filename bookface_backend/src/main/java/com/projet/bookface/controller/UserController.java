@@ -25,6 +25,7 @@ import com.projet.bookface.dao.UserDao;
 import com.projet.bookface.models.User;
 import com.projet.bookface.odt.LoginOdt;
 import com.projet.bookface.odt.MailAvailableOdt;
+import com.projet.bookface.odt.UserLightOdt;
 import com.projet.bookface.odt.UserOdt;
 
 @RestController
@@ -66,6 +67,22 @@ public class UserController {
 		UserOdt userOdt = UserOdt.builder().user(user).build();
 		
 		return ResponseEntity.ok(userOdt);		
+	}
+	
+	@GetMapping(value="/{id}/light")
+	public ResponseEntity getUserLight(@PathVariable String id) {
+		User user = this.userDao.findById(id);
+		
+		if(user == null) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		UserLightOdt odt = UserLightOdt.builder()
+				.lastName(user.getLastName())
+				.firstName(user.getFirstName())
+				.build();
+		
+		return ResponseEntity.ok(odt);		
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)

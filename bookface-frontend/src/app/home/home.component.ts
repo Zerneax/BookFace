@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AuthService} from './../services/auth/auth.service';
 import {PostService} from './../services/post/post.service';
@@ -8,6 +8,13 @@ import { User } from './../models/user/user';
 import { Post } from '../models/post/post';
 import { Router } from '@angular/router';
 import { PeopleService } from '../services/people/people.service';
+
+import {SuiModalService, TemplateModalConfig, ModalTemplate} from 'ng2-semantic-ui';
+import { Friendship } from '../models/friendship/friendship';
+
+export interface IContext {
+    data:string;
+}
 
 @Component({
   selector: 'app-home',
@@ -22,10 +29,15 @@ export class HomeComponent implements OnInit {
   posts = new Array<Post>();
   postsSubscription: Subscription;
   waitingFriendship: number;
+  waitingFriendshipList: Array<Friendship>;
+
+  @ViewChild('modalTemplate')
+    public modalTemplate:ModalTemplate<IContext, string, string>
 
   constructor(private authService: AuthService,
     private postService: PostService,
     private peopleService: PeopleService,
+    private modalService: SuiModalService,
     private router: Router) {
   }
 
@@ -79,11 +91,24 @@ export class HomeComponent implements OnInit {
     this.peopleService.getWaitingFriendship(this.currentUser.id).subscribe(
       (response) => {
         this.waitingFriendship = response.length;
+        this.waitingFriendshipList = response;
       },
       (error) => {
         this.waitingFriendship = -1;
       }
     )
   }
+
+  public open(dynamicContent:string = "Example") {
+    const config = new TemplateModalConfig<IContext, string, string>(this.modalTemplate);
+
+    config.closeResult = "closed!";
+    config.context = { data: dynamicContent };
+
+    this.modalService
+        .open(config)
+        .onApprove(result => {console.log("approve");})
+        .onDeny(result => { console.log("deny");});
+}
 
 }

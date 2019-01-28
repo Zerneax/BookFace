@@ -57,4 +57,9 @@ export class PeopleService implements OnInit{
     return this.httpClient
     .get<any>('http://192.168.0.18:8080/friendship/waiting/' + currentUser);
   }
+
+  getUserLight(idUser) {
+    return this.httpClient
+    .get<any>('http://192.168.0.18:8080/users/' + idUser + '/light');
+  }
 }

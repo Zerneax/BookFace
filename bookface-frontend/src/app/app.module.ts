@@ -23,6 +23,7 @@ import { AuthGuardService } from './services/guard/auth-guard.service';
 import { PostService } from './services/post/post.service';
 import { PeopleService } from './services/people/people.service';
 import { PeopleComponent } from './people/people.component';
+import { InvitationComponent } from './invitation/invitation.component';
 
 
 
@@ -36,7 +37,8 @@ import { PeopleComponent } from './people/people.component';
     NotFoundComponent,
     PostComponent,
     ProfileComponent,
-    PeopleComponent
+    PeopleComponent,
+    InvitationComponent
   ],
   imports: [
     BrowserModule,
