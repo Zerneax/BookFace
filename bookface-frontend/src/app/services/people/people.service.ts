@@ -62,4 +62,15 @@ export class PeopleService implements OnInit{
     return this.httpClient
     .get<any>('http://192.168.0.18:8080/users/' + idUser + '/light');
   }
+
+  approveFriendship(idFriendship) {
+    return this.httpClient
+    .put('http://192.168.0.18:8080/friendship/' + idFriendship, {});
+  }
+
+  refuseFriendship(idFriendship) {
+    return this.httpClient
+    .delete('http://192.168.0.18:8080/friendship/' + idFriendship);
+  }
+
 }

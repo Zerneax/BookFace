@@ -1,9 +1,9 @@
 <div class="ui container">
   <div class="ui segment">
     <p> {{firstName}} {{lastName}} </p>
-      <div class="action">
-          <a class="right floated"><i class="red close icon"></i></a>
-          <a class="ui right floated"><i class="green check icon"></i></a>
+      <div class="action" *ngIf="show">
+          <a class="right floated" (click)="refuseFriendship()"><i class="red close icon"></i></a>
+          <a class="ui right floated" (click)="approveFriendship()"><i class="green check icon"></i></a>
       </div>
   </div>
 </div>

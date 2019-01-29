@@ -12,6 +12,7 @@ export class InvitationComponent implements OnInit {
   @Input() friendShip: Friendship;
   private lastName: string;
   private firstName: string;
+  private show: boolean = true;
 
   constructor(private peopleService: PeopleService) { }
 
@@ -25,6 +26,28 @@ export class InvitationComponent implements OnInit {
         console.log("error");
       }
     );
+  }
+
+  approveFriendship() {
+    this.peopleService.approveFriendship(this.friendShip.id).subscribe(
+      (response)=> {
+        this.show = false;
+      },
+      (error) => {
+        console.log("error");
+      }
+    )
+  }
+
+  refuseFriendship() {
+    this.peopleService.refuseFriendship(this.friendShip.id).subscribe(
+      (response)=> {
+        this.show = false;
+      },
+      (error) => {
+        console.log("error");
+      }
+    )
   }
 
 }

@@ -37,7 +37,7 @@ public class FriendshipDao {
 	
 	public List<Friendship> getWaitingFriendship(String currentUser) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("idUser2").is(currentUser));
+		query.addCriteria(Criteria.where("idUser2").is(currentUser).and("statut").is(Statut.asking));
 		
 		return this.mongoTemplate.find(query, Friendship.class);
 	}
