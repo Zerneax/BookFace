@@ -5,6 +5,8 @@ import { Post } from '../models/post/post';
 import { PostService } from '../services/post/post.service';
 import { AuthService } from '../services/auth/auth.service';
 import { Subscription } from 'rxjs';
+import { ErrorService } from '../services/error/error.service';
+import { ErrorMessage } from '../models/error/error';
 
 @Component({
   selector: 'app-people',
@@ -22,6 +24,7 @@ export class PeopleComponent implements OnInit {
   constructor(private peopleService: PeopleService,
     private postService: PostService,
     private authService: AuthService,
+    private errorService: ErrorService,
     private router: Router) { }
 
   ngOnInit() {
@@ -47,7 +50,10 @@ export class PeopleComponent implements OnInit {
       (response) => {
         this.posts = response;
       }, (error) => {
-        alert("error : " + error);
+        const errorMessage = new ErrorMessage();
+        errorMessage.header = "Oops an error was occured";
+        errorMessage.information = "We can't retrieve your posts. Retry later please !";
+        this.errorService.displayErrorMessage(errorMessage);
       }
     );
   }
@@ -67,7 +73,10 @@ export class PeopleComponent implements OnInit {
       (response) => {
         console.log("ok");
       }, (error) => {
-        console.log("ko");
+        const errorMessage = new ErrorMessage();
+        errorMessage.header = "Oops an error was occured";
+        errorMessage.information = "We can't send an invitation to this person for the moment. Please try later !";
+        this.errorService.displayErrorMessage(errorMessage);
       }
     );
   }

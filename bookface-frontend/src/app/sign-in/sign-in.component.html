@@ -5,7 +5,7 @@
 
   <form class="ui form" [formGroup]="signInForm" (ngSubmit)="createAccount()">
 
-    <div class="ui negative message" *ngIf="signInForm.controls['birthday'].errors != null && signInForm.controls['birthday'].errors.isUnder13">
+    <!-- <div class="ui negative message" *ngIf="signInForm.controls['birthday'].errors != null && signInForm.controls['birthday'].errors.isUnder13">
       <div class="header">
         You're too young to create an account !
       </div>
@@ -17,7 +17,7 @@
         {{errorMessage.header}}
       </div>
       <p>{{errorMessage.information}}</p>
-    </div>
+    </div> -->
 
     <div class="two fields">
       <div class="field">

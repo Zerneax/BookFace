@@ -12,6 +12,9 @@ import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PostComponent } from './post/post.component';
 import { ProfileComponent } from './profile/profile.component';
+import { PeopleComponent } from './people/people.component';
+import { InvitationComponent } from './invitation/invitation.component';
+import { ErrorComponent } from './error/error.component';
 
 import { SuiModule } from 'ng2-semantic-ui';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
@@ -22,8 +25,8 @@ import { LoginService } from './services/login/login.service';
 import { AuthGuardService } from './services/guard/auth-guard.service';
 import { PostService } from './services/post/post.service';
 import { PeopleService } from './services/people/people.service';
-import { PeopleComponent } from './people/people.component';
-import { InvitationComponent } from './invitation/invitation.component';
+import { ErrorService } from './services/error/error.service';
+
 
 
 
@@ -38,7 +41,8 @@ import { InvitationComponent } from './invitation/invitation.component';
     PostComponent,
     ProfileComponent,
     PeopleComponent,
-    InvitationComponent
+    InvitationComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,8 @@ import { InvitationComponent } from './invitation/invitation.component';
     LoginService,
     AuthGuardService,
     PostService,
-    PeopleService
+    PeopleService,
+    ErrorService
   ],
   bootstrap: [AppComponent]
 })

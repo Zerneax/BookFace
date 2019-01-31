@@ -9,6 +9,7 @@ import { User } from './../models/user/user';
 import { ErrorMessage } from './../models/error/error';
 
 import * as moment from 'moment';
+import { ErrorService } from '../services/error/error.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -19,12 +20,12 @@ export class SignInComponent implements OnInit {
 
   signInForm: FormGroup;
   dateOfDay: Date = new Date();
-  errorMessage: ErrorMessage = new ErrorMessage();
 
   constructor(private formBuilder: FormBuilder,
     private signInService: SignInService,
     private authService: AuthService,
     private shaService: ShaService,
+    private errorService: ErrorService,
     private router: Router) { }
 
   ngOnInit() {
@@ -61,18 +62,17 @@ export class SignInComponent implements OnInit {
       .subscribe(
         (retour) => {
           if(retour != null && !retour.available) {
-            this.errorMessage.header = "Oops an error has occured !";
-            this.errorMessage.information = "We can't check the validity of your mail. Retry later please !";
-            this.errorMessage.display = true;
-          } else {
-            if(this.errorMessage.display)
-              this.errorMessage.display = false;
+            const errorMessage = new ErrorMessage();
+            errorMessage.header = "Oops an error has occured !";
+            errorMessage.information = "This mail is already used. Please choose an another one !";
+            this.errorService.displayErrorMessage(errorMessage);
           }
         },
         (error) => {
-          this.errorMessage.header = "Oops an error has occured !";
-          this.errorMessage.information = "We can't check the validity of your mail. Retry later please !";
-          this.errorMessage.display = true;
+          const errorMessage = new ErrorMessage();
+          errorMessage.header = "Oops an error has occured !";
+          errorMessage.information = "We can't check the validity of your mail. Retry later please !";
+          this.errorService.displayErrorMessage(errorMessage);
         }
       );
     }
@@ -93,10 +93,6 @@ export class SignInComponent implements OnInit {
     this.signInService.createAccount(user)
     .subscribe(
       (response) => {
-        console.log("test");
-        if(this.errorMessage.display)
-          this.errorMessage.display = false;
-
         this.authService.getUserAfterCreate(response.headers.get('Location'))
         .subscribe(
           (response) => {
@@ -104,14 +100,19 @@ export class SignInComponent implements OnInit {
             this.router.navigate(['home']);
 
           }, (error) => {
+            const errorMessage = new ErrorMessage();
+            errorMessage.header = "Oops an error has occured !";
+            errorMessage.information = "Please try to login !";
+            this.errorService.displayErrorMessage(errorMessage);
             this.router.navigate(['login']);
           }
         );
       },
       (error) => {
-        this.errorMessage.header = "Oops an error has occured !";
-        this.errorMessage.information = "We can't create your account for now. Retry later please !";
-        this.errorMessage.display = true;
+        const errorMessage = new ErrorMessage();
+        errorMessage.header = "Oops an error has occured !";
+        errorMessage.information = "We can't create your account for now. Retry later please !";
+        this.errorService.displayErrorMessage(errorMessage);
       }
     );
   }

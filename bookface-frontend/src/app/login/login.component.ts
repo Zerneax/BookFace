@@ -4,6 +4,7 @@ import { LoginService } from './../services/login/login.service';
 import { AuthService } from './../services/auth/auth.service';
 import { ErrorMessage } from './../models/error/error';
 import { Router } from '@angular/router';
+import { ErrorService } from '../services/error/error.service';
 
 @Component({
   selector: 'app-login',
@@ -19,13 +20,12 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+    private errorService: ErrorService
+  ) { }
 
   ngOnInit() {
     this.initForm();
-    this.errorMessage.header = "Your mail or password is invalid.";
-    this.errorMessage.information = "If you don't have any account please create one !";
-    this.errorMessage.display = true;
   }
 
   initForm() {
@@ -41,30 +41,31 @@ export class LoginComponent implements OnInit {
       (response) => {
 
         if(this.loginService.checkPassword(this.loginForm.value['password'], response.password)) {
-
           this.authService.getUser(response.id)
           .subscribe(
-
             (responseUser) => {
               this.authService.authenticationSuccess(responseUser.user);
               this.router.navigate(['home']);
             }, (error) => {
-              this.errorMessage.header = "Oops your mail or password is invalid !";
-              this.errorMessage.information = "";
-              this.errorMessage.display = true;
+              const errorMessage = new ErrorMessage();
+              errorMessage.header = "Oops an error was occured";
+              errorMessage.information = "Please try later !";
+              this.errorService.displayErrorMessage(errorMessage);
             }
 
           );
 
         }else {
-          this.errorMessage.header = "Oops your mail or password is invalid !";
-          this.errorMessage.information = "";
-          this.errorMessage.display = true;
+          const errorMessage = new ErrorMessage();
+          errorMessage.header = "Oops your mail or password is invalid !";
+          errorMessage.information = "Please retry !";
+          this.errorService.displayErrorMessage(errorMessage);
         }
       }, (error) => {
-        this.errorMessage.header = "Oops your mail or password is invalid !";
-        this.errorMessage.information = "";
-        this.errorMessage.display = true;
+        const errorMessage = new ErrorMessage();
+        errorMessage.header = "Oops an errror was occured !";
+        errorMessage.information = "Please retry later !";
+        this.errorService.displayErrorMessage(errorMessage);
       }
     );
   }

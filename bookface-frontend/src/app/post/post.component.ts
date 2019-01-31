@@ -2,6 +2,8 @@ import { Component, OnInit, Input} from '@angular/core';
 import { Post } from '../models/post/post';
 import { PostService } from '../services/post/post.service';
 import { AuthService } from '../services/auth/auth.service';
+import { ErrorService } from '../services/error/error.service';
+import { ErrorMessage } from '../models/error/error';
 
 @Component({
   selector: 'app-post',
@@ -15,7 +17,9 @@ export class PostComponent implements OnInit {
 
 
   constructor(private postService: PostService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private errorService: ErrorService
+  ) { }
 
   ngOnInit() {
   }
@@ -27,7 +31,10 @@ export class PostComponent implements OnInit {
       (reponse) => {
         this.post = reponse;
       }, (error) => {
-        console.log("error : " + error);
+        const errorMessage = new ErrorMessage();
+        errorMessage.header = "Oops an error was occured";
+        errorMessage.information = "Please retry later !";
+        this.errorService.displayErrorMessage(errorMessage);
       }
     );
   }

@@ -11,6 +11,8 @@ import { PeopleService } from '../services/people/people.service';
 
 import {SuiModalService, TemplateModalConfig, ModalTemplate} from 'ng2-semantic-ui';
 import { Friendship } from '../models/friendship/friendship';
+import { ErrorService } from '../services/error/error.service';
+import { ErrorMessage } from '../models/error/error';
 
 export interface IContext {
     data:string;
@@ -38,6 +40,7 @@ export class HomeComponent implements OnInit {
     private postService: PostService,
     private peopleService: PeopleService,
     private modalService: SuiModalService,
+    private errorService: ErrorService,
     private router: Router) {
   }
 
@@ -56,7 +59,10 @@ export class HomeComponent implements OnInit {
       (response) => {
         this.postService.initPosts(response);
       }, (error) => {
-        alert("error : " + error);
+        const errorMessage = new ErrorMessage();
+        errorMessage.header = "Oops an error was occured";
+        errorMessage.information = "The service to get your post is unvalaible for the moment. Please try later !";
+        this.errorService.displayErrorMessage(errorMessage);
       }
     );
 
@@ -78,7 +84,10 @@ export class HomeComponent implements OnInit {
         );
       },
       (error) => {
-        alert("error : " + error);
+        const errorMessage = new ErrorMessage();
+        errorMessage.header = "Oops an error was occured";
+        errorMessage.information = "The service to create a post is unavaible for the moment. Please try later !";
+        this.errorService.displayErrorMessage(errorMessage);
       }
     );
   }

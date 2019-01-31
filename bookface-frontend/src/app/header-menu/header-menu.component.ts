@@ -6,6 +6,7 @@ import { User } from './../models/user/user';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PeopleService } from '../services/people/people.service';
+import { ErrorService } from '../services/error/error.service';
 
 @Component({
   selector: 'app-header-menu',
@@ -39,7 +40,9 @@ export class HeaderMenuComponent implements OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private peopleService: PeopleService) { }
+    private peopleService: PeopleService,
+    private errorService: ErrorService
+  ) { }
 
   ngOnInit() {
     this.initForm();
@@ -62,33 +65,6 @@ export class HeaderMenuComponent implements OnInit {
     );
 
   }
-
-
-  // public optionsSearch = async (query:any) => {
-  //   console.log("++" + this.peoples);
-  // }
-
-  // public optionsSearch(query:string,  event: any) {
-  //
-  //     return new Promise<Array<any>>(resolve => {
-  //             const options = this.peoples;
-  //             console.log("++");
-  //         // const results = options
-  //         //     .filter(o => o.title.slice(0, query.length).toLowerCase() === query.toLowerCase());
-  //         setTimeout(() => resolve([{title: 'salut'}]), 100);
-  //     });
-  // }
-
-  // optionsSearch(query:string) {
-  //   this.test();
-  //   const options = this.peoples;
-  //
-  //   return new Promise<Array<any>>(resolve => {
-  //       const results = options
-  //           .filter(o => o.title.slice(0, query.length).toLowerCase() === query.toLowerCase());
-  //       setTimeout(() => resolve(results), 300);
-  //   });
-  // }
 
   public get options():Array<any> {
     return this.peoples;
