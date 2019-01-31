@@ -1,13 +1,6 @@
 <body>
   <div class="ui padded middle aligned center aligned container">
   <h1> Connect to BookFace </h1>
-    <div class="ui negative message" *ngIf="loginHeaderFail">
-      <div class="header">
-        {{errorMessage.header}}
-      </div>
-      <p>{{errorMessage.information}}</p>
-    </div>
-
     <form class="ui form" [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="ui  segment">
         <div class="field">

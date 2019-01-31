@@ -4,21 +4,6 @@
   </h1>
 
   <form class="ui form" [formGroup]="signInForm" (ngSubmit)="createAccount()">
-
-    <!-- <div class="ui negative message" *ngIf="signInForm.controls['birthday'].errors != null && signInForm.controls['birthday'].errors.isUnder13">
-      <div class="header">
-        You're too young to create an account !
-      </div>
-      <p>The minimun age is 13.</p>
-    </div>
-
-    <div class="ui negative message" *ngIf="errorMessage.display">
-      <div class="header">
-        {{errorMessage.header}}
-      </div>
-      <p>{{errorMessage.information}}</p>
-    </div> -->
-
     <div class="two fields">
       <div class="field">
         <label> Last name </label>
