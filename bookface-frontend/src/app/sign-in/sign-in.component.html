@@ -48,7 +48,7 @@
                  [pickerMaxDate]="dateOfDay"
                  placeholder="Birthday...">
       </div>
-      <div class="ui pointing red basic label" *ngIf="signInForm.controls['birthday'].touched && signInForm.controls['birthday'].errors != null">
+      <div class="ui pointing red basic label" *ngIf="signInForm.controls['birthday'].touched && signInForm.controls['birthday'].errors.required != null">
         <span *ngIf="signInForm.controls['birthday'].errors.required">Your birthday is required !</span>
       </div>
     </div>

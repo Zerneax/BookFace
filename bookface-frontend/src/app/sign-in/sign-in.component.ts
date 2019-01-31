@@ -43,18 +43,35 @@ export class SignInComponent implements OnInit {
     })
   }
 
-  checkBirthday(control: FormControl) {
+  checkBirthday = (control: FormControl) => {
     if(control.value != undefined && control.value != "") {
-      let dateSelected = moment(control.value);
-      if(dateSelected.isAfter(moment().subtract(13, 'years'))) {
-        return {
-          'isUnder13' : true
-        }
-      }
-    }
+       let dateSelected = moment(control.value);
+       if(dateSelected.isAfter(moment().subtract(13, 'years'))) {
+         const errorMessage = new ErrorMessage();
+         errorMessage.header = "You're too young to create an account !";
+         errorMessage.information = "The minimun age is 13.";
+         this.errorService.displayErrorMessage(errorMessage);
+         return {
+           'isUnder13' : true
+         }
+       }
+     }
 
-    return null;
+     return null;
   }
+
+  // checkBirthday(control: FormControl) {
+  //   if(control.value != undefined && control.value != "") {
+  //     let dateSelected = moment(control.value);
+  //     if(dateSelected.isAfter(moment().subtract(13, 'years'))) {
+  //       return {
+  //         'isUnder13' : true
+  //       }
+  //     }
+  //   }
+  //
+  //   return null;
+  // }
 
   checkMailAlreadyUsed() {
     if(this.signInForm.controls['mail'].errors == null) {
