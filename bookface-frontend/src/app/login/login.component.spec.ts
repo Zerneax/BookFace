@@ -14,6 +14,8 @@ import {NotFoundComponent} from './../not-found/not-found.component';
 import {ProfileComponent} from './../profile/profile.component';
 import { PostComponent } from './../post/post.component';
 import { PeopleComponent } from './../people/people.component';
+import { ErrorComponent } from './../error/error.component';
+import { InvitationComponent } from './../invitation/invitation.component';
 
 import { SuiModule } from 'ng2-semantic-ui';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
@@ -45,7 +47,9 @@ describe('LoginComponent', () => {
         NotFoundComponent,
         ProfileComponent,
         PostComponent,
-        PeopleComponent
+        PeopleComponent,
+        ErrorComponent,
+        InvitationComponent
       ]
     })
     .compileComponents();
@@ -103,9 +107,6 @@ describe('LoginComponent', () => {
     expect(loginService.login).toHaveBeenCalled();
     expect(loginService.checkPassword).toHaveBeenCalledWith('1234','1234');
     expect(authService.getUser).toHaveBeenCalled();
-    expect(component.errorMessage.header).toEqual("Oops your mail or password is invalid !");
-    expect(component.errorMessage.information).toEqual("");
-    expect(component.errorMessage.display).toBeTruthy();
   });
 
   it('testing login password is wrong', () => {
@@ -123,9 +124,6 @@ describe('LoginComponent', () => {
 
     expect(loginService.login).toHaveBeenCalled();
     expect(loginService.checkPassword).toHaveBeenCalledWith('123456','1234');
-    expect(component.errorMessage.header).toEqual("Oops your mail or password is invalid !");
-    expect(component.errorMessage.information).toEqual("");
-    expect(component.errorMessage.display).toBeTruthy();
   });
 
   it('testing login login in error', () => {
@@ -136,9 +134,6 @@ describe('LoginComponent', () => {
     component.login();
 
     expect(loginService.login).toHaveBeenCalled();
-    expect(component.errorMessage.header).toEqual("Oops your mail or password is invalid !");
-    expect(component.errorMessage.information).toEqual("");
-    expect(component.errorMessage.display).toBeTruthy();
   });
 
 });

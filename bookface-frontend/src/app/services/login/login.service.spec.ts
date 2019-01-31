@@ -14,6 +14,8 @@ import { LoginComponent } from 'src/app/login/login.component';
 import { NotFoundComponent } from 'src/app/not-found/not-found.component';
 import { ProfileComponent } from 'src/app/profile/profile.component';
 import { PeopleComponent } from './../../people/people.component';
+import { ErrorComponent } from './../../error/error.component';
+import { InvitationComponent } from './../../invitation/invitation.component';
 
 describe('LoginService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -33,7 +35,9 @@ describe('LoginService', () => {
       LoginComponent,
       NotFoundComponent,
       ProfileComponent,
-      PeopleComponent
+      PeopleComponent,
+      ErrorComponent,
+      InvitationComponent
     ]}));
 
   it('should be created', () => {

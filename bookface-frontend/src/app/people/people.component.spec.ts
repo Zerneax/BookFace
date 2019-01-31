@@ -13,6 +13,10 @@ import { PostComponent } from '../post/post.component';
 import { LoginComponent } from '../login/login.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { ProfileComponent } from '../profile/profile.component';
+import { ErrorComponent } from './../error/error.component';
+import { InvitationComponent } from './../invitation/invitation.component';
+import { AuthService } from '../services/auth/auth.service';
+import { User } from '../models/user/user';
 
 describe('PeopleComponent', () => {
   let component: PeopleComponent;
@@ -36,7 +40,9 @@ describe('PeopleComponent', () => {
         LoginComponent,
         NotFoundComponent,
         ProfileComponent,
-        PeopleComponent
+        PeopleComponent,
+        ErrorComponent,
+        InvitationComponent
       ]
     })
     .compileComponents();
@@ -45,6 +51,9 @@ describe('PeopleComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PeopleComponent);
     component = fixture.componentInstance;
+
+    const authService = fixture.debugElement.injector.get(AuthService);
+    spyOn(authService, 'getCurrentUser').and.returnValue(new User());
     fixture.detectChanges();
   });
 

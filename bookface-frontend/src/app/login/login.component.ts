@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   loginHeaderFail: boolean = true;
-  errorMessage: ErrorMessage = new ErrorMessage();
 
   constructor(private loginService: LoginService,
     private authService: AuthService,

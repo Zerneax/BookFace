@@ -13,6 +13,8 @@ import { LoginComponent } from '../login/login.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { PeopleComponent } from './../people/people.component';
+import { ErrorComponent } from './../error/error.component';
+import { InvitationComponent } from './../invitation/invitation.component';
 
 import * as moment from 'moment';
 import { SignInService } from '../services/signIn/sign-in.service';
@@ -20,6 +22,8 @@ import { ErrorMessage } from '../models/error/error';
 import { of, Observable, throwError } from 'rxjs';
 import { ShaService } from '../services/sha/sha.service';
 import { AuthService } from '../services/auth/auth.service';
+import { ErrorService } from '../services/error/error.service';
+
 import { User } from '../models/user/user';
 
 describe('SignInComponent', () => {
@@ -44,7 +48,9 @@ describe('SignInComponent', () => {
         LoginComponent,
         NotFoundComponent,
         ProfileComponent,
-        PeopleComponent
+        PeopleComponent,
+        ErrorComponent,
+        InvitationComponent
       ]
     })
     .compileComponents();
@@ -96,14 +102,10 @@ describe('SignInComponent', () => {
     const signInService = fixture.debugElement.injector.get(SignInService);
     spyOn(signInService, 'checkMailAlreadyUsed').and.returnValue(of({'available': true}));
 
-    component.errorMessage = new ErrorMessage();
-    component.errorMessage.display = true;
-
     component.signInForm.controls['mail'] = new FormControl();
     component.signInForm.controls['mail'].setErrors(null);
     component.checkMailAlreadyUsed();
 
-    expect(component.errorMessage.display).toBeFalsy();
 
   });
 
@@ -112,16 +114,9 @@ describe('SignInComponent', () => {
     const signInService = fixture.debugElement.injector.get(SignInService);
     spyOn(signInService, 'checkMailAlreadyUsed').and.returnValue(of({'available': false}));
 
-    component.errorMessage = new ErrorMessage();
-    component.errorMessage.display = true;
-
     component.signInForm.controls['mail'] = new FormControl();
     component.signInForm.controls['mail'].setErrors(null);
     component.checkMailAlreadyUsed();
-
-    expect(component.errorMessage.header).toEqual("Oops an error has occured !");
-    expect(component.errorMessage.information).toEqual("We can't check the validity of your mail. Retry later please !");
-    expect(component.errorMessage.display).toBeTruthy();
 
   });
 
@@ -130,16 +125,10 @@ describe('SignInComponent', () => {
     const signInService = fixture.debugElement.injector.get(SignInService);
     spyOn(signInService, 'checkMailAlreadyUsed').and.returnValue(of({'available': false}));
 
-    component.errorMessage = new ErrorMessage();
-    component.errorMessage.display = true;
-
     component.signInForm.controls['mail'] = new FormControl();
     component.signInForm.controls['mail'].setErrors(null);
     component.checkMailAlreadyUsed();
 
-    expect(component.errorMessage.header).toEqual("Oops an error has occured !");
-    expect(component.errorMessage.information).toEqual("We can't check the validity of your mail. Retry later please !");
-    expect(component.errorMessage.display).toBeTruthy();
 
   });
 
@@ -148,16 +137,9 @@ describe('SignInComponent', () => {
     const signInService = fixture.debugElement.injector.get(SignInService);
     spyOn(signInService, 'checkMailAlreadyUsed').and.returnValue(throwError('Some error object'));
 
-    component.errorMessage = new ErrorMessage();
-    component.errorMessage.display = true;
-
     component.signInForm.controls['mail'] = new FormControl();
     component.signInForm.controls['mail'].setErrors(null);
     component.checkMailAlreadyUsed();
-
-    expect(component.errorMessage.header).toEqual("Oops an error has occured !");
-    expect(component.errorMessage.information).toEqual("We can't check the validity of your mail. Retry later please !");
-    expect(component.errorMessage.display).toBeTruthy();
 
   });
 
@@ -172,9 +154,6 @@ describe('SignInComponent', () => {
     component.signInForm.value['birthday'] = moment().toDate();
     component.createAccount();
 
-    expect(component.errorMessage.header).toEqual("Oops an error has occured !");
-    expect(component.errorMessage.information).toEqual("We can't create your account for now. Retry later please !");
-    expect(component.errorMessage.display).toBeTruthy();
 
   });
 
@@ -193,12 +172,9 @@ describe('SignInComponent', () => {
       spyOn(authService, 'authenticationSuccess').and.callThrough();
 
       component.signInForm.value['birthday'] = moment().toDate();
-      component.errorMessage = new ErrorMessage();
-      component.errorMessage.display = true;
       component.createAccount();
 
       expect(signInService.createAccount).toHaveBeenCalled();
-      expect(component.errorMessage.display).toBeFalsy();
       expect(authService.getUserAfterCreate).toHaveBeenCalled();
       expect(authService.authenticationSuccess).toHaveBeenCalled();
   });
@@ -217,12 +193,9 @@ describe('SignInComponent', () => {
       spyOn(authService, 'getUserAfterCreate').and.returnValue(throwError('error'));
 
       component.signInForm.value['birthday'] = moment().toDate();
-      component.errorMessage = new ErrorMessage();
-      component.errorMessage.display = true;
       component.createAccount();
 
       expect(signInService.createAccount).toHaveBeenCalled();
-      expect(component.errorMessage.display).toBeFalsy();
       expect(authService.getUserAfterCreate).toHaveBeenCalled();
   });
 
