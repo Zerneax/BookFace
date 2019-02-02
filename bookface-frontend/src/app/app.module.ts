@@ -26,7 +26,7 @@ import { AuthGuardService } from './services/guard/auth-guard.service';
 import { PostService } from './services/post/post.service';
 import { PeopleService } from './services/people/people.service';
 import { ErrorService } from './services/error/error.service';
-
+import { InvitationService } from './services/invitation/invitation.service';
 
 
 
@@ -60,7 +60,8 @@ import { ErrorService } from './services/error/error.service';
     AuthGuardService,
     PostService,
     PeopleService,
-    ErrorService
+    ErrorService,
+    InvitationService
   ],
   bootstrap: [AppComponent]
 })

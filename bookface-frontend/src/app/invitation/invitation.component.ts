@@ -3,6 +3,7 @@ import { Friendship } from '../models/friendship/friendship';
 import { PeopleService } from '../services/people/people.service';
 import { ErrorService } from '../services/error/error.service';
 import { ErrorMessage } from '../models/error/error';
+import { InvitationService } from '../services/invitation/invitation.service';
 
 @Component({
   selector: 'app-invitation',
@@ -17,7 +18,8 @@ export class InvitationComponent implements OnInit {
   private show: boolean = true;
 
   constructor(private peopleService: PeopleService,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private invitationService: InvitationService
   ) { }
 
   ngOnInit() {
@@ -39,6 +41,7 @@ export class InvitationComponent implements OnInit {
     this.peopleService.approveFriendship(this.friendShip.id).subscribe(
       (response)=> {
         this.show = false;
+        this.invitationService.removeWaitingFriendship(this.friendShip);
       },
       (error) => {
         const errorMessage = new ErrorMessage();
@@ -53,6 +56,7 @@ export class InvitationComponent implements OnInit {
     this.peopleService.refuseFriendship(this.friendShip.id).subscribe(
       (response)=> {
         this.show = false;
+        this.invitationService.removeWaitingFriendship(this.friendShip);
       },
       (error) => {
         const errorMessage = new ErrorMessage();

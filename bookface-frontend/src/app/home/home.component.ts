@@ -13,6 +13,7 @@ import {SuiModalService, TemplateModalConfig, ModalTemplate} from 'ng2-semantic-
 import { Friendship } from '../models/friendship/friendship';
 import { ErrorService } from '../services/error/error.service';
 import { ErrorMessage } from '../models/error/error';
+import { InvitationService } from '../services/invitation/invitation.service';
 
 export interface IContext {
     data:string;
@@ -32,6 +33,7 @@ export class HomeComponent implements OnInit {
   postsSubscription: Subscription;
   waitingFriendship: number;
   waitingFriendshipList: Array<Friendship>;
+  waitingFriendshipSubscription: Subscription;
 
   @ViewChild('modalTemplate')
     public modalTemplate:ModalTemplate<IContext, string, string>
@@ -41,6 +43,7 @@ export class HomeComponent implements OnInit {
     private peopleService: PeopleService,
     private modalService: SuiModalService,
     private errorService: ErrorService,
+    private invitationService: InvitationService,
     private router: Router) {
   }
 
@@ -54,7 +57,14 @@ export class HomeComponent implements OnInit {
 
   init() {
     this.currentUser = this.authService.getCurrentUser();
-    this.getWaitingFriendship();
+
+    this.waitingFriendshipSubscription = this.invitationService.waitingFriendshipSubject.subscribe(
+      (invitations: Array<Friendship>) => {
+        this.waitingFriendshipList = invitations;
+        this.waitingFriendship = invitations.length;
+      }
+    );
+
     this.postService.getPosts(this.currentUser.id).subscribe(
       (response) => {
         this.postService.initPosts(response);
@@ -69,6 +79,8 @@ export class HomeComponent implements OnInit {
     this.postsSubscription = this.postService.postsSubject.subscribe(
       (posts: Array<Post>) => {this.posts = posts;}
     );
+
+    this.invitationService.getWaitingFriendship(this.currentUser.id);
   }
 
   addPost() {
@@ -96,17 +108,17 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['profile']);
   }
 
-  getWaitingFriendship() {
-    this.peopleService.getWaitingFriendship(this.currentUser.id).subscribe(
-      (response) => {
-        this.waitingFriendship = response.length;
-        this.waitingFriendshipList = response;
-      },
-      (error) => {
-        this.waitingFriendship = -1;
-      }
-    )
-  }
+  // getWaitingFriendship() {
+  //   this.peopleService.getWaitingFriendship(this.currentUser.id).subscribe(
+  //     (response) => {
+  //       this.waitingFriendship = response.length;
+  //       this.waitingFriendshipList = response;
+  //     },
+  //     (error) => {
+  //       this.waitingFriendship = -1;
+  //     }
+  //   )
+  // }
 
   public open(dynamicContent:string = "Example") {
     const config = new TemplateModalConfig<IContext, string, string>(this.modalTemplate);
