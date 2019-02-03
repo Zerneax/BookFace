@@ -1,6 +1,9 @@
 package com.projet.bookface.controller;
 
 import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.websocket.server.PathParam;
@@ -102,7 +105,14 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity createUser(@RequestBody UserOdt userOdt) {
 		
-		User userAdded = this.userDao.createUser(userOdt.getUser());
+		User user = userOdt.getUser();
+		
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar cal = Calendar.getInstance();
+		Date date = cal.getTime();
+		user.setDateRegister(format.format(date));
+		
+		User userAdded = this.userDao.createUser(user);
 		
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()

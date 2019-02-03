@@ -7,6 +7,7 @@ export class User {
   private _firstName: string;
   private _birthday: Date;
   private _gender: string;
+  private _dateRegister: string;
 
   set id(id: string) { this._id = id; }
   get id():string { return this._id; }
@@ -29,6 +30,9 @@ export class User {
   set gender(gender: string) { this._gender = gender; }
   get gender():string { return this._gender; }
 
+  set dateRegister(dateRegister: string) { this._dateRegister = dateRegister; }
+  get dateRegister():string { return this._dateRegister; }
+
   toJson() {
     const userJson = {} as any;
     userJson.mail = this._mail;
@@ -37,6 +41,7 @@ export class User {
     userJson.firstName = this._firstName;
     userJson.birthday = this._birthday;
     userJson.gender = this._gender;
+    userJson.dateRegister = this._dateRegister;
 
     return userJson;
   }
