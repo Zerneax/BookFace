@@ -1,5 +1,8 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/modal.css" rel="stylesheet">
 <div class="ui center aligned three column grid">
+  <sui-dimmer class="inverted" [(isDimmed)]="loading">
+        <div class="ui text loader">Loading</div>
+    </sui-dimmer>
   <div class="two wide column profile">
     <div class="ui card">
       <div class="image">
@@ -35,6 +38,7 @@
     </div>
   </div>
   <div class="left aligned eleven wide column">
+    <a class="ui label" (click)="getPosts()"> rafraîchir </a>
     <div class="ui container adding">
       <div class="ui segment">
         <div class="ui form">

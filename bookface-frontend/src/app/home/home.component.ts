@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
   waitingFriendship: number;
   waitingFriendshipList: Array<Friendship>;
   waitingFriendshipSubscription: Subscription;
+  loading = false;
 
   @ViewChild('modalTemplate')
     public modalTemplate:ModalTemplate<IContext, string, string>
@@ -65,9 +66,21 @@ export class HomeComponent implements OnInit {
       }
     );
 
+    this.getPosts();
+
+    this.postsSubscription = this.postService.postsSubject.subscribe(
+      (posts: Array<Post>) => {this.posts = posts;}
+    );
+
+    this.invitationService.getWaitingFriendship(this.currentUser.id);
+  }
+
+  getPosts() {
+    this.loading = true;
     this.postService.getPosts(this.currentUser.id).subscribe(
       (response) => {
         this.postService.initPosts(response);
+        this.loading = false;
       }, (error) => {
         const errorMessage = new ErrorMessage();
         errorMessage.header = "Oops an error was occured";
@@ -75,12 +88,6 @@ export class HomeComponent implements OnInit {
         this.errorService.displayErrorMessage(errorMessage);
       }
     );
-
-    this.postsSubscription = this.postService.postsSubject.subscribe(
-      (posts: Array<Post>) => {this.posts = posts;}
-    );
-
-    this.invitationService.getWaitingFriendship(this.currentUser.id);
   }
 
   addPost() {
