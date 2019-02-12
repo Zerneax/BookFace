@@ -15,7 +15,7 @@ import {ProfileComponent} from './../../profile/profile.component';
 import { PostComponent } from './../../post/post.component';
 import { PeopleComponent } from './../../people/people.component';
 import { ErrorComponent } from './../error/error.component';
-import { InvitationComponent } from './../../invitation/invitation.component';
+import { InvitationComponent } from './../invitation/invitation.component';
 
 import { SuiModule } from 'ng2-semantic-ui';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';

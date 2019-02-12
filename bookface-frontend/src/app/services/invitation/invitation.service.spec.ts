@@ -15,7 +15,7 @@ import { NotFoundComponent } from 'src/app/not-found/not-found.component';
 import { ProfileComponent } from 'src/app/profile/profile.component';
 import { PeopleComponent } from 'src/app/people/people.component';
 import { ErrorComponent } from 'src/app/pages/error/error.component';
-import { InvitationComponent } from 'src/app/invitation/invitation.component';
+import { InvitationComponent } from 'src/app/pages/invitation/invitation.component';
 
 describe('InvitationService', () => {
   beforeEach(() => TestBed.configureTestingModule({

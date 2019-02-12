@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Friendship } from '../models/friendship/friendship';
-import { PeopleService } from '../services/people/people.service';
-import { ErrorService } from '../services/error/error.service';
-import { ErrorMessage } from '../models/error/error';
-import { InvitationService } from '../services/invitation/invitation.service';
+import { Friendship } from '../../models/friendship/friendship';
+import { PeopleService } from '../../services/people/people.service';
+import { ErrorService } from '../../services/error/error.service';
+import { ErrorMessage } from '../../models/error/error';
+import { InvitationService } from '../../services/invitation/invitation.service';
 
 @Component({
   selector: 'app-invitation',
