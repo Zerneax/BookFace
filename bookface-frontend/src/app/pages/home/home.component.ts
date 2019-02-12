@@ -1,19 +1,19 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import {Subscription} from 'rxjs';
-import {AuthService} from './../services/auth/auth.service';
-import {PostService} from './../services/post/post.service';
+import {AuthService} from './../../services/auth/auth.service';
+import {PostService} from './../../services/post/post.service';
 
 
-import { User } from './../models/user/user';
-import { Post } from '../models/post/post';
+import { User } from './../../models/user/user';
+import { Post } from '../../models/post/post';
 import { Router } from '@angular/router';
-import { PeopleService } from '../services/people/people.service';
+import { PeopleService } from '../../services/people/people.service';
 
 import {SuiModalService, TemplateModalConfig, ModalTemplate} from 'ng2-semantic-ui';
-import { Friendship } from '../models/friendship/friendship';
-import { ErrorService } from '../services/error/error.service';
-import { ErrorMessage } from '../models/error/error';
-import { InvitationService } from '../services/invitation/invitation.service';
+import { Friendship } from '../../models/friendship/friendship';
+import { ErrorService } from '../../services/error/error.service';
+import { ErrorMessage } from '../../models/error/error';
+import { InvitationService } from '../../services/invitation/invitation.service';
 
 export interface IContext {
     data:string;

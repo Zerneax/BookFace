@@ -8,7 +8,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { HeaderMenuComponent } from './../pages/header-menu/header-menu.component';
 import { SignInComponent } from './../pages/sign-in/sign-in.component';
-import {HomeComponent} from './../home/home.component';
+import {HomeComponent} from './../pages/home/home.component';
 import {LoginComponent} from './login.component';
 import {NotFoundComponent} from './../not-found/not-found.component';
 import {ProfileComponent} from './../profile/profile.component';

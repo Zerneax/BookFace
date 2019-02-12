@@ -8,7 +8,7 @@ import { SuiModule } from 'ng2-semantic-ui';
 
 import { AppRoutingModule } from '../app-routing.module';
 import { HeaderMenuComponent } from '../pages/header-menu/header-menu.component';
-import { HomeComponent } from '../home/home.component';
+import { HomeComponent } from '../pages/home/home.component';
 import { PostComponent } from '../post/post.component';
 import { SignInComponent } from '../pages/sign-in/sign-in.component';
 import { LoginComponent } from '../login/login.component';

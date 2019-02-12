@@ -8,7 +8,7 @@ import { SuiModule } from 'ng2-semantic-ui';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { HomeComponent } from '../home/home.component';
+import { HomeComponent } from '../pages/home/home.component';
 import { HeaderMenuComponent } from '../pages/header-menu/header-menu.component';
 import { SignInComponent } from '../pages/sign-in/sign-in.component';
 import { LoginComponent } from '../login/login.component';
