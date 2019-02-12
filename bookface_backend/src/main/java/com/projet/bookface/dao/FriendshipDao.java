@@ -30,7 +30,11 @@ public class FriendshipDao {
 	
 	public Friendship getFriendshipByUsers(String currentUser, String people) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("idUser1").is(currentUser).and("idUser2").is(people));
+		Criteria criteria = new Criteria();
+		query.addCriteria(criteria.orOperator(
+				Criteria.where("idUser1").is(currentUser).and("idUser2").is(people),
+				Criteria.where("idUser2").is(currentUser).and("idUser1").is(people))
+				);
 		
 		return this.mongoTemplate.findOne(query, Friendship.class);
 	}
@@ -63,5 +67,16 @@ public class FriendshipDao {
 		query.addCriteria(Criteria.where("id").is(id));
 		
 		this.mongoTemplate.remove(query, Friendship.class);
+	}
+	
+	public List<Friendship> getAllFriends(String idUser) {
+		Query query = new Query();
+		Criteria criteria = new Criteria();
+		query.addCriteria(criteria.orOperator(
+				Criteria.where("idUser1").is(idUser).and("statut").is(Statut.friends),
+				Criteria.where("idUser2").is(idUser).and("statut").is(Statut.friends))
+				);
+
+		return this.mongoTemplate.find(query, Friendship.class);
 	}
 }

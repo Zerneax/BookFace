@@ -6,8 +6,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mongodb.client.result.DeleteResult;
+import com.projet.bookface.dao.FriendshipDao;
 import com.projet.bookface.dao.UserDao;
+import com.projet.bookface.models.Friendship;
 import com.projet.bookface.models.User;
 import com.projet.bookface.odt.LoginOdt;
 import com.projet.bookface.odt.MailAvailableOdt;
@@ -37,10 +37,12 @@ import com.projet.bookface.odt.UserOdt;
 public class UserController {
 
 	private UserDao userDao;
+	private FriendshipDao friendshipDao;
 
-	public UserController(UserDao userDao) {
+	public UserController(UserDao userDao, FriendshipDao friendshipDao) {
 		super();
 		this.userDao = userDao;
+		this.friendshipDao = friendshipDao;
 	}
 	
 	@GetMapping(value="/{mail}/login")
@@ -86,6 +88,13 @@ public class UserController {
 				.build();
 		
 		return ResponseEntity.ok(odt);		
+	}
+	
+	@GetMapping(value="/{id}/friends")
+	public ResponseEntity getAllFriends(@PathVariable String id) {
+		List<Friendship> friends = this.friendshipDao.getAllFriends(id);
+		
+		return ResponseEntity.ok(friends);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)

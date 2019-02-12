@@ -73,4 +73,8 @@ export class PeopleService implements OnInit{
     .delete('http://192.168.0.18:8080/friendship/' + idFriendship);
   }
 
+  getAllFriends(idUser) {
+    return this.httpClient
+    .get<any>('http://192.168.0.18:8080/users/' + idUser + '/friends');
+  }
 }

@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
   waitingFriendshipList: Array<Friendship>;
   waitingFriendshipSubscription: Subscription;
   loading = false;
+  friends: Array<any> = [];
 
   @ViewChild('modalTemplate')
     public modalTemplate:ModalTemplate<IContext, string, string>
@@ -67,6 +68,7 @@ export class HomeComponent implements OnInit {
     );
 
     this.getPosts();
+    this.getAllFriends();
 
     this.postsSubscription = this.postService.postsSubject.subscribe(
       (posts: Array<Post>) => {this.posts = posts;}
@@ -115,17 +117,18 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['profile']);
   }
 
-  // getWaitingFriendship() {
-  //   this.peopleService.getWaitingFriendship(this.currentUser.id).subscribe(
-  //     (response) => {
-  //       this.waitingFriendship = response.length;
-  //       this.waitingFriendshipList = response;
-  //     },
-  //     (error) => {
-  //       this.waitingFriendship = -1;
-  //     }
-  //   )
-  // }
+  getAllFriends() {
+    this.peopleService.getAllFriends(this.currentUser.id).subscribe(
+      (response) => {
+        this.friends = response;
+      }, (error) => {
+        const errorMessage = new ErrorMessage();
+        errorMessage.header = "Oops an error was occured";
+        errorMessage.information = "The service to get all friends is unavaible for the moment. Please try later !";
+        this.errorService.displayErrorMessage(errorMessage);
+      }
+    )
+  }
 
   public open(dynamicContent:string = "Example") {
     const config = new TemplateModalConfig<IContext, string, string>(this.modalTemplate);
