@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoginService } from './../services/login/login.service';
-import { AuthService } from './../services/auth/auth.service';
-import { ErrorMessage } from './../models/error/error';
+import { LoginService } from './../../services/login/login.service';
+import { AuthService } from './../../services/auth/auth.service';
+import { ErrorMessage } from './../../models/error/error';
 import { Router } from '@angular/router';
-import { ErrorService } from '../services/error/error.service';
+import { ErrorService } from '../../services/error/error.service';
 
 @Component({
   selector: 'app-login',

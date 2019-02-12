@@ -8,7 +8,7 @@ import { AppRoutingModule } from './../../app-routing.module';
 import { HeaderMenuComponent } from './header-menu.component';
 import { SignInComponent } from './../sign-in/sign-in.component';
 import {HomeComponent} from './../home/home.component';
-import {LoginComponent} from './../../login/login.component';
+import {LoginComponent} from './../login/login.component';
 import {NotFoundComponent} from './../../not-found/not-found.component';
 import {ProfileComponent} from './../../profile/profile.component';
 import { PostComponent } from './../../post/post.component';
