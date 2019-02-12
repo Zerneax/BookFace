@@ -10,7 +10,7 @@ import { LoginComponent } from '../../login/login.component';
 import { NotFoundComponent } from '../../not-found/not-found.component';
 import { ProfileComponent } from '../../profile/profile.component';
 import { PeopleComponent } from './../../people/people.component';
-import { ErrorComponent } from './../../error/error.component';
+import { ErrorComponent } from './../../pages/error/error.component';
 import { InvitationComponent } from './../../invitation/invitation.component';
 
 import { HttpClientModule } from '@angular/common/http';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ErrorMessage } from '../models/error/error';
+import { ErrorMessage } from '../../models/error/error';
 import { Subscription } from 'rxjs';
-import { ErrorService } from '../services/error/error.service';
+import { ErrorService } from '../../services/error/error.service';
 
 @Component({
   selector: 'app-error',
