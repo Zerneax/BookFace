@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { PeopleService } from '../services/people/people.service';
+import { PeopleService } from '../../services/people/people.service';
 import { Router } from '@angular/router';
-import { Post } from '../models/post/post';
-import { PostService } from '../services/post/post.service';
-import { AuthService } from '../services/auth/auth.service';
+import { Post } from '../../models/post/post';
+import { PostService } from '../../services/post/post.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { Subscription } from 'rxjs';
-import { ErrorService } from '../services/error/error.service';
-import { ErrorMessage } from '../models/error/error';
+import { ErrorService } from '../../services/error/error.service';
+import { ErrorMessage } from '../../models/error/error';
 
 @Component({
   selector: 'app-people',

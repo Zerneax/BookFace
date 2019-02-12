@@ -2,21 +2,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PeopleComponent } from './people.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from '../app-routing.module';
+import { AppRoutingModule } from '../../app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { SuiModule } from 'ng2-semantic-ui';
-import { SignInComponent } from '../pages/sign-in/sign-in.component';
-import { HeaderMenuComponent } from '../pages/header-menu/header-menu.component';
-import { HomeComponent } from '../pages/home/home.component';
-import { PostComponent } from '../post/post.component';
-import { LoginComponent } from '../pages/login/login.component';
-import { NotFoundComponent } from '../not-found/not-found.component';
-import { ProfileComponent } from '../profile/profile.component';
-import { ErrorComponent } from './../pages/error/error.component';
-import { InvitationComponent } from './../pages/invitation/invitation.component';
-import { AuthService } from '../services/auth/auth.service';
-import { User } from '../models/user/user';
+import { SignInComponent } from '../sign-in/sign-in.component';
+import { HeaderMenuComponent } from '../header-menu/header-menu.component';
+import { HomeComponent } from '../home/home.component';
+import { PostComponent } from '../../post/post.component';
+import { LoginComponent } from '../login/login.component';
+import { NotFoundComponent } from '../../not-found/not-found.component';
+import { ProfileComponent } from '../../profile/profile.component';
+import { ErrorComponent } from './../error/error.component';
+import { InvitationComponent } from './../invitation/invitation.component';
+import { AuthService } from '../../services/auth/auth.service';
+import { User } from '../../models/user/user';
 
 describe('PeopleComponent', () => {
   let component: PeopleComponent;

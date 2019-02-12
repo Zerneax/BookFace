@@ -14,7 +14,7 @@ import { SignInComponent } from '../pages/sign-in/sign-in.component';
 import { LoginComponent } from '../pages/login/login.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { ProfileComponent } from './profile.component';
-import { PeopleComponent } from './../people/people.component';
+import { PeopleComponent } from './../pages/people/people.component';
 import { ErrorComponent } from './../pages/error/error.component';
 import { InvitationComponent } from './../pages/invitation/invitation.component';
 

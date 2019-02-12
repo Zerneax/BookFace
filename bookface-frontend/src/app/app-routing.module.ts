@@ -8,7 +8,7 @@ import {NotFoundComponent} from './not-found/not-found.component';
 import {ProfileComponent} from './profile/profile.component';
 
 import {AuthGuardService} from './services/guard/auth-guard.service';
-import { PeopleComponent } from './people/people.component';
+import { PeopleComponent } from './pages/people/people.component';
 
 const routes: Routes = [
   { path: '', component: SignInComponent},
