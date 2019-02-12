@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { SignInService } from './../services/signIn/sign-in.service';
-import { AuthService } from './../services/auth/auth.service';
-import { ShaService } from './../services/sha/sha.service';
-import { User } from './../models/user/user';
-import { ErrorMessage } from './../models/error/error';
+import { SignInService } from './../../services/signIn/sign-in.service';
+import { AuthService } from './../../services/auth/auth.service';
+import { ShaService } from './../../services/sha/sha.service';
+import { User } from './../../models/user/user';
+import { ErrorMessage } from './../../models/error/error';
 
 import * as moment from 'moment';
-import { ErrorService } from '../services/error/error.service';
+import { ErrorService } from '../../services/error/error.service';
 
 @Component({
   selector: 'app-sign-in',
