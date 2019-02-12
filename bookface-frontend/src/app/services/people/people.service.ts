@@ -55,7 +55,7 @@ export class PeopleService implements OnInit{
 
   getWaitingFriendship(currentUser) {
     return this.httpClient
-    .get<any>('http://192.168.0.18:8080/friendship/waiting/' + currentUser);
+    .get<Array<Friendship>>('http://192.168.0.18:8080/friendship/waiting/' + currentUser);
   }
 
   getUserLight(idUser) {
@@ -75,6 +75,6 @@ export class PeopleService implements OnInit{
 
   getAllFriends(idUser) {
     return this.httpClient
-    .get<any>('http://192.168.0.18:8080/users/' + idUser + '/friends');
+    .get<Array<Friendship>>('http://192.168.0.18:8080/users/' + idUser + '/friends');
   }
 }

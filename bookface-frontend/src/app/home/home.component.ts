@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   waitingFriendshipList: Array<Friendship>;
   waitingFriendshipSubscription: Subscription;
   loading = false;
-  friends: Array<any> = [];
+  friends: Array<Friendship> = [];
 
   @ViewChild('modalTemplate')
     public modalTemplate:ModalTemplate<IContext, string, string>
@@ -119,7 +119,7 @@ export class HomeComponent implements OnInit {
 
   getAllFriends() {
     this.peopleService.getAllFriends(this.currentUser.id).subscribe(
-      (response) => {
+      (response: Array<Friendship>) => {
         this.friends = response;
       }, (error) => {
         const errorMessage = new ErrorMessage();

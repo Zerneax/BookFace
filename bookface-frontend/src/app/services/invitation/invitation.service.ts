@@ -33,7 +33,7 @@ export class InvitationService implements OnInit{
 
   getWaitingFriendship(id) {
     this.peopleService.getWaitingFriendship(id).subscribe(
-      (response) => {
+      (response: Array<Friendship> ) => {
         this.waitingFriendship = response;
         this.emitWaitingFriendShip();
       },
