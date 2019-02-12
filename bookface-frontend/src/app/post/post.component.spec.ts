@@ -7,7 +7,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { SuiModule } from 'ng2-semantic-ui';
 
 import { AppRoutingModule } from '../app-routing.module';
-import { HeaderMenuComponent } from '../header-menu/header-menu.component';
+import { HeaderMenuComponent } from '../pages/header-menu/header-menu.component';
 import { HomeComponent } from '../home/home.component';
 import { PostComponent } from './post.component';
 import { SignInComponent } from '../pages/sign-in/sign-in.component';

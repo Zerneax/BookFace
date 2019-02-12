@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { AuthGuardService } from './auth-guard.service';
 
-import { HeaderMenuComponent } from '../../header-menu/header-menu.component';
+import { HeaderMenuComponent } from '../../pages/header-menu/header-menu.component';
 import { HomeComponent } from '../../home/home.component';
 import { PostComponent } from '../../post/post.component';
 import { SignInComponent } from '../../pages/sign-in/sign-in.component';

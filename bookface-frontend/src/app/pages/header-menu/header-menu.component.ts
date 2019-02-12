@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoginService } from './../services/login/login.service';
-import { AuthService } from './../services/auth/auth.service';
-import { User } from './../models/user/user';
+import { LoginService } from './../../services/login/login.service';
+import { AuthService } from './../../services/auth/auth.service';
+import { User } from './../../models/user/user';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { PeopleService } from '../services/people/people.service';
-import { ErrorService } from '../services/error/error.service';
+import { PeopleService } from '../../services/people/people.service';
+import { ErrorService } from '../../services/error/error.service';
 
 @Component({
   selector: 'app-header-menu',

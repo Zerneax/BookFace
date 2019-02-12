@@ -2,19 +2,19 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
-import { AppRoutingModule } from './../app-routing.module';
+import { AppRoutingModule } from './../../app-routing.module';
 
 
 import { HeaderMenuComponent } from './header-menu.component';
-import { SignInComponent } from './../pages/sign-in/sign-in.component';
-import {HomeComponent} from './../home/home.component';
-import {LoginComponent} from './../login/login.component';
-import {NotFoundComponent} from './../not-found/not-found.component';
-import {ProfileComponent} from './../profile/profile.component';
-import { PostComponent } from './../post/post.component';
-import { PeopleComponent } from './../people/people.component';
-import { ErrorComponent } from './../pages/error/error.component';
-import { InvitationComponent } from './../invitation/invitation.component';
+import { SignInComponent } from './../sign-in/sign-in.component';
+import {HomeComponent} from './../../home/home.component';
+import {LoginComponent} from './../../login/login.component';
+import {NotFoundComponent} from './../../not-found/not-found.component';
+import {ProfileComponent} from './../../profile/profile.component';
+import { PostComponent } from './../../post/post.component';
+import { PeopleComponent } from './../../people/people.component';
+import { ErrorComponent } from './../error/error.component';
+import { InvitationComponent } from './../../invitation/invitation.component';
 
 import { SuiModule } from 'ng2-semantic-ui';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';

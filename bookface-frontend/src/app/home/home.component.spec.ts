@@ -6,7 +6,7 @@ import { AppRoutingModule } from './../app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
-import { HeaderMenuComponent } from './../header-menu/header-menu.component';
+import { HeaderMenuComponent } from './../pages/header-menu/header-menu.component';
 import { SignInComponent } from './../pages/sign-in/sign-in.component';
 import {HomeComponent} from './home.component';
 import {LoginComponent} from './../login/login.component';
