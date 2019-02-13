@@ -11,7 +11,7 @@ import { HeaderMenuComponent } from './pages/header-menu/header-menu.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PostComponent } from './pages/post/post.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { PeopleComponent } from './pages/people/people.component';
 import { InvitationComponent } from './pages/invitation/invitation.component';
 import { ErrorComponent } from './pages/error/error.component';

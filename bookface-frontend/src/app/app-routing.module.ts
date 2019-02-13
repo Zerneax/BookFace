@@ -5,7 +5,7 @@ import {SignInComponent} from './pages/sign-in/sign-in.component';
 import {HomeComponent} from './pages/home/home.component';
 import {LoginComponent} from './pages/login/login.component';
 import {NotFoundComponent} from './not-found/not-found.component';
-import {ProfileComponent} from './profile/profile.component';
+import {ProfileComponent} from './pages/profile/profile.component';
 
 import {AuthGuardService} from './services/guard/auth-guard.service';
 import { PeopleComponent } from './pages/people/people.component';

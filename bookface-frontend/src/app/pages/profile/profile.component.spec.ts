@@ -6,21 +6,21 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { SuiModule } from 'ng2-semantic-ui';
 
-import { AppRoutingModule } from '../app-routing.module';
-import { HeaderMenuComponent } from '../pages/header-menu/header-menu.component';
-import { HomeComponent } from '../pages/home/home.component';
-import { PostComponent } from '../pages/post/post.component';
-import { SignInComponent } from '../pages/sign-in/sign-in.component';
-import { LoginComponent } from '../pages/login/login.component';
-import { NotFoundComponent } from '../not-found/not-found.component';
+import { AppRoutingModule } from '../../app-routing.module';
+import { HeaderMenuComponent } from '../header-menu/header-menu.component';
+import { HomeComponent } from '../home/home.component';
+import { PostComponent } from '../post/post.component';
+import { SignInComponent } from '../sign-in/sign-in.component';
+import { LoginComponent } from '../login/login.component';
+import { NotFoundComponent } from '../../not-found/not-found.component';
 import { ProfileComponent } from './profile.component';
-import { PeopleComponent } from './../pages/people/people.component';
-import { ErrorComponent } from './../pages/error/error.component';
-import { InvitationComponent } from './../pages/invitation/invitation.component';
+import { PeopleComponent } from './../people/people.component';
+import { ErrorComponent } from './../error/error.component';
+import { InvitationComponent } from './../invitation/invitation.component';
 
-import { Post } from '../models/post/post';
+import { Post } from '../../models/post/post';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from '../services/auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;

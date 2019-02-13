@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './../services/auth/auth.service';
-import { User } from '../models/user/user';
+import { AuthService } from './../../services/auth/auth.service';
+import { User } from '../../models/user/user';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
