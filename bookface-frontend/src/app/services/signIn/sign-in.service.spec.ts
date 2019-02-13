@@ -9,7 +9,7 @@ import { SuiModule } from 'ng2-semantic-ui';
 import { SignInComponent } from 'src/app/pages/sign-in/sign-in.component';
 import { HeaderMenuComponent } from 'src/app/pages/header-menu/header-menu.component';
 import { HomeComponent } from 'src/app/pages/home/home.component';
-import { PostComponent } from 'src/app/post/post.component';
+import { PostComponent } from 'src/app/pages/post/post.component';
 import { LoginComponent } from 'src/app/pages/login/login.component';
 import { NotFoundComponent } from 'src/app/not-found/not-found.component';
 import { ProfileComponent } from 'src/app/profile/profile.component';

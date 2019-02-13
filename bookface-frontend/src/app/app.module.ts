@@ -10,7 +10,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { HeaderMenuComponent } from './pages/header-menu/header-menu.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { PostComponent } from './post/post.component';
+import { PostComponent } from './pages/post/post.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PeopleComponent } from './pages/people/people.component';
 import { InvitationComponent } from './pages/invitation/invitation.component';

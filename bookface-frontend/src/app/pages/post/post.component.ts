@@ -1,9 +1,9 @@
 import { Component, OnInit, Input} from '@angular/core';
-import { Post } from '../models/post/post';
-import { PostService } from '../services/post/post.service';
-import { AuthService } from '../services/auth/auth.service';
-import { ErrorService } from '../services/error/error.service';
-import { ErrorMessage } from '../models/error/error';
+import { Post } from '../../models/post/post';
+import { PostService } from '../../services/post/post.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { ErrorService } from '../../services/error/error.service';
+import { ErrorMessage } from '../../models/error/error';
 
 @Component({
   selector: 'app-post',

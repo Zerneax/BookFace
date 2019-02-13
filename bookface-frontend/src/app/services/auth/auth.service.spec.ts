@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 
 import { HeaderMenuComponent } from '../../pages/header-menu/header-menu.component';
 import { HomeComponent } from '../../pages/home/home.component';
-import { PostComponent } from '../../post/post.component';
+import { PostComponent } from '../../pages/post/post.component';
 import { SignInComponent } from '../../pages/sign-in/sign-in.component';
 import { LoginComponent } from '../../pages/login/login.component';
 import { NotFoundComponent } from '../../not-found/not-found.component';

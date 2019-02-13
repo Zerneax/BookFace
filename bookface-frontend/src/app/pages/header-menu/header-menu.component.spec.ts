@@ -11,7 +11,7 @@ import {HomeComponent} from './../home/home.component';
 import {LoginComponent} from './../login/login.component';
 import {NotFoundComponent} from './../../not-found/not-found.component';
 import {ProfileComponent} from './../../profile/profile.component';
-import { PostComponent } from './../../post/post.component';
+import { PostComponent } from './../post/post.component';
 import { PeopleComponent } from './../people/people.component';
 import { ErrorComponent } from './../error/error.component';
 import { InvitationComponent } from './../invitation/invitation.component';
