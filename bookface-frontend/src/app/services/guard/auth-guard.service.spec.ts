@@ -7,7 +7,7 @@ import { HomeComponent } from '../../pages/home/home.component';
 import { PostComponent } from '../../pages/post/post.component';
 import { SignInComponent } from '../../pages/sign-in/sign-in.component';
 import { LoginComponent } from '../../pages/login/login.component';
-import { NotFoundComponent } from '../../not-found/not-found.component';
+import { NotFoundComponent } from '../../pages/not-found/not-found.component';
 import { ProfileComponent } from '../../pages/profile/profile.component';
 import { PeopleComponent } from './../../pages/people/people.component';
 import { ErrorComponent } from './../../pages/error/error.component';

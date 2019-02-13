@@ -11,7 +11,7 @@ import { HeaderMenuComponent } from 'src/app/pages/header-menu/header-menu.compo
 import { HomeComponent } from 'src/app/pages/home/home.component';
 import { PostComponent } from 'src/app/pages/post/post.component';
 import { LoginComponent } from 'src/app/pages/login/login.component';
-import { NotFoundComponent } from 'src/app/not-found/not-found.component';
+import { NotFoundComponent } from 'src/app/pages/not-found/not-found.component';
 import { ProfileComponent } from 'src/app/pages/profile/profile.component';
 import { PeopleComponent } from './../../pages/people/people.component';
 import { ErrorComponent } from './../../pages/error/error.component';
