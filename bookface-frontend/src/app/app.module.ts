@@ -42,33 +42,18 @@ import { SignInModule } from './pages/sign-in/sign-in.module';
 @NgModule({
   declarations: [
     AppComponent,
-    // SignInComponent,
-    // HomeComponent,
-    // HeaderMenuComponent,
-    // LoginComponent,
     NotFoundComponent,
-    // PostComponent,
-    // ProfileComponent,
-    // PeopleComponent,
-    // InvitationComponent,
-    // ErrorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SuiModule,
     AngularFontAwesomeModule,
-    ReactiveFormsModule,
     HttpClientModule,
-    FormsModule,
-    InvitationModule,
-    PostModule,
     PeopleModule,
     HomeModule,
     ErrorModule,
     HeaderMenuModule,
     LoginModule,
-    ProfileModule,
     SignInModule
   ],
   providers: [

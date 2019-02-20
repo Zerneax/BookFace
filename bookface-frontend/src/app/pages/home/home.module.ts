@@ -5,6 +5,7 @@ import { SuiModule } from 'ng2-semantic-ui';
 import { PostModule } from '../post/post.module';
 import { InvitationModule } from '../invitation/invitation.module';
 import { FormsModule } from '@angular/forms';
+import { ProfileModule } from '../profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FormsModule } from '@angular/forms';
     SuiModule,
     PostModule,
     InvitationModule,
+    ProfileModule,
     FormsModule
   ],
   exports: [
