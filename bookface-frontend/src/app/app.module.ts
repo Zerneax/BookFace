@@ -31,22 +31,27 @@ import { InvitationModule } from './pages/invitation/invitation.module';
 import { PostModule } from './pages/post/post.module';
 import { PeopleModule } from './pages/people/people.module';
 import { HomeModule } from './pages/home/home.module';
+import { ErrorModule } from './pages/error/error.module';
+import { HeaderMenuModule } from './pages/header-menu/header-menu.module';
+import { LoginModule } from './pages/login/login.module';
+import { ProfileModule } from './pages/profile/profile.module';
+import { SignInModule } from './pages/sign-in/sign-in.module';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignInComponent,
+    // SignInComponent,
     // HomeComponent,
-    HeaderMenuComponent,
-    LoginComponent,
+    // HeaderMenuComponent,
+    // LoginComponent,
     NotFoundComponent,
     // PostComponent,
-    ProfileComponent,
+    // ProfileComponent,
     // PeopleComponent,
     // InvitationComponent,
-    ErrorComponent
+    // ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +64,12 @@ import { HomeModule } from './pages/home/home.module';
     InvitationModule,
     PostModule,
     PeopleModule,
-    HomeModule
+    HomeModule,
+    ErrorModule,
+    HeaderMenuModule,
+    LoginModule,
+    ProfileModule,
+    SignInModule
   ],
   providers: [
     AuthService,
