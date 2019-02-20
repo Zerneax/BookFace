@@ -6,25 +6,18 @@ import { HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SignInComponent } from './pages/sign-in/sign-in.component';
-import { HomeComponent } from './pages/home/home.component';
-import { HeaderMenuComponent } from './pages/header-menu/header-menu.component';
-import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { PostComponent } from './pages/post/post.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { PeopleComponent } from './pages/people/people.component';
-import { ErrorComponent } from './pages/error/error.component';
-import { InvitationComponent } from './pages/invitation/invitation.component';
 
 import { SuiModule } from 'ng2-semantic-ui';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 
-import { AuthService } from './services/auth/auth.service';
-import { SignInService } from './services/signIn/sign-in.service';
-import { LoginService } from './services/login/login.service';
-import { AuthGuardService } from './services/guard/auth-guard.service';
-import { PostService } from './services/post/post.service';
+import { HomeModule } from './pages/home/home.module';
+import { HeaderMenuModule } from './pages/header-menu/header-menu.module';
+import { SignInModule } from './pages/sign-in/sign-in.module';
+import { PeopleModule } from './pages/people/people.module';
+import { LoginModule } from './pages/login/login.module';
+import { ProfileModule } from './pages/profile/profile.module';
+import { ErrorModule } from './pages/error/error.module';
 
 
 describe('AppComponent', () => {
@@ -37,20 +30,18 @@ describe('AppComponent', () => {
         HttpClientModule,
         AppRoutingModule,
         SuiModule,
-        AngularFontAwesomeModule
+        AngularFontAwesomeModule,
+        HomeModule,
+        HeaderMenuModule,
+        SignInModule,
+        PeopleModule,
+        LoginModule,
+        ProfileModule,
+        ErrorModule
       ],
       declarations: [
         AppComponent,
-        HomeComponent,
-        HeaderMenuComponent,
-        SignInComponent,
-        PeopleComponent,
-        LoginComponent,
-        NotFoundComponent,
-        ProfileComponent,
-        PostComponent,
-        ErrorComponent,
-        InvitationComponent
+        NotFoundComponent
       ],
     }).compileComponents();
   }));

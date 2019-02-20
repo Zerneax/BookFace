@@ -5,27 +5,21 @@ import { HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './../../app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-
-import { HeaderMenuComponent } from './../header-menu/header-menu.component';
-import { SignInComponent } from './../sign-in/sign-in.component';
 import {HomeComponent} from './home.component';
-import {LoginComponent} from './../login/login.component';
 import {NotFoundComponent} from './../not-found/not-found.component';
-import {ProfileComponent} from './../profile/profile.component';
-import { PostComponent } from './../post/post.component';
-import { PeopleComponent } from './../people/people.component';
-import { ErrorComponent } from './../error/error.component';
-import { InvitationComponent } from './../invitation/invitation.component';
 
 import { SuiModule } from 'ng2-semantic-ui';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
-import { User } from '../../models/user/user';
 
 import { AuthService } from './../../services/auth/auth.service';
-import { HomeModule } from './home.module';
 import { PostModule } from '../post/post.module';
 import { InvitationModule } from '../invitation/invitation.module';
 import { PeopleModule } from '../people/people.module';
+import { SignInModule } from '../sign-in/sign-in.module';
+import { ProfileModule } from '../profile/profile.module';
+import { ErrorModule } from '../error/error.module';
+import { LoginModule } from '../login/login.module';
+import { HeaderMenuModule } from '../header-menu/header-menu.module';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -43,16 +37,16 @@ describe('HomeComponent', () => {
         FormsModule,
         PostModule,
         InvitationModule,
-        PeopleModule
+        PeopleModule,
+        SignInModule,
+        ProfileModule,
+        ErrorModule,
+        LoginModule,
+        HeaderMenuModule
       ],
       declarations: [
         HomeComponent,
-        SignInComponent,
-        ProfileComponent,
-        ErrorComponent,
-        LoginComponent,
-        NotFoundComponent,
-        HeaderMenuComponent
+        NotFoundComponent
       ]
     })
     .compileComponents();

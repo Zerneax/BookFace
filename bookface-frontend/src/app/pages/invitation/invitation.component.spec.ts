@@ -4,20 +4,15 @@ import { InvitationComponent } from './invitation.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '../../app-routing.module';
-import { SuiModule } from 'ng2-semantic-ui';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
-import { HomeComponent } from '../home/home.component';
-import { HeaderMenuComponent } from '../header-menu/header-menu.component';
-import { SignInComponent } from '../sign-in/sign-in.component';
-import { LoginComponent } from '../login/login.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
-import { ProfileComponent } from '../profile/profile.component';
-import { PostComponent } from '../post/post.component';
-import { PeopleComponent } from '../people/people.component';
-import { ErrorComponent } from '../error/error.component';
 import { Friendship } from '../../models/friendship/friendship';
+import { HomeModule } from '../home/home.module';
+import { HeaderMenuModule } from '../header-menu/header-menu.module';
+import { SignInModule } from '../sign-in/sign-in.module';
+import { LoginModule } from '../login/login.module';
+import { PeopleModule } from '../people/people.module';
+import { ErrorModule } from '../error/error.module';
 
 describe('InvitationComponent', () => {
   let component: InvitationComponent;
@@ -29,22 +24,16 @@ describe('InvitationComponent', () => {
         RouterTestingModule,
         HttpClientModule,
         AppRoutingModule,
-        SuiModule,
         AngularFontAwesomeModule,
-        ReactiveFormsModule,
-        FormsModule
+        HomeModule,
+        HeaderMenuModule,
+        SignInModule,
+        LoginModule,
+        PeopleModule,
+        ErrorModule
       ],
       declarations: [
-        HomeComponent,
-        HeaderMenuComponent,
-        SignInComponent,
-        LoginComponent,
-        NotFoundComponent,
-        ProfileComponent,
-        PostComponent,
-        PeopleComponent,
-        ErrorComponent,
-        InvitationComponent
+        NotFoundComponent
       ]
     })
     .compileComponents();

@@ -21,6 +21,12 @@ import { InvitationComponent } from './../invitation/invitation.component';
 import { Post } from '../../models/post/post';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../services/auth/auth.service';
+import { HomeModule } from '../home/home.module';
+import { HeaderMenuModule } from '../header-menu/header-menu.module';
+import { SignInModule } from '../sign-in/sign-in.module';
+import { LoginModule } from '../login/login.module';
+import { PeopleModule } from '../people/people.module';
+import { ErrorModule } from '../error/error.module';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -35,19 +41,16 @@ describe('ProfileComponent', () => {
         SuiModule,
         AngularFontAwesomeModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        HomeModule,
+        HeaderMenuModule,
+        SignInModule,
+        LoginModule,
+        PeopleModule,
+        ErrorModule,
       ],
       declarations: [
-        HomeComponent,
-        HeaderMenuComponent,
-        SignInComponent,
-        LoginComponent,
-        NotFoundComponent,
-        ProfileComponent,
-        PostComponent,
-        PeopleComponent,
-        ErrorComponent,
-        InvitationComponent
+        NotFoundComponent
       ]
     })
     .compileComponents();
