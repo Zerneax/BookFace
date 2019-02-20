@@ -22,6 +22,10 @@ import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { User } from '../../models/user/user';
 
 import { AuthService } from './../../services/auth/auth.service';
+import { HomeModule } from './home.module';
+import { PostModule } from '../post/post.module';
+import { InvitationModule } from '../invitation/invitation.module';
+import { PeopleModule } from '../people/people.module';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -36,19 +40,19 @@ describe('HomeComponent', () => {
         SuiModule,
         AngularFontAwesomeModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        PostModule,
+        InvitationModule,
+        PeopleModule
       ],
       declarations: [
         HomeComponent,
-        HeaderMenuComponent,
         SignInComponent,
+        ProfileComponent,
+        ErrorComponent,
         LoginComponent,
         NotFoundComponent,
-        ProfileComponent,
-        PostComponent,
-        PeopleComponent,
-        ErrorComponent,
-        InvitationComponent
+        HeaderMenuComponent
       ]
     })
     .compileComponents();

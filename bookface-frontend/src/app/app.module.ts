@@ -27,6 +27,10 @@ import { PostService } from './services/post/post.service';
 import { PeopleService } from './services/people/people.service';
 import { ErrorService } from './services/error/error.service';
 import { InvitationService } from './services/invitation/invitation.service';
+import { InvitationModule } from './pages/invitation/invitation.module';
+import { PostModule } from './pages/post/post.module';
+import { PeopleModule } from './pages/people/people.module';
+import { HomeModule } from './pages/home/home.module';
 
 
 
@@ -34,14 +38,14 @@ import { InvitationService } from './services/invitation/invitation.service';
   declarations: [
     AppComponent,
     SignInComponent,
-    HomeComponent,
+    // HomeComponent,
     HeaderMenuComponent,
     LoginComponent,
     NotFoundComponent,
-    PostComponent,
+    // PostComponent,
     ProfileComponent,
-    PeopleComponent,
-    InvitationComponent,
+    // PeopleComponent,
+    // InvitationComponent,
     ErrorComponent
   ],
   imports: [
@@ -51,7 +55,11 @@ import { InvitationService } from './services/invitation/invitation.service';
     AngularFontAwesomeModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    InvitationModule,
+    PostModule,
+    PeopleModule,
+    HomeModule
   ],
   providers: [
     AuthService,
