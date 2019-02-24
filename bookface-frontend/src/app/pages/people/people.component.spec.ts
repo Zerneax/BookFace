@@ -16,6 +16,7 @@ import { LoginModule } from '../login/login.module';
 import { ProfileModule } from '../profile/profile.module';
 import { ErrorModule } from '../error/error.module';
 import { PostModule } from '../post/post.module';
+import { PeopleService } from 'src/app/services/people/people.service';
 
 describe('PeopleComponent', () => {
   let component: PeopleComponent;
@@ -52,6 +53,9 @@ describe('PeopleComponent', () => {
 
     const authService = fixture.debugElement.injector.get(AuthService);
     spyOn(authService, 'getCurrentUser').and.returnValue(new User());
+
+    const peopleService = fixture.debugElement.injector.get(PeopleService);
+    spyOn(peopleService, 'currentPeople').and.returnValue(new User());
     fixture.detectChanges();
   });
 

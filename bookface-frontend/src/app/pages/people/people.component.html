@@ -14,9 +14,14 @@
         </div>
       </div>
       <div class="extra content">
-        <button class="ui primary button" (click)="askToBefriends()" [disabled]="!canAdd"> Ask to be friends ! </button>
+        <button class="ui primary button" (click)="askToBefriends()" *ngIf="canAdd"> Ask to be friends ! </button>
+        <button class="ui primary button" (click)="removeFriends()" *ngIf="!canAdd"> Remove friends ! </button>
       </div>
     </div>
+    <button class="ui secondary mini labeled icon button" (click)="goHome()">
+      Home
+      <i class="arrow left icon"></i>
+    </button>
   </div>
   <div class="twelve wide column">
     <div class="listing">
@@ -29,11 +34,5 @@
         <p> No posts for moment !</p>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="ui one column grid">
-  <div class="ui right aligned column">
-    <button class="ui primary button" (click)="goHome()"> Home ! </button>
   </div>
 </div>

@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { ErrorService } from '../../services/error/error.service';
 import { ErrorMessage } from '../../models/error/error';
 import { User } from 'src/app/models/user/user';
+import { Friendship } from 'src/app/models/friendship/friendship';
 
 @Component({
   selector: 'app-people',
@@ -19,6 +20,7 @@ export class PeopleComponent implements OnInit {
   currentPeople: User;
   currentPeopleSubscription: Subscription;
   posts: Array<Post> = new Array<Post>();
+  idFriendship: string;
 
   canAdd: boolean = true;
 
@@ -61,8 +63,9 @@ export class PeopleComponent implements OnInit {
 
   getFriendship() {
     this.peopleService.getFriendship(this.authService.getCurrentUser().id, this.currentPeople.id).subscribe(
-      (response) => {
+      (response: any) => {
         this.canAdd = false;
+        this.idFriendship = response.friendship.id;
       }, (error) => {
         this.canAdd = true;
       }
@@ -72,7 +75,6 @@ export class PeopleComponent implements OnInit {
   askToBefriends() {
     this.peopleService.askToBefriends(this.authService.getCurrentUser().id, this.currentPeople.id).subscribe(
       (response) => {
-        console.log("ok");
       }, (error) => {
         const errorMessage = new ErrorMessage();
         errorMessage.header = "Oops an error was occured";
@@ -80,6 +82,19 @@ export class PeopleComponent implements OnInit {
         this.errorService.displayErrorMessage(errorMessage);
       }
     );
+  }
+
+  removeFriends() {
+    this.peopleService.refuseFriendship(this.idFriendship).subscribe(
+      (reponse) => {
+        this.goHome();
+      }, (error) => {
+        const errorMessage = new ErrorMessage();
+        errorMessage.header = "Oops an error was occured";
+        errorMessage.information = "We can't remove this person to your friends for the moment. Please try later !";
+        this.errorService.displayErrorMessage(errorMessage);
+      }
+    )
   }
 
 
