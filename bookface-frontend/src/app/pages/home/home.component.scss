@@ -1,3 +1,26 @@
 .adding {
   padding-bottom: 1rem;
 }
+
+.separator {
+  overflow:auto;
+  border-left: 2px solid #e5e5e5;
+  max-width: 1px;
+  transform: scaleY(100);
+}
+
+.liste-friends {
+  text-align: left;
+  font-size: 8px;
+  min-width: 80px;
+}
+
+.profile {
+  margin-left: 10px;
+  text-align: left;
+}
+
+// .friends {
+//   max-width: 80px;
+//   margin-right: -10%;
+// }

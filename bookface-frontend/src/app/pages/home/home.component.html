@@ -1,6 +1,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/modal.css" rel="stylesheet">
-<div class="ui center aligned three column grid">
-  <div class="two wide column profile">
+<div class="ui three column grid">
+  <div class="profile three wide column ">
     <div class="ui card">
       <div class="image">
         <img src="../../assets/matthew.png">
@@ -34,12 +34,12 @@
       </div>
     </div>
   </div>
-  <div class="left aligned eleven wide column">
+  <div class="twelve wide column">
     <sui-dimmer class="inverted" [(isDimmed)]="loading">
       <div class="ui text loader">Loading</div>
     </sui-dimmer>
     <a (click)="getPosts()"><i class="sync icon"></i></a>
-    <div class="ui container adding">
+    <div class="adding">
       <div class="ui segment">
         <div class="ui form">
           <div class="field">
@@ -53,7 +53,7 @@
         </div>
       </div>
     </div>
-    <div class="ui container">
+    <div>
       <div class="ui list" *ngFor="let post of posts">
         <div class="item">
           <app-post [post]="post.post" [canDelete]="true"></app-post>
@@ -62,11 +62,14 @@
     </div>
   </div>
 
-  <div class="two wide column">
-      <p>
-        ici les amis connectes
-      </p>
-  </div>
+  <!-- <div class="column friends">
+    <div class="ui two column grid">
+      <div class="column separator"></div>
+      <div class="column liste-friends">
+        <label class="ui label"><i class="green circle icon"></i> test</label>
+      </div>
+    </div>
+  </div> -->
 </div>
 
 <div style="text-align:center">
