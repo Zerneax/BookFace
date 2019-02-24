@@ -11,8 +11,8 @@ import { Friendship } from 'src/app/models/friendship/friendship';
 export class PeopleService implements OnInit{
 
 
-  peopleSubject = new Subject<string>();
-  private people: string;
+  peopleSubject = new Subject<User>();
+  private people: User;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -29,8 +29,11 @@ export class PeopleService implements OnInit{
     this.peopleSubject.next(this.people);
   }
 
-  setPeople(id: string) {
-    this.people = id;
+  setPeople(id: string, lastName: string, firstName: string) {
+    this.people = new User();
+    this.people.id = id;
+    this.people.lastName = lastName;
+    this.people.firstName = firstName;
     this.emitPeopleSubject();
   }
 

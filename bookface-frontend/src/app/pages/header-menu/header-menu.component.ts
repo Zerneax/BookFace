@@ -4,7 +4,7 @@ import { LoginService } from './../../services/login/login.service';
 import { AuthService } from './../../services/auth/auth.service';
 import { User } from './../../models/user/user';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, forkJoin } from 'rxjs';
 import { PeopleService } from '../../services/people/people.service';
 import { ErrorService } from '../../services/error/error.service';
 
@@ -50,19 +50,25 @@ export class HeaderMenuComponent implements OnInit {
       (auth: boolean) => {this.auth = auth;}
     );
 
-    this.userSubscription = this.authService.userSubject.subscribe(
-      (user: User) => {this.user = user;}
-    );
 
-    this.peopleService.getPeoples().subscribe(
-      (responsePeople) => {
-        responsePeople.forEach(u => {
-          this.peoples.push({'title': u.lastName + " " + u.firstName, 'id': u.id});
-        })
-      }, (error) => {
-        console.log("Error " + error);
+    this.userSubscription = this.authService.userSubject.subscribe(
+      (user: User) => {
+        this.user = user;
+
+        this.peopleService.getPeoples().subscribe(
+          (responsePeople) => {
+            responsePeople.forEach(u => {
+              if(u.id != this.user.id)
+                this.peoples.push({'title': u.lastName + " " + u.firstName, 'id': u.id, 'lastName': u.lastName, 'firstName': u.firstName});
+            })
+          }, (error) => {
+            console.log("Error " + error);
+          }
+        );
       }
     );
+
+
 
   }
 
@@ -71,7 +77,7 @@ export class HeaderMenuComponent implements OnInit {
   }
 
   public redirectToPeopleDetail= (event: any) => {
-    this.peopleService.setPeople(event.id);
+    this.peopleService.setPeople(event.id, event.lastName, event.firstName);
     this.router.navigate(['people'])
   }
 

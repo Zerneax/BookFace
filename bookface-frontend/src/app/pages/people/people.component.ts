@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { ErrorService } from '../../services/error/error.service';
 import { ErrorMessage } from '../../models/error/error';
+import { User } from 'src/app/models/user/user';
 
 @Component({
   selector: 'app-people',
@@ -15,7 +16,7 @@ import { ErrorMessage } from '../../models/error/error';
 })
 export class PeopleComponent implements OnInit {
 
-  currentPeople: string;
+  currentPeople: User;
   currentPeopleSubscription: Subscription;
   posts: Array<Post> = new Array<Post>();
 
@@ -37,7 +38,7 @@ export class PeopleComponent implements OnInit {
     this.getFriendship();
 
     this.currentPeopleSubscription = this.peopleService.peopleSubject.subscribe(
-      (people: string) => {this.currentPeople = people; this.loadPosts(); this.getFriendship();}
+      (people: User) => {this.currentPeople = people; this.loadPosts(); this.getFriendship();}
     );
   }
 
@@ -46,7 +47,7 @@ export class PeopleComponent implements OnInit {
   }
 
   loadPosts() {
-    this.postService.getPosts(this.currentPeople).subscribe(
+    this.postService.getPosts(this.currentPeople.id).subscribe(
       (response) => {
         this.posts = response;
       }, (error) => {
@@ -59,7 +60,7 @@ export class PeopleComponent implements OnInit {
   }
 
   getFriendship() {
-    this.peopleService.getFriendship(this.authService.getCurrentUser().id, this.currentPeople).subscribe(
+    this.peopleService.getFriendship(this.authService.getCurrentUser().id, this.currentPeople.id).subscribe(
       (response) => {
         this.canAdd = false;
       }, (error) => {
@@ -69,7 +70,7 @@ export class PeopleComponent implements OnInit {
   }
 
   askToBefriends() {
-    this.peopleService.askToBefriends(this.authService.getCurrentUser().id, this.currentPeople).subscribe(
+    this.peopleService.askToBefriends(this.authService.getCurrentUser().id, this.currentPeople.id).subscribe(
       (response) => {
         console.log("ok");
       }, (error) => {
