@@ -1,6 +1,9 @@
 package com.projet.bookface.controller;
 
 import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.websocket.server.PathParam;
@@ -61,10 +64,15 @@ public class FriendshipController {
 	
 	@PostMapping
 	public ResponseEntity createFriendship(@RequestBody AskingFriendShipOdt friendShipOdt) {
-		
+
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar cal = Calendar.getInstance();
+		Date date = cal.getTime();
+
 		Friendship friendship = Friendship.builder()
 				.idUser1(friendShipOdt.getCurrentUser())
 				.idUser2(friendShipOdt.getPeople())
+				.date(format.format(date))
 				.build();
 		Friendship friendShipAdded = this.friendshipDao.askToBeFriend(friendship);
 		

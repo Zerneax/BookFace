@@ -20,6 +20,7 @@ public class Friendship {
 	private String idUser1;
 	private String idUser2;
 	private Statut statut;
+	private String date;
 	
 	public enum Statut {
 		asking,

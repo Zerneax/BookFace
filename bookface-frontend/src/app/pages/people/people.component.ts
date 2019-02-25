@@ -20,7 +20,7 @@ export class PeopleComponent implements OnInit {
   currentPeople: User;
   currentPeopleSubscription: Subscription;
   posts: Array<Post> = new Array<Post>();
-  idFriendship: string;
+  friendship: Friendship;
 
   canAdd: boolean = true;
 
@@ -65,7 +65,7 @@ export class PeopleComponent implements OnInit {
     this.peopleService.getFriendship(this.authService.getCurrentUser().id, this.currentPeople.id).subscribe(
       (response: any) => {
         this.canAdd = false;
-        this.idFriendship = response.friendship.id;
+        this.friendship = response.friendship;
       }, (error) => {
         this.canAdd = true;
       }
@@ -85,7 +85,7 @@ export class PeopleComponent implements OnInit {
   }
 
   removeFriends() {
-    this.peopleService.refuseFriendship(this.idFriendship).subscribe(
+    this.peopleService.refuseFriendship(this.friendship.id).subscribe(
       (reponse) => {
         this.goHome();
       }, (error) => {
