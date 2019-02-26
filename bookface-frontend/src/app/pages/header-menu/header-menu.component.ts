@@ -54,19 +54,22 @@ export class HeaderMenuComponent implements OnInit {
     this.userSubscription = this.authService.userSubject.subscribe(
       (user: User) => {
         this.user = user;
-
-        this.peopleService.getPeoples().subscribe(
-          (responsePeople) => {
-            responsePeople.forEach(u => {
-              if(u.id != this.user.id)
-                this.peoples.push({'title': u.lastName + " " + u.firstName, 'id': u.id, 'lastName': u.lastName, 'firstName': u.firstName});
-            })
-          }, (error) => {
-            console.log("Error " + error);
-          }
-        );
+        if(this.peoples.length == 0) {
+          this.peopleService.getPeoples().subscribe(
+            (responsePeople) => {
+              responsePeople.forEach(u => {
+                if(u.id != this.user.id)
+                  this.peoples.push({'title': u.lastName + " " + u.firstName, 'id': u.id, 'lastName': u.lastName, 'firstName': u.firstName});
+              })
+            }, (error) => {
+              console.log("Error " + error);
+            }
+          );
+        }
       }
     );
+
+
 
 
 
@@ -112,6 +115,7 @@ export class HeaderMenuComponent implements OnInit {
   }
 
   logout() {
+    this.peoples = new Array();
     this.authService.logout();
   }
 }
