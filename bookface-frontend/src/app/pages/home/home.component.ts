@@ -14,6 +14,7 @@ import { Friendship } from '../../models/friendship/friendship';
 import { ErrorService } from '../../services/error/error.service';
 import { ErrorMessage } from '../../models/error/error';
 import { InvitationService } from '../../services/invitation/invitation.service';
+import { Friend } from 'src/app/models/friend/friend';
 
 export interface IContext {
     data:string;
@@ -35,7 +36,7 @@ export class HomeComponent implements OnInit {
   waitingFriendshipList: Array<Friendship>;
   waitingFriendshipSubscription: Subscription;
   loading = false;
-  friends: Array<Friendship> = [];
+  friends: Array<Friend> = [];
 
   @ViewChild('modalTemplate')
     public modalTemplate:ModalTemplate<IContext, string, string>
@@ -119,7 +120,7 @@ export class HomeComponent implements OnInit {
 
   getAllFriends() {
     this.peopleService.getAllFriends(this.currentUser.id).subscribe(
-      (response: Array<Friendship>) => {
+      (response: Array<Friend>) => {
         this.friends = response;
       }, (error) => {
         const errorMessage = new ErrorMessage();
@@ -128,6 +129,24 @@ export class HomeComponent implements OnInit {
         this.errorService.displayErrorMessage(errorMessage);
       }
     )
+  }
+
+  removeFriendship(idFriendship: string) {
+    this.peopleService.refuseFriendship(idFriendship).subscribe(
+      (reponse) => {
+        let index = -1;
+        this.friends.forEach((f, i) => {
+          if(f.idFriendship == idFriendship)
+            index = i;
+        });
+        this.friends.splice(index, 1);
+      }, (error) => {
+        const errorMessage = new ErrorMessage();
+        errorMessage.header = "Oops an error was occured";
+        errorMessage.information = "We can't remove this person to your friends for the moment. Please try later !";
+        this.errorService.displayErrorMessage(errorMessage);
+      }
+    );
   }
 
   public open(dynamicContent:string = "Example") {

@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user/user';
 import { Subject } from 'rxjs';
 import { Post } from 'src/app/models/post/post';
 import { Friendship } from 'src/app/models/friendship/friendship';
+import { Friend } from 'src/app/models/friend/friend';
 
 @Injectable({
   providedIn: 'root'
@@ -78,6 +79,6 @@ export class PeopleService implements OnInit{
 
   getAllFriends(idUser) {
     return this.httpClient
-    .get<Array<Friendship>>('http://192.168.0.18:8080/users/' + idUser + '/friends');
+    .get<Array<Friend>>('http://192.168.0.18:8080/users/' + idUser + '/friends');
   }
 }

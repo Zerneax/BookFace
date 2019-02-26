@@ -18,10 +18,10 @@
         <p>
           Joined {{currentUser.dateRegister}}
         </p>
-        <p>
+        <a (click)="showFriends = true">
           <i class="user icon"></i>
           {{friends.length}} Friends
-        </p>
+        </a>
       </div>
     </div>
     <div class="ui card">
@@ -82,6 +82,26 @@
         </div>
       </div>
       <span *ngIf="waitingFriendshipList.length == 0"> You have no invitations for the moment ! </span>
+    </div>
+    <div class="actions">
+        <!-- <button class="ui red button" (click)="modal.deny()">Cancel</button> -->
+        <button class="ui green button" (click)="modal.approve()" autofocus>Close</button>
+    </div>
+  </sui-modal>
+
+  <sui-modal *ngIf="showFriends" [isClosable]="false" (dismissed)="showFriends = false" #modal>
+    <div class="header">All my friends</div>
+    <div class="content">
+      <div class="ui list" *ngFor="let friend of friends">
+        <div class="item">
+          <p> {{friend.lastName}} {{friend.firstName}}
+            <a class="right floated" (click)="removeFriendship(friend.idFriendship)">
+              <i class="red close icon"></i>
+            </a>
+          </p>
+        </div>
+      </div>
+      <span *ngIf="friends.length == 0"> You have no friends for the moment ! </span>
     </div>
     <div class="actions">
         <!-- <button class="ui red button" (click)="modal.deny()">Cancel</button> -->

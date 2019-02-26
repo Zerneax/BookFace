@@ -2,23 +2,18 @@ package com.projet.bookface.controller;
 
 import java.net.URI;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.projet.bookface.exception.BackendException;
+import com.projet.bookface.models.Friend;
+import com.projet.bookface.service.FriendService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mongodb.client.result.DeleteResult;
@@ -31,6 +26,8 @@ import com.projet.bookface.odt.MailAvailableOdt;
 import com.projet.bookface.odt.UserLightOdt;
 import com.projet.bookface.odt.UserOdt;
 
+import javax.xml.ws.Response;
+
 @RestController
 @RequestMapping(value="/users")
 @CrossOrigin(origins = {"http://192.168.0.18:4200", "http://localhost:4200"})
@@ -38,11 +35,13 @@ public class UserController {
 
 	private UserDao userDao;
 	private FriendshipDao friendshipDao;
+	private FriendService friendService;
 
-	public UserController(UserDao userDao, FriendshipDao friendshipDao) {
+	public UserController(UserDao userDao, FriendshipDao friendshipDao, FriendService friendService) {
 		super();
 		this.userDao = userDao;
 		this.friendshipDao = friendshipDao;
+		this.friendService = friendService;
 	}
 	
 	@GetMapping(value="/{mail}/login")
@@ -92,7 +91,19 @@ public class UserController {
 	
 	@GetMapping(value="/{id}/friends")
 	public ResponseEntity getAllFriends(@PathVariable String id) {
-		List<Friendship> friends = this.friendshipDao.getAllFriends(id);
+		List<Friendship> friendship = this.friendshipDao.getAllFriends(id);
+
+		List<Friend> friends = new ArrayList<>();
+		for(Friendship f: friendship) {
+			try {
+				Friend friend = this.friendService.getDetailFriendship(id.equals(f.getIdUser1()) ? f.getIdUser2() : f.getIdUser1());
+				friend.setSince(f.getDate());
+				friend.setIdFriendship(f.getId());
+				friends.add(friend);
+			} catch (BackendException e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+			}
+		}
 		
 		return ResponseEntity.ok(friends);
 	}

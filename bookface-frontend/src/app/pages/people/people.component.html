@@ -14,8 +14,8 @@
         </div>
       </div>
       <div class="extra content">
-        <span *ngIf="friendship.statut == 'asking'"> Asking to be friends : {{friendship.date}} </span>
-        <span *ngIf="friendship.statut == 'friends'"> Friends since : {{friendship.date}} </span>
+        <span *ngIf="friendship != undefined && friendship.statut == 'asking'" > Asking to be friends : {{friendship.date}} </span>
+        <span *ngIf="friendship != undefined && friendship.statut == 'friends'"> Friends since : {{friendship.date}} </span>
         <button class="ui primary button" (click)="askToBefriends()" *ngIf="canAdd"> Ask to be friends ! </button>
         <button class="ui primary button" (click)="removeFriends()" *ngIf="!canAdd"> Remove friends ! </button>
       </div>
