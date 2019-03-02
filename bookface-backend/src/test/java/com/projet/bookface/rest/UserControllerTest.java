@@ -6,10 +6,13 @@ import static org.junit.Assert.assertNotNull;
 
 import java.net.URI;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -25,8 +28,22 @@ public class UserControllerTest {
 
 	@Autowired
 	private UserController controller;
+	@Autowired
+	private MongoTemplate mongoTemplate;
 	
 	private String idCreated;
+
+	@Before
+	public void setUp() {
+		this.mongoTemplate.remove(new Query(),User.class);
+	}
+
+	@Test
+	public void checkMail_already_exist() {
+		MailAvailableOdt odt = controller.checkMailAvailable("test@test.com");
+		assertNotNull(odt);
+		assertEquals(true, odt.isAvailable());
+	}
 	
 	@Test
 	public void createUser() {
@@ -47,13 +64,6 @@ public class UserControllerTest {
 		
 		ResponseEntity responseDelete = controller.deleteUser(idCreated);
 		assertEquals(HttpStatus.OK, responseDelete.getStatusCode());
-	}
-	
-	@Test
-	public void checkMail_already_exist() {
-		MailAvailableOdt odt = controller.checkMailAvailable("test@test.com");
-		assertNotNull(odt);
-		assertEquals(false, odt.isAvailable());
 	}
 	
 	@Test
