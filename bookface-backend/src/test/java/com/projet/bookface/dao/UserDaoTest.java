@@ -6,10 +6,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mongodb.client.result.DeleteResult;
@@ -21,6 +24,14 @@ public class UserDaoTest {
 
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private MongoTemplate mongoTemplate;
+
+	@Before
+	public void setUp() {
+		this.mongoTemplate.remove(new Query(), User.class);
+		this.createUserAndFetchById();
+	}
 	
 	@Test
 	public void createUserAndFetchById() {
@@ -40,7 +51,7 @@ public class UserDaoTest {
 	@Test
 	public void getAllUsers() {
 		List<User> users = this.userDao.findAllUsers();
-		assertTrue(users.size() >= 1);
+		assertTrue(users.size() == 1);
 	}
 	
 	@Test
