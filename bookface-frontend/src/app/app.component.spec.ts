@@ -18,6 +18,7 @@ import { PeopleModule } from './pages/people/people.module';
 import { LoginModule } from './pages/login/login.module';
 import { ProfileModule } from './pages/profile/profile.module';
 import { ErrorModule } from './pages/error/error.module';
+import { APP_BASE_HREF } from '@angular/common';
 
 
 describe('AppComponent', () => {
@@ -43,6 +44,9 @@ describe('AppComponent', () => {
         AppComponent,
         NotFoundComponent
       ],
+      providers: [
+        { provide: APP_BASE_HREF, useValue : '/' }
+      ]
     }).compileComponents();
   }));
 

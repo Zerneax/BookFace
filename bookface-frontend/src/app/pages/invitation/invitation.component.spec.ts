@@ -13,6 +13,7 @@ import { SignInModule } from '../sign-in/sign-in.module';
 import { LoginModule } from '../login/login.module';
 import { PeopleModule } from '../people/people.module';
 import { ErrorModule } from '../error/error.module';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('InvitationComponent', () => {
   let component: InvitationComponent;
@@ -34,6 +35,9 @@ describe('InvitationComponent', () => {
       ],
       declarations: [
         NotFoundComponent
+      ],
+      providers: [
+        { provide: APP_BASE_HREF, useValue : '/' }
       ]
     })
     .compileComponents();

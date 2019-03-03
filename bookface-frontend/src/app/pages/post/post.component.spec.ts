@@ -20,6 +20,7 @@ import { LoginModule } from '../login/login.module';
 import { ProfileModule } from '../profile/profile.module';
 import { PeopleModule } from '../people/people.module';
 import { ErrorModule } from '../error/error.module';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('PostComponent', () => {
   let component: PostComponent;
@@ -46,6 +47,9 @@ describe('PostComponent', () => {
       ],
       declarations: [
         NotFoundComponent
+      ],
+      providers: [
+        { provide: APP_BASE_HREF, useValue : '/' }
       ]
     })
     .compileComponents();

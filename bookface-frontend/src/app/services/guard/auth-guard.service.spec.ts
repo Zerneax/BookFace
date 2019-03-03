@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { SuiModule } from 'ng2-semantic-ui';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('AuthGuardService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -41,6 +42,9 @@ describe('AuthGuardService', () => {
       PeopleComponent,
       ErrorComponent,
       InvitationComponent
+    ],
+    providers: [
+      { provide: APP_BASE_HREF, useValue : '/' }
     ]
   }));
 

@@ -17,6 +17,7 @@ import { ProfileModule } from '../profile/profile.module';
 import { ErrorModule } from '../error/error.module';
 import { PostModule } from '../post/post.module';
 import { PeopleService } from 'src/app/services/people/people.service';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('PeopleComponent', () => {
   let component: PeopleComponent;
@@ -42,6 +43,9 @@ describe('PeopleComponent', () => {
       declarations: [
         NotFoundComponent,
         PeopleComponent
+      ],
+      providers: [
+        { provide: APP_BASE_HREF, useValue : '/' }
       ]
     })
     .compileComponents();

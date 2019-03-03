@@ -20,6 +20,7 @@ import { ProfileModule } from '../profile/profile.module';
 import { ErrorModule } from '../error/error.module';
 import { LoginModule } from '../login/login.module';
 import { HeaderMenuModule } from '../header-menu/header-menu.module';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -47,6 +48,9 @@ describe('HomeComponent', () => {
       declarations: [
         HomeComponent,
         NotFoundComponent
+      ],
+      providers: [
+        { provide: APP_BASE_HREF, useValue : '/' }
       ]
     })
     .compileComponents();

@@ -21,6 +21,7 @@ import { ProfileModule } from '../profile/profile.module';
 import { PeopleModule } from '../people/people.module';
 import { ErrorModule } from '../error/error.module';
 import { NotFoundComponent } from '../not-found/not-found.component';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('SignInComponent', () => {
   let component: SignInComponent;
@@ -45,6 +46,9 @@ describe('SignInComponent', () => {
       declarations: [
         SignInComponent,
         NotFoundComponent
+      ],
+      providers: [
+        { provide: APP_BASE_HREF, useValue : '/' }
       ]
     })
     .compileComponents();

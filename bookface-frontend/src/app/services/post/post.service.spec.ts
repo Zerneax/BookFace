@@ -16,6 +16,7 @@ import { ProfileComponent } from 'src/app/pages/profile/profile.component';
 import { PeopleComponent } from './../../pages/people/people.component';
 import { ErrorComponent } from './../../pages/error/error.component';
 import { InvitationComponent } from './../../pages/invitation/invitation.component';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('PostService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -38,6 +39,9 @@ describe('PostService', () => {
       PeopleComponent,
       ErrorComponent,
       InvitationComponent
+    ],
+    providers: [
+      { provide: APP_BASE_HREF, useValue : '/' }
     ]
   }));
 

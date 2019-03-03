@@ -15,6 +15,7 @@ import { PeopleModule } from '../people/people.module';
 import { HomeModule } from '../home/home.module';
 import { ErrorModule } from '../error/error.module';
 import { LoginModule } from '../login/login.module';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('HeaderMenuComponent', () => {
   let component: HeaderMenuComponent;
@@ -37,6 +38,9 @@ describe('HeaderMenuComponent', () => {
       declarations: [
         HeaderMenuComponent,
         NotFoundComponent
+      ],
+      providers: [
+        { provide: APP_BASE_HREF, useValue : '/' }
       ]
     })
     .compileComponents();
