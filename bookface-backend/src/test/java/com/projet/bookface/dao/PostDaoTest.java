@@ -1,34 +1,48 @@
 package com.projet.bookface.dao;
 
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 import com.projet.bookface.models.Post;
+import javafx.geometry.Pos;
+import org.bson.BsonString;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 public class PostDaoTest {
 
-    @Autowired
     private PostDao postDao;
-    @Autowired
-    private MongoTemplate mongoTemplate;
 
-    private String idPostTest;
 
     @Before
     public void setUp() {
-        this.mongoTemplate.remove(new Query(), Post.class);
-        this.createPost();
+        MongoTemplate mongoTemplate = Mockito.mock(MongoTemplate.class);
+
+        this.postDao = new PostDao(mongoTemplate);
+
+        Mockito.when(mongoTemplate.insert(Matchers.any(Post.class))).thenReturn(mockPost());
+
+        Mockito.when(mongoTemplate.findOne(Matchers.any(Query.class), Matchers.any())).thenReturn(mockPost());
+
+        List<Object> liste = new ArrayList<>();
+        liste.add(new Post());
+        Mockito.when(mongoTemplate.find(Matchers.any(Query.class), Matchers.any())).thenReturn(liste);
+
     }
 
     @Test
@@ -36,8 +50,7 @@ public class PostDaoTest {
         Post postAdded = this.postDao.createPost(mockPost());
 
         Assert.assertNotNull(postAdded);
-        this.idPostTest = postAdded.getId();
-
+        Assert.assertEquals("123456789", postAdded.getId());
         Assert.assertEquals("test", postAdded.getAuthor());
         Assert.assertEquals("content", postAdded.getContent());
 
@@ -48,7 +61,7 @@ public class PostDaoTest {
 
     @Test
     public void findPost() {
-       Post post = this.postDao.findPost(this.idPostTest);
+       Post post = this.postDao.findPost("any");
        Assert.assertNotNull(post);
 
        Post mock = mockPost();
@@ -65,26 +78,22 @@ public class PostDaoTest {
 
     @Test
     public void updatePost() {
-        Post post = this.postDao.findPost(this.idPostTest);
+        Post post = this.postDao.findPost("any");
         post.setLike(Arrays.asList("user"));
         this.postDao.updatePost(post);
-
-        Post postAfter = this.postDao.findPost(this.idPostTest);
-        Assert.assertNotNull(postAfter);
-        Assert.assertEquals(1, postAfter.getLike().size());
     }
 
     @Test
     public void deletePost() {
-        this.postDao.deletePost(this.idPostTest);
-        Post postAfter = this.postDao.findPost(this.idPostTest);
-        Assert.assertNull(postAfter);
+        this.postDao.deletePost("any");
     }
 
     protected Post mockPost() {
         return Post.builder()
+                .id("123456789")
                 .author("test")
                 .content("content")
+                .date(getDate())
                 .like(new ArrayList<>())
                 .build();
     }
