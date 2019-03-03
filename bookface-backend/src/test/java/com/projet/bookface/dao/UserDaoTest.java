@@ -1,45 +1,60 @@
 package com.projet.bookface.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
+import com.mongodb.client.result.DeleteResult;
+import com.projet.bookface.models.User;
+import org.assertj.core.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Matchers;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import com.mongodb.client.result.DeleteResult;
-import com.projet.bookface.models.User;
+import java.util.ArrayList;
+import java.util.List;
 
-@RunWith(SpringRunner.class)
+import static org.junit.Assert.*;
+
+@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 public class UserDaoTest {
 
-	@Autowired
 	private UserDao userDao;
-	@Autowired
-	private MongoTemplate mongoTemplate;
 
 	@Before
 	public void setUp() {
-		this.mongoTemplate.remove(new Query(), User.class);
-		this.createUserAndFetchById();
+
+
+		MongoTemplate mongoTemplate = Mockito.mock(MongoTemplate.class);
+
+		this.userDao = new UserDao(mongoTemplate);
+		Mockito.when(mongoTemplate.insert(Matchers.any(User.class))).thenReturn(mockGenerateUser());
+
+		Mockito.when(mongoTemplate.findOne(Matchers.any(Query.class), Matchers.any())).thenReturn(mockGenerateUser());
+
+		List<Object> liste = new ArrayList<>();
+		liste.add(new User());
+		Mockito.when(mongoTemplate.findAll(Matchers.any())).thenReturn(liste);
+
+		DeleteResult result = DeleteResult.acknowledged(new Long("1"));
+		Mockito.when(mongoTemplate.remove(Matchers.any(User.class))).thenReturn(result);
 	}
 	
 	@Test
-	public void createUserAndFetchById() {
+	public void createUser() {
 		User user = mockGenerateUser();
 		User added = this.userDao.createUser(user);
 		assertEquals(user, added);		
-		User fecthUser = this.userDao.findById(added.getId());
-		assertNotNull(fecthUser);
+
+	}
+
+	@Test
+	public void findById() {
+		User fecthUser = this.userDao.findById("any");
+		assertEquals(mockGenerateUser(), fecthUser);
 	}
 	
 	@Test
@@ -56,14 +71,13 @@ public class UserDaoTest {
 	
 	@Test
 	public void deleteUser() {
-		User user = this.userDao.findByMail("test@test.com");
-		assertNotNull(user);
-		DeleteResult delete = this.userDao.deleteUser(user);
+		DeleteResult delete = this.userDao.deleteUser(new User());
 		assertEquals(1, delete.getDeletedCount());
 	}
 	
 	private User mockGenerateUser() {
 		return User.builder()
+				.id("123456789")
 				.lastName("test")
 				.firstName("test")
 				.birthday("10/10/1980")
