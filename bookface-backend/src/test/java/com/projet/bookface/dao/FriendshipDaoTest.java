@@ -4,11 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import com.mongodb.client.result.DeleteResult;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.mockito.Matchers;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -18,85 +22,72 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.projet.bookface.models.Friendship;
 import com.projet.bookface.models.Friendship.Statut;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FriendshipDaoTest {
 
-	@Autowired
 	private FriendshipDao friendshipDao;
-	@Autowired
-	private MongoTemplate mongoTemplate;
 
-	private String idFriendship;
 
 	@Before
 	public void setUp() {
-		this.mongoTemplate.remove(new Query(), Friendship.class);
-		this.stage1_askToBeFriends();
+		MongoTemplate mongoTemplate = Mockito.mock(MongoTemplate.class);
+
+		this.friendshipDao = new FriendshipDao(mongoTemplate);
+
+		Friendship friendship = mockFriendship();
+		friendship.setStatut(Statut.asking);
+
+		Mockito.when(mongoTemplate.insert(Matchers.any(Friendship.class))).thenReturn(friendship);
+
+		Mockito.when(mongoTemplate.findOne(Matchers.any(Query.class), Matchers.any())).thenReturn(friendship);
+
+		List<Object> liste = new ArrayList<>();
+		liste.add(new Friendship());
+		Mockito.when(mongoTemplate.find(Matchers.any(Query.class), Matchers.any())).thenReturn(liste);
+
 	}
 
 	@Test
-	public void stage1_askToBeFriends() {
+	public void askToBeFriends() {
 		Friendship friendshipCreated = this.friendshipDao.askToBeFriend(mockFriendship());
 		assertEquals(Statut.asking, friendshipCreated.getStatut());
-		this.idFriendship = friendshipCreated.getId();
 	}
 
 	@Test
-	public void stage2_getFriendship() {
-		Friendship friendship = this.friendshipDao.getFriendship(this.idFriendship);
+	public void getFriendship() {
+		Friendship friendship = this.friendshipDao.getFriendship("any");
 		assertNotNull(friendship);
 	}
 
 	@Test
-	public void stage3_getFriendshipByUsers() {
+	public void getFriendshipByUsers() {
 		Friendship friendship = this.friendshipDao.getFriendshipByUsers("123456", "45789");
 		assertNotNull(friendship);
 	}
 
 	@Test
-	public void stage4_getWaitingFriendship() {
+	public void getWaitingFriendship() {
 		List<Friendship> friendships = this.friendshipDao.getWaitingFriendship("45789");
 		assertNotNull(friendships);
 		assertTrue(friendships.size() == 1);
 	}
 
 	@Test
-	public void stage5_approveFriendship() {
-		this.friendshipDao.approveFriendship(this.idFriendship);
-		Friendship friendship = this.friendshipDao.getFriendship(this.idFriendship);
-		assertNotNull(friendship);
-		assertEquals(Statut.friends, friendship.getStatut());
-
+	public void approveFriendship() {
+		this.friendshipDao.approveFriendship("any");
+		Friendship friendship = this.friendshipDao.getFriendship("any");
 	}
 
 	@Test
-	public void stage6_breakFriendship() {
-		this.friendshipDao.breakFriendship(this.idFriendship);
-
-		Friendship getFriendshipAfterRemove = this.friendshipDao.getFriendship(this.idFriendship);
-		assertEquals(null, getFriendshipAfterRemove);
+	public void breakFriendship() {
+		this.friendshipDao.breakFriendship("any");
 	}
-	
-	/*@Test
-	public void processFriendship() {
-		Friendship friendshipCreated = this.friendshipDao.askToBeFriend(mockFriendship());
-		assertEquals(Statut.asking, friendshipCreated.getStatut());
-		
-		this.friendshipDao.approveFriendship(friendshipCreated.getId());
-		
-		Friendship getFriendship = this.friendshipDao.getFriendship(friendshipCreated.getId());
-		assertEquals(Statut.friends, getFriendship.getStatut());
-		
-		this.friendshipDao.breakFriendship(friendshipCreated.getId());
-		
-		Friendship getFriendshipAfterRemove = this.friendshipDao.getFriendship(friendshipCreated.getId());
-		assertEquals(null, getFriendshipAfterRemove);
-	}*/
-	
+
+
 	private Friendship mockFriendship() {
 		return Friendship.builder()
 				.idUser1("123456")
