@@ -5,10 +5,22 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.mongodb.client.result.DeleteResult;
+import com.projet.bookface.dao.FriendshipDao;
+import com.projet.bookface.dao.UserDao;
+import com.projet.bookface.exception.BackendException;
+import com.projet.bookface.models.Friend;
+import com.projet.bookface.models.Friendship;
+import com.projet.bookface.odt.LoginOdt;
+import com.projet.bookface.odt.UserLightOdt;
+import com.projet.bookface.service.FriendService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -26,20 +38,112 @@ import com.projet.bookface.odt.UserOdt;
 @SpringBootTest
 public class UserControllerTest {
 
-	@Autowired
 	private UserController controller;
-	@Autowired
-	private MongoTemplate mongoTemplate;
-	
-	private String idCreated;
+	private UserDao userDao;
+	private FriendshipDao friendshipDao;
+	private FriendService friendService;
+
 
 	@Before
 	public void setUp() {
-		this.mongoTemplate.remove(new Query(),User.class);
+
+		this.userDao = Mockito.mock(UserDao.class);
+		this.friendshipDao = Mockito.mock(FriendshipDao.class);
+		this.friendService = Mockito.mock(FriendService.class);
+
+		this.controller = new UserController(this.userDao, this.friendshipDao, this.friendService);
+
+	}
+
+	@Test
+	public void login_ok() {
+		Mockito.when(this.userDao.findByMail(Mockito.anyString())).thenReturn(mockGenerateUser());
+		LoginOdt login = this.controller.login("any");
+		assertNotNull(login);
+		assertEquals("123456789", login.getId());
+		assertEquals("123456", login.getPassword());
+	}
+
+	@Test
+	public void login_ko() {
+		Mockito.when(this.userDao.findByMail(Mockito.anyString())).thenReturn(null);
+		LoginOdt login = this.controller.login("any");
+		assertNotNull(login);
+		assertEquals(null, login.getId());
+		assertEquals(null, login.getPassword());
+	}
+
+	@Test
+	public void getUser_ok() {
+		Mockito.when(this.userDao.findById(Mockito.anyString())).thenReturn(mockGenerateUser());
+		ResponseEntity response = controller.getUser("any");
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		UserOdt user = (UserOdt) response.getBody();
+		assertEquals(mockGenerateUser(), user.getUser());
+	}
+
+	@Test
+	public void getUser_ko() {
+		Mockito.when(this.userDao.findById(Mockito.anyString())).thenReturn(null);
+		ResponseEntity response = controller.getUser("any");
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+	}
+
+	@Test
+	public void getUserLight_ok() {
+		Mockito.when(this.userDao.findById(Mockito.anyString())).thenReturn(mockGenerateUser());
+		ResponseEntity response = controller.getUserLight("any");
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		UserLightOdt user = (UserLightOdt) response.getBody();
+		assertEquals("test", user.getFirstName());
+		assertEquals("test", user.getLastName());
+	}
+
+	@Test
+	public void getUserLight_ko() {
+		Mockito.when(this.userDao.findById(Mockito.anyString())).thenReturn(null);
+		ResponseEntity response = controller.getUserLight("any");
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+	}
+
+	@Test
+	public void getAllFriends_ok() throws BackendException {
+		Mockito.when(this.friendshipDao.getAllFriends(Mockito.anyString())).thenReturn(mockAllFriends());
+		Mockito.when(this.friendService.getDetailFriendship(Mockito.anyString())).thenReturn(mockFriend());
+		ResponseEntity response = controller.getAllFriends("any");
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		List<Friend> liste = (List<Friend>) response.getBody();
+		assertEquals(2, liste.size());
+	}
+
+	@Test
+	public void getAllFriends_ok_nofriends() {
+		Mockito.when(this.friendshipDao.getAllFriends(Mockito.anyString())).thenReturn(new ArrayList<Friendship>());
+		ResponseEntity response = controller.getAllFriends("any");
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		List<Friendship> liste = (List<Friendship>) response.getBody();
+		assertEquals(0, liste.size());
+	}
+
+	@Test
+	public void getAllFriends_ko() throws BackendException {
+		Mockito.when(this.friendshipDao.getAllFriends(Mockito.anyString())).thenReturn(mockAllFriends());
+		Mockito.when(this.friendService.getDetailFriendship(Mockito.anyString())).thenThrow(new BackendException("erreur"));
+		ResponseEntity response = controller.getAllFriends("any");
+		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
 	}
 
 	@Test
 	public void checkMail_already_exist() {
+		Mockito.when(this.userDao.findByMail(Mockito.anyString())).thenReturn(mockGenerateUser());
+		MailAvailableOdt odt = controller.checkMailAvailable("test@test.com");
+		assertNotNull(odt);
+		assertEquals(false, odt.isAvailable());
+	}
+
+	@Test
+	public void checkMail_available() {
+		Mockito.when(this.userDao.findByMail(Mockito.anyString())).thenReturn(null);
 		MailAvailableOdt odt = controller.checkMailAvailable("test@test.com");
 		assertNotNull(odt);
 		assertEquals(true, odt.isAvailable());
@@ -47,6 +151,7 @@ public class UserControllerTest {
 	
 	@Test
 	public void createUser() {
+		Mockito.when(this.userDao.createUser(Mockito.any(User.class))).thenReturn(mockGenerateUser());
 		UserOdt odt = new UserOdt(mockGenerateUser());
 		
 		ResponseEntity response = controller.createUser(odt);
@@ -55,28 +160,33 @@ public class UserControllerTest {
 		assertNotEquals("", uri);
 		
 		String[] splitUri = uri.toString().split("/");
-		idCreated = splitUri[splitUri.length -1];
-		
-		ResponseEntity responseGet = controller.getUser(idCreated);
-		assertEquals(HttpStatus.OK, responseGet.getStatusCode());
-		UserOdt userOdtFetch = (UserOdt) responseGet.getBody();
-		assertEquals(odt, userOdtFetch);
-		
-		ResponseEntity responseDelete = controller.deleteUser(idCreated);
-		assertEquals(HttpStatus.OK, responseDelete.getStatusCode());
-	}
-	
-	@Test
-	public void checkMail_not_exist() {
-		MailAvailableOdt odt = controller.checkMailAvailable("test1@test.com");
-		assertNotNull(odt);
-		assertEquals(true, odt.isAvailable());
+		assertEquals("123456789", splitUri[splitUri.length -1]);
 	}
 	
 	@Test
 	public void deleteUser_notExist() {
+		Mockito.when(this.userDao.findById(Mockito.anyString())).thenReturn(null);
 		ResponseEntity response = controller.deleteUser("1");
 		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+	}
+
+	@Test
+	public void deleteUser_ok() {
+		Mockito.when(this.userDao.findById(Mockito.anyString())).thenReturn(mockGenerateUser());
+		DeleteResult result = DeleteResult.acknowledged(new Long("1"));
+		Mockito.when(this.userDao.deleteUser(Mockito.any(User.class))).thenReturn(result);
+		ResponseEntity response = controller.deleteUser("1");
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals(mockGenerateUser(), response.getBody());
+	}
+
+	@Test
+	public void deleteUser_ko() {
+		Mockito.when(this.userDao.findById(Mockito.anyString())).thenReturn(mockGenerateUser());
+		DeleteResult result = DeleteResult.acknowledged(new Long("0"));
+		Mockito.when(this.userDao.deleteUser(Mockito.any(User.class))).thenReturn(result);
+		ResponseEntity response = controller.deleteUser("1");
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 	}
 	
 	
@@ -84,12 +194,40 @@ public class UserControllerTest {
 	
 	private User mockGenerateUser() {
 		return User.builder()
+				.id("123456789")
 				.lastName("test")
 				.firstName("test")
 				.birthday("10/10/1980")
 				.mail("test@test.com")
 				.password("123456")
 				.gender("male")
+				.build();
+	}
+
+	private List<Friendship> mockAllFriends() {
+		List<Friendship> friends = new ArrayList<>();
+
+		friends.add(Friendship.builder()
+			.idUser1("test1")
+			.idUser2("test2")
+			.id("123456789")
+			.build());
+
+		friends.add(Friendship.builder()
+				.idUser1("test1")
+				.idUser2("test3")
+				.id("987654321")
+				.build());
+
+		return friends;
+	}
+
+	private Friend mockFriend() {
+		return Friend.builder()
+				.firstName("friend")
+				.lastName("friend")
+				.idFriendship("123456789")
+				.since("10/10/1980")
 				.build();
 	}
 
