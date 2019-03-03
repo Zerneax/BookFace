@@ -1,94 +1,88 @@
 package com.projet.bookface.rest;
 
 import com.projet.bookface.controller.FriendshipController;
+import com.projet.bookface.dao.FriendshipDao;
 import com.projet.bookface.models.Friendship;
 import com.projet.bookface.odt.AskingFriendShipOdt;
 import com.projet.bookface.odt.FriendshipOdt;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FriendshipControllerTest {
 
-    @Autowired
     private FriendshipController friendshipController;
-    @Autowired
-    private MongoTemplate mongoTemplate;
+    private FriendshipDao friendshipDao;
 
-    private String idFriendship;
+    @Before
+    public void setUp() {
+        this.friendshipDao = Mockito.mock(FriendshipDao.class);
 
+        this.friendshipController = new FriendshipController(this.friendshipDao);
+    }
 
     @Test
-    public void stage1_createFriendship() {
+    public void getFriendship_ok() {
+        Mockito.when(this.friendshipDao.getFriendshipByUsers(Mockito.anyString(), Mockito.anyString())).thenReturn(mockFriendship());
+        ResponseEntity response = this.friendshipController.getFriendsShip("test1", "test2");
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        FriendshipOdt friendshipOdt = (FriendshipOdt) response.getBody();
+        assertNotNull(friendshipOdt);
+        assertEquals(mockFriendship(), friendshipOdt.getFriendship());
+    }
+
+    @Test
+    public void getFriendship_notfound() {
+        Mockito.when(this.friendshipDao.getFriendshipByUsers(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
+        ResponseEntity response = this.friendshipController.getFriendsShip("test1", "test2");
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void getWaitingInvitations_ok() {
+        Mockito.when(this.friendshipDao.getWaitingFriendship(Mockito.anyString())).thenReturn(mockFriendships());
+        ResponseEntity response = this.friendshipController.getWaitingInvitations("test2");
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        List<Friendship> friendships = (List<Friendship>) response.getBody();
+        assertNotNull(friendships);
+        assertEquals(2, friendships.size());
+    }
+
+    @Test
+    public void createFriendship() {
+        Mockito.when(this.friendshipDao.askToBeFriend(Mockito.any())).thenReturn(mockFriendship());
         ResponseEntity response = this.friendshipController.createFriendship(mockAskingFriendship());
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         URI uri = response.getHeaders().getLocation();
         assertNotEquals("", uri);
 
         String[] splitUri = uri.toString().split("/");
-        this.idFriendship = splitUri[splitUri.length -1];
+        assertEquals("123456789", splitUri[splitUri.length -1]);
     }
 
     @Test
-    public void stage2_getFriendship() {
-        ResponseEntity response = this.friendshipController.getFriendsShip("test1", "test2");
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        FriendshipOdt friendshipOdt = (FriendshipOdt) response.getBody();
-
-        assertNotNull(friendshipOdt);
-    }
-
-    @Test
-    public void stage3_getWaitingInvitations() {
-        ResponseEntity response = this.friendshipController.getWaitingInvitations("test2");
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        List<Friendship> friendships = (List<Friendship>) response.getBody();
-
-        assertNotNull(friendships);
-        assertEquals(1, friendships.size());
-    }
-
-    @Test
-    public void stage4_acceptFriendship() {
-        ResponseEntity response = this.friendshipController.acceptFriendship(this.idFriendship);
+    public void acceptFriendship() {
+        ResponseEntity response = this.friendshipController.acceptFriendship("any");
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
-    public void stage5_breakFriendship() {
-        ResponseEntity response = this.friendshipController.refuseFriendship(this.idFriendship);
+    public void breakFriendship() {
+        ResponseEntity response = this.friendshipController.refuseFriendship("any");
         assertEquals(HttpStatus.OK, response.getStatusCode());
-    }
-
-
-    @Test
-    public void stageEnd() {
-        this.mongoTemplate.remove(new Query(), Friendship.class);
-    }
-
-    @Test
-    public void getFriendship_notFound() {
-        ResponseEntity response = this.friendshipController.getFriendsShip("", "");
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
 
@@ -98,5 +92,37 @@ public class FriendshipControllerTest {
                 .currentUser("test1")
                 .people("test2")
                 .build();
+    }
+
+    protected Friendship mockFriendship() {
+        return Friendship.builder()
+                .id("123456789")
+                .idUser1("test1")
+                .idUser2("test2")
+                .date("10/10/1980")
+                .statut(Friendship.Statut.friends)
+                .build();
+    }
+
+    protected List<Friendship> mockFriendships() {
+        List<Friendship> liste = new ArrayList<>();
+
+        liste.add(Friendship.builder()
+                .id("123456789")
+                .idUser1("test1")
+                .idUser2("test2")
+                .date("10/10/1980")
+                .statut(Friendship.Statut.asking)
+                .build());
+
+        liste.add(Friendship.builder()
+                .id("123456789")
+                .idUser1("test1")
+                .idUser2("test3")
+                .date("10/10/1980")
+                .statut(Friendship.Statut.asking)
+                .build());
+
+        return liste;
     }
 }
