@@ -1,5 +1,5 @@
 module.exports = {
   preset: "jest-preset-angular",
   roots: ['src'],
-  setupTestFrameworkScriptFile: "./src/setup-jest.ts"
+  setupFilesAfterEnv: ["./src/setup-jest.ts"]
 }

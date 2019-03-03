@@ -5,7 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "jest",
+    "test": "jest --watch",
+    "test-all": "jest --coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
