@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {Subscription} from 'rxjs';
+import {mergeMap} from 'rxjs/operators';
+
 import {AuthService} from './../../services/auth/auth.service';
 import {PostService} from './../../services/post/post.service';
-
 
 import { User } from './../../models/user/user';
 import { Post } from '../../models/post/post';
@@ -98,20 +99,33 @@ export class HomeComponent implements OnInit {
     post.content = this.content;
     post.author = this.currentUser.id;
 
-    this.postService.createPost(post)
-    .subscribe(
-      (response) => {
-        this.postService.getPost(response.headers.get('Location')).subscribe(
-          (post) => { this.content =""; this.postService.addingPostToArray(post); }
-        );
-      },
-      (error) => {
+    this.postService.createPost(post).pipe(
+      mergeMap( (response) => { return this.postService.getPost(response.headers.get('Location'));} )
+    ).subscribe(
+      (post) => {
+        this.content =""; this.postService.addingPostToArray(post);
+      }, (error) => {
         const errorMessage = new ErrorMessage();
-        errorMessage.header = "Oops an error was occured";
-        errorMessage.information = "The service to create a post is unavaible for the moment. Please try later !";
-        this.errorService.displayErrorMessage(errorMessage);
+            errorMessage.header = "Oops an error was occured";
+            errorMessage.information = "The service to create a post is unavaible for the moment. Please try later !";
+            this.errorService.displayErrorMessage(errorMessage);
       }
     );
+
+    // this.postService.createPost(post)
+    // .subscribe(
+    //   (response) => {
+    //     this.postService.getPost(response.headers.get('Location')).subscribe(
+    //       (post) => { this.content =""; this.postService.addingPostToArray(post); }
+    //     );
+    //   },
+    //   (error) => {
+    //     const errorMessage = new ErrorMessage();
+    //     errorMessage.header = "Oops an error was occured";
+    //     errorMessage.information = "The service to create a post is unavaible for the moment. Please try later !";
+    //     this.errorService.displayErrorMessage(errorMessage);
+    //   }
+    // );
   }
 
   displayProfile() {
