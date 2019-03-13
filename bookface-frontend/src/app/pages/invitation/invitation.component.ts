@@ -13,9 +13,9 @@ import { InvitationService } from '../../services/invitation/invitation.service'
 export class InvitationComponent implements OnInit {
 
   @Input() friendShip: Friendship;
-  private lastName: string;
-  private firstName: string;
-  private show: boolean = true;
+  public lastName: string;
+  public firstName: string;
+  public show: boolean = true;
 
   constructor(private peopleService: PeopleService,
     private errorService: ErrorService,
