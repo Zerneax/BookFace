@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 import com.projet.bookface.dao.FriendshipDao;
 import com.projet.bookface.dao.UserDao;
 import com.projet.bookface.exception.BackendException;
@@ -162,7 +163,33 @@ public class UserControllerTest {
 		String[] splitUri = uri.toString().split("/");
 		assertEquals("123456789", splitUri[splitUri.length -1]);
 	}
-	
+
+	@Test
+	public void updateUser_ok() {
+		UpdateResult updateResult = UpdateResult.acknowledged(new Long("1"),new Long("1"), null);
+		Mockito.when(this.userDao.updateUser(Mockito.any())).thenReturn(updateResult);
+		UserOdt odt = UserOdt.builder().user(mockGenerateUser()).build();
+		ResponseEntity response = controller.updateUser(odt);
+		assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
+	}
+
+	@Test
+	public void updateUser_error() {
+		Mockito.when(this.userDao.updateUser(Mockito.any())).thenReturn(null);
+		UserOdt odt = UserOdt.builder().user(mockGenerateUser()).build();
+		ResponseEntity response = controller.updateUser(odt);
+		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatusCodeValue());
+	}
+
+	@Test
+	public void updateUser_noUpdate() {
+		UpdateResult updateResult = UpdateResult.acknowledged(new Long("0"),new Long("0"), null);
+		Mockito.when(this.userDao.updateUser(Mockito.any())).thenReturn(updateResult);
+		UserOdt odt = UserOdt.builder().user(mockGenerateUser()).build();
+		ResponseEntity response = controller.updateUser(odt);
+		assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatusCodeValue());
+	}
+
 	@Test
 	public void deleteUser_notExist() {
 		Mockito.when(this.userDao.findById(Mockito.anyString())).thenReturn(null);

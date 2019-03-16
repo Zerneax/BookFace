@@ -28,10 +28,18 @@ import { LoginModule } from '../login/login.module';
 import { PeopleModule } from '../people/people.module';
 import { ErrorModule } from '../error/error.module';
 import { APP_BASE_HREF } from '@angular/common';
+import { ProfileService } from 'src/app/services/profile/profile.service';
+import { of, throwError } from 'rxjs';
+import { User } from 'src/app/models/user/user';
+import { ErrorService } from 'src/app/services/error/error.service';
+import { Router } from '@angular/router';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
   let fixture: ComponentFixture<ProfileComponent>;
+  let profileService: ProfileService;
+  let errorService: ErrorService;
+  let router;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -68,10 +76,42 @@ describe('ProfileComponent', () => {
     const currentUser = {id: '1234', birthday:'10/10/1980'};
     spyOn(authService, 'getCurrentUser').and.returnValue(currentUser);
 
+    profileService = TestBed.get(ProfileService);
+    errorService = TestBed.get(ErrorService);
+
+    router = TestBed.get(Router);
+    spyOn(router, 'navigate').and.callThrough();
+
+    errorService = fixture.debugElement.injector.get(ErrorService);
+    spyOn(errorService, 'displayErrorMessage').and.callThrough();
+
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should test updateUser ok', () => {
+    spyOn(profileService, 'updateUser').and.callFake(() => {return of({});});
+
+    component.currentUser = new User();
+    component.save();
+    expect(profileService.updateUser).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalled();
+  });
+
+  it('should test updateUser ko', () => {
+    spyOn(profileService, 'updateUser').and.callFake(() => {return throwError({});});
+
+    component.currentUser = new User();
+    component.save();
+    expect(profileService.updateUser).toHaveBeenCalled();
+    expect(errorService.displayErrorMessage).toHaveBeenCalled();
+  });
+
+  it('should test goHome', () => {
+    component.goHome();
+    expect(router.navigate).toHaveBeenCalled();
   });
 });

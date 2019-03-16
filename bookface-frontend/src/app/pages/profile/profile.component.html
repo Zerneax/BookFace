@@ -1,5 +1,5 @@
 <div class="ui container">
-  <form class="ui fluid form">
+  <form class="ui form">
     <div class="field">
       <label> Last name </label>
       <input type="text" placeholder="Last name" [(ngModel)]="currentUser.lastName" name="lastName">
@@ -14,8 +14,13 @@
       <label> Mail </label>
       <input type="text" placeholder="mail" [(ngModel)]="currentUser.mail" name="mail">
     </div>
-    <div class="ui divider"></div>
+    <!-- <div class="ui divider"></div>
     <div class="field">
+      <label> Password </label>
+      <input type="password" placeholder="password" [(ngModel)]="currentUser.password" name="password">
+    </div> -->
+    <!-- <div class="ui divider"></div> -->
+    <!-- <div class="field">
       <label> Birthday </label>
       <div class="ui left icon input">
           <i class="calendar icon"></i>
@@ -26,15 +31,16 @@
                  pickerUseNativeOnMobile="false"
                  placeholder="Birthday...">
       </div>
-      <!-- <input type="text" placeholder="Birthday" [(ngModel)]="birthday" name="birthday"> -->
-    </div>
-    <div class="ui divider"></div>
+      <input type="text" placeholder="Birthday" [(ngModel)]="birthday" name="birthday">
+    </div> -->
+    <!-- <div class="ui divider"></div>
     <div class="field">
       <label> Gender </label>
       <input type="text" placeholder="Gender" [(ngModel)]="currentUser.gender" name="gender">
+    </div> -->
+    <div>
+      <button class="ui left floated red primary button" (click)="goHome()"> Go Home </button>
+      <button class="ui right floated red primary button" (click)="save()"> Save </button>
     </div>
   </form>
-  <div class="ui container">
-    <button class="ui red primary button" (click)="save()"> Save </button>
-  </div>
 </div>

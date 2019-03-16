@@ -36,6 +36,7 @@ import { HeaderMenuModule } from './pages/header-menu/header-menu.module';
 import { LoginModule } from './pages/login/login.module';
 import { ProfileModule } from './pages/profile/profile.module';
 import { SignInModule } from './pages/sign-in/sign-in.module';
+import { ProfileService } from './services/profile/profile.service';
 
 
 
@@ -64,7 +65,8 @@ import { SignInModule } from './pages/sign-in/sign-in.module';
     PostService,
     PeopleService,
     ErrorService,
-    InvitationService
+    InvitationService,
+    ProfileService
   ],
   bootstrap: [AppComponent]
 })

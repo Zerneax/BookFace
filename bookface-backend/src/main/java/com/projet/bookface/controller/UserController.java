@@ -7,9 +7,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.mongodb.client.result.UpdateResult;
 import com.projet.bookface.exception.BackendException;
 import com.projet.bookface.models.Friend;
 import com.projet.bookface.service.FriendService;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -144,6 +146,20 @@ public class UserController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Access-Control-Expose-Headers", "Location");
 		return ResponseEntity.created(location).headers(headers).build();
+	}
+
+	@PutMapping
+	public ResponseEntity updateUser(@RequestBody UserOdt userOdt) {
+		UpdateResult result = this.userDao.updateUser(userOdt.getUser());
+
+		if(result == null)
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+		if(result.getModifiedCount() > 0) {
+			return ResponseEntity.ok().build();
+		} else {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}
 	}
 	
 	@DeleteMapping(value="/{id}")

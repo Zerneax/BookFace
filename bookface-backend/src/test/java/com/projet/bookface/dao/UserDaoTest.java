@@ -1,6 +1,7 @@
 package com.projet.bookface.dao;
 
 import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 import com.projet.bookface.models.User;
 import org.assertj.core.util.Arrays;
 import org.junit.Before;
@@ -12,6 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +40,10 @@ public class UserDaoTest {
 		List<Object> liste = new ArrayList<>();
 		liste.add(new User());
 		Mockito.when(mongoTemplate.findAll(Matchers.any())).thenReturn(liste);
+
+		UpdateResult updateResult = UpdateResult.acknowledged(new Long("1"),new Long("1"), null);
+		Mockito.when(mongoTemplate.updateFirst(Matchers.any(), Matchers.any(), Matchers.<Class<User>>any())).thenReturn(updateResult);
+		//Mockito.when(mongoTemplate.updateFirst(Matchers.any(), Matchers.any(), Matchers.any(User.class))).thenReturn(updateResult);
 
 		DeleteResult result = DeleteResult.acknowledged(new Long("1"));
 		Mockito.when(mongoTemplate.remove(Matchers.any(User.class))).thenReturn(result);
@@ -67,6 +73,13 @@ public class UserDaoTest {
 	public void getAllUsers() {
 		List<User> users = this.userDao.findAllUsers();
 		assertTrue(users.size() == 1);
+	}
+
+	@Test
+	public void updateUser() {
+		UpdateResult result = this.userDao.updateUser(new User());
+		assertEquals(1, result.getModifiedCount());
+		assertEquals(1, result.getMatchedCount());
 	}
 	
 	@Test
