@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
   waitingFriendshipSubscription: Subscription;
   loading = false;
   friends: Array<Friend> = [];
+  image = "";
 
   @ViewChild('modalTemplate')
     public modalTemplate:ModalTemplate<IContext, string, string>
@@ -163,6 +164,17 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  fileUpload(fileInput) {
+    let file = fileInput.target.files[0];
+    let reader = new FileReader();
+    reader.onloadend = () => {
+      console.log("fichier : " + reader.result);
+      this.image = reader.result;
+    };
+    reader.readAsDataURL(file);
+
+  }
+
   public open(dynamicContent:string = "Example") {
     const config = new TemplateModalConfig<IContext, string, string>(this.modalTemplate);
 
@@ -173,6 +185,8 @@ export class HomeComponent implements OnInit {
         .open(config)
         .onApprove(result => {console.log("approve");})
         .onDeny(result => { console.log("deny");});
-}
+  }
+
+
 
 }

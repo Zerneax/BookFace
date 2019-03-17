@@ -1,9 +1,22 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/modal.css" rel="stylesheet">
 <div class="ui three column grid">
   <div class="profile three wide column ">
-    <div class="ui card">
-      <div class="image">
-        <img src="../../assets/matthew.png">
+    <div class="ui special card">
+      <div class="blurring dimmable image" (mouseover)="over = true" (mouseleave)="over = false">
+        <sui-dimmer [(isDimmed)]="over">
+          <div class="center">
+            <div>
+              <label for="file-upload" class="custom-file-upload">
+                <div class="ui circular icon inverted button">
+                  <i class="icon edit"></i>
+                </div>
+              </label>
+              <input id="file-upload" type="file" class="circular ui icon inverted button" (change)="fileUpload($event)">
+            </div>
+          </div>
+        </sui-dimmer>
+        <img src="../../assets/matthew.png" *ngIf="image == ''">
+        <img [src]="image" *ngIf="image != ''">
       </div>
       <div class="content">
         <div class="header">{{currentUser.lastName}} {{currentUser.firstName}}</div>
