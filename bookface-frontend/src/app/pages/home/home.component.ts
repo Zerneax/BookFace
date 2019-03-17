@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
   waitingFriendshipSubscription: Subscription;
   loading = false;
   friends: Array<Friend> = [];
-  image = "";
+  image;
 
   @ViewChild('modalTemplate')
     public modalTemplate:ModalTemplate<IContext, string, string>
