@@ -10,6 +10,7 @@ import java.util.List;
 import com.mongodb.client.result.UpdateResult;
 import com.projet.bookface.exception.BackendException;
 import com.projet.bookface.models.Friend;
+import com.projet.bookface.odt.*;
 import com.projet.bookface.service.FriendService;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.HttpHeaders;
@@ -23,10 +24,6 @@ import com.projet.bookface.dao.FriendshipDao;
 import com.projet.bookface.dao.UserDao;
 import com.projet.bookface.models.Friendship;
 import com.projet.bookface.models.User;
-import com.projet.bookface.odt.LoginOdt;
-import com.projet.bookface.odt.MailAvailableOdt;
-import com.projet.bookface.odt.UserLightOdt;
-import com.projet.bookface.odt.UserOdt;
 
 import javax.xml.ws.Response;
 
@@ -151,6 +148,20 @@ public class UserController {
 	@PutMapping
 	public ResponseEntity updateUser(@RequestBody UserOdt userOdt) {
 		UpdateResult result = this.userDao.updateUser(userOdt.getUser());
+
+		if(result == null)
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+		if(result.getModifiedCount() > 0) {
+			return ResponseEntity.ok().build();
+		} else {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}
+	}
+
+	@PutMapping(value="/{id}/avatar")
+	public ResponseEntity updateAvatar(@PathVariable("id") String id, @RequestBody AvatarOdt avatarOdt) {
+		UpdateResult result = this.userDao.updateAvatar(id, avatarOdt.getAvatar());
 
 		if(result == null)
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

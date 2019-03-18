@@ -26,6 +26,6 @@ public class User {
 	private String firstName;
 	private String birthday;
 	private String gender;
+	private String avatar;
 	private String dateRegister;
-	
 }

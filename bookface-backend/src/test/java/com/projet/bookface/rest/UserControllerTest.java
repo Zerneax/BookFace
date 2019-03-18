@@ -15,8 +15,7 @@ import com.projet.bookface.dao.UserDao;
 import com.projet.bookface.exception.BackendException;
 import com.projet.bookface.models.Friend;
 import com.projet.bookface.models.Friendship;
-import com.projet.bookface.odt.LoginOdt;
-import com.projet.bookface.odt.UserLightOdt;
+import com.projet.bookface.odt.*;
 import com.projet.bookface.service.FriendService;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,8 +31,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.projet.bookface.controller.UserController;
 import com.projet.bookface.models.User;
-import com.projet.bookface.odt.MailAvailableOdt;
-import com.projet.bookface.odt.UserOdt;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -187,6 +184,29 @@ public class UserControllerTest {
 		Mockito.when(this.userDao.updateUser(Mockito.any())).thenReturn(updateResult);
 		UserOdt odt = UserOdt.builder().user(mockGenerateUser()).build();
 		ResponseEntity response = controller.updateUser(odt);
+		assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatusCodeValue());
+	}
+
+	@Test
+	public void updateAvatar_ok() {
+		UpdateResult updateResult = UpdateResult.acknowledged(new Long("1"),new Long("1"), null);
+		Mockito.when(this.userDao.updateAvatar(Mockito.anyString(), Mockito.anyString())).thenReturn(updateResult);
+		ResponseEntity response = controller.updateAvatar("1", AvatarOdt.builder().avatar("base64").build());
+		assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
+	}
+
+	@Test
+	public void updateAvatar_error() {
+		Mockito.when(this.userDao.updateAvatar(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
+		ResponseEntity response = controller.updateAvatar("1", new AvatarOdt());
+		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatusCodeValue());
+	}
+
+	@Test
+	public void updateAvatar_noUpdate() {
+		UpdateResult updateResult = UpdateResult.acknowledged(new Long("0"),new Long("0"), null);
+		Mockito.when(this.userDao.updateAvatar(Mockito.anyString(), Mockito.anyString())).thenReturn(updateResult);
+		ResponseEntity response = controller.updateAvatar("1", AvatarOdt.builder().avatar("base64").build());
 		assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatusCodeValue());
 	}
 

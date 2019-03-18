@@ -53,6 +53,14 @@ public class UserDao {
 		return this.mongoTemplate.updateFirst(query, update, User.class);
 	}
 
+	public UpdateResult updateAvatar(String id, String avatar) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("id").is(id));
+		Update update = new Update();
+		update.set("avatar", avatar);
+		return this.mongoTemplate.updateFirst(query, update, User.class);
+	}
+
 	public DeleteResult deleteUser(User user) {
 		DeleteResult delete = this.mongoTemplate.remove(user);
 		return delete;

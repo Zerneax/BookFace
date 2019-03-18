@@ -16,6 +16,7 @@ import { ErrorService } from '../../services/error/error.service';
 import { ErrorMessage } from '../../models/error/error';
 import { InvitationService } from '../../services/invitation/invitation.service';
 import { Friend } from 'src/app/models/friend/friend';
+import { ProfileService } from 'src/app/services/profile/profile.service';
 
 export interface IContext {
     data:string;
@@ -38,7 +39,6 @@ export class HomeComponent implements OnInit {
   waitingFriendshipSubscription: Subscription;
   loading = false;
   friends: Array<Friend> = [];
-  image;
 
   @ViewChild('modalTemplate')
     public modalTemplate:ModalTemplate<IContext, string, string>
@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit {
     private modalService: SuiModalService,
     private errorService: ErrorService,
     private invitationService: InvitationService,
+    private profileService: ProfileService,
     private router: Router) {
   }
 
@@ -168,8 +169,17 @@ export class HomeComponent implements OnInit {
     let file = fileInput.target.files[0];
     let reader = new FileReader();
     reader.onloadend = () => {
-      console.log("fichier : " + reader.result);
-      this.image = reader.result;
+      //console.log("fichier : " + reader.result);
+      this.profileService.updateAvatar(this.currentUser.id, reader.result).subscribe(
+        (reponse) => {this.currentUser.avatar = reader.result.toString();},
+        (error) => {
+          const errorMessage = new ErrorMessage();
+          errorMessage.header = "Oops an error was occured";
+          errorMessage.information = "We can't your profile picture for the moment. Please try later !";
+          this.errorService.displayErrorMessage(errorMessage);
+        }
+      )
+
     };
     reader.readAsDataURL(file);
 

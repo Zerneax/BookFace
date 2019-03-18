@@ -15,8 +15,8 @@
             </div>
           </div>
         </sui-dimmer>
-        <img src="../../assets/matthew.png" *ngIf="image == undefined">
-        <img [src]="image" *ngIf="image != undefined">
+        <img [src]="currentUser.avatar" *ngIf="currentUser.avatar != undefined">
+        <img src="../../assets/matthew.png" *ngIf="currentUser.avatar == undefined">
       </div>
       <div class="content">
         <div class="header">{{currentUser.lastName}} {{currentUser.firstName}}</div>

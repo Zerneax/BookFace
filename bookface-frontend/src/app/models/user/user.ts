@@ -8,6 +8,7 @@ export class User {
   private _birthday: Date;
   private _gender: string;
   private _dateRegister: string;
+  private _avatar: string;
 
   set id(id: string) { this._id = id; }
   get id():string { return this._id; }
@@ -32,6 +33,13 @@ export class User {
 
   set dateRegister(dateRegister: string) { this._dateRegister = dateRegister; }
   get dateRegister():string { return this._dateRegister; }
+
+  set avatar(avatar: string) { this._avatar = avatar; }
+  get avatar():string { return this._avatar; }
+
+  constructor() {
+    this._avatar = undefined;
+  }
 
   toJson() {
     const userJson = {} as any;

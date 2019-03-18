@@ -81,6 +81,13 @@ public class UserDaoTest {
 		assertEquals(1, result.getModifiedCount());
 		assertEquals(1, result.getMatchedCount());
 	}
+
+	@Test
+	public void updateAvatar() {
+		UpdateResult result = this.userDao.updateAvatar("1", "base64");
+		assertEquals(1, result.getModifiedCount());
+		assertEquals(1, result.getMatchedCount());
+	}
 	
 	@Test
 	public void deleteUser() {

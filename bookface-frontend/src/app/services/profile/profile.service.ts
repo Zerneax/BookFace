@@ -13,4 +13,9 @@ export class ProfileService {
     return this.httpClient
       .put('http://192.168.0.18:8080/users', {user : user});
   }
+
+  updateAvatar(idUser: string, avatar: any) {
+    return this.httpClient
+      .put('http://192.168.0.18:8080/users/' + idUser + '/avatar', {avatar: avatar});
+  }
 }
